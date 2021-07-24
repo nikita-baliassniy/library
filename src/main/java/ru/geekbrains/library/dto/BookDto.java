@@ -9,11 +9,11 @@ import ru.geekbrains.library.model.Book;
 public class BookDto {
     private Long id;
     private String title;
-    private Double cost;
+    private Double price;
 
     public BookDto(Book book) {
         this.id = book.getId();
         this.title = book.getTitle();
-        this.cost = book.getCost();
+        this.price = book.getPrice();
     }
 }
