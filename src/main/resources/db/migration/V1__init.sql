@@ -136,11 +136,11 @@ create table cart_items (
 );
 
 
-INSERT INTO books (title, price)
+INSERT INTO books (title, price, description, year_of_publish)
 VALUES
-('Tom Soyer', 29.90),
-('Harry Potter', 24.90),
-('Sherlock Holmes', 22.90),
-('Dorian Gray', 32.90);
+('Tom Soyer', 29.90, 'Desc 1', 1980),
+('Harry Potter', 24.90, 'Desc 2', 1990),
+('Sherlock Holmes', 22.90, 'Desc 3', 1995),
+('Dorian Gray', 32.90, 'Desc 4', 2005);
 
 COMMIT

@@ -8,6 +8,7 @@ import ru.geekbrains.library.repositories.BookRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -19,9 +20,7 @@ public class BookService {
     }
 
     public List<BookDto> findAll() {
-        List<BookDto> books = new ArrayList<>();
-        bookRepository.findAll().forEach(b -> books.add(new BookDto(b)));
-        return books;
+        return bookRepository.findAll().stream().map(BookDto::new).collect(Collectors.toList());
     }
 
     public void deleteById(Long id) {
