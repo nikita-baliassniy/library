@@ -51,13 +51,13 @@ public class Book {
     @JoinTable(name = "books_authors",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private Collection<Role> roles;
+    private Collection<Author> authors;
 
     @ManyToMany
     @JoinTable(name = "books_genres",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private Collection<Role> genres;
+    private Collection<Genre> genres;
 
     @Override
     public String toString() {
