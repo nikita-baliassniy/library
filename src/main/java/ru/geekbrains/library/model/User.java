@@ -29,9 +29,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private List<Comments> comments;
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+//    private List<Comments> comments;
 
     @ManyToMany
     @JoinTable(name = "users_roles",

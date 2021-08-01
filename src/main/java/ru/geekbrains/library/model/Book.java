@@ -3,11 +3,12 @@ package ru.geekbrains.library.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -17,6 +18,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "books")
+@NamedEntityGraph(name = "book-bookInfo-bookStorage-graph",
+            attributeNodes = {
+                @NamedAttributeNode(value = "bookInfo"),
+                @NamedAttributeNode(value = "bookStorage")
+            })
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,21 +49,36 @@ public class Book {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @OneToOne(mappedBy = "book", fetch = FetchType.LAZY)
+    @Cascade(CascadeType.ALL)
+    private BookInfo bookInfo;
+
+    @OneToOne(mappedBy = "book", fetch = FetchType.LAZY)
+    @Cascade(CascadeType.ALL)
+    private BookStorage bookStorage;
+
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Cascade(CascadeType.ALL)
+    @Fetch(FetchMode.SUBSELECT)
     private List<Comments> comments;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
     @JoinTable(name = "books_authors",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Collection<Author> authors;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
     @JoinTable(name = "books_genres",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private Collection<Genre> genres;
+
+    public int getCommentsCount() {
+        return this.comments.size();
+    }
 
     @Override
     public String toString() {
