@@ -19,7 +19,7 @@ public class BookListDto {
     private Integer commentsCount;
     private BookInfoDto bookInfo;
     private List<AuthorListDto> authors;
-//    private Collection<Genre> genres;
+    private List<GenreListDto> genres;
 
 //    public BookListDto(Book book) {
 //        this.id = book.getId();

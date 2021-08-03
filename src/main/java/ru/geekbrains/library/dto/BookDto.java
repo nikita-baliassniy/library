@@ -17,7 +17,7 @@ public class BookDto {
     private BookInfoDto bookInfo;
     private BookStorageDto bookStorage;
     private List<AuthorListDto> authors;
-    private List<GenreDto> genres;
+    private List<GenreListDto> genres;
     private List<CommentDto> comments;
 
     @Override

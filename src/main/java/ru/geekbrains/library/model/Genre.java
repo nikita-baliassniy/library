@@ -23,10 +23,10 @@ public class Genre {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @Fetch(FetchMode.SUBSELECT)
-    @JoinTable(name = "books_genres",
-            joinColumns = @JoinColumn(name = "genre_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
+//    @Fetch(FetchMode.SUBSELECT)
+//    @JoinTable(name = "books_genres",
+//            joinColumns = @JoinColumn(name = "genre_id"),
+//            inverseJoinColumns = @JoinColumn(name = "book_id"))
     private List<Book> books;
 }

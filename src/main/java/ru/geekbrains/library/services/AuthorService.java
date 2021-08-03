@@ -38,9 +38,11 @@ public class AuthorService {
 
             Author author = modelMapper.map(authorDto, Author.class);
             if (author.getId() == null) {
-                author.getBooks().forEach(book -> {
-                    book.getAuthors().add(author);
-                });
+                if (author.getBooks() != null) {
+                    author.getBooks().forEach(book -> {
+                        book.getAuthors().add(author);
+                    });
+                }
             }
 
             return Optional.of(modelMapper.map(authorRepository.save(author), AuthorDto.class));

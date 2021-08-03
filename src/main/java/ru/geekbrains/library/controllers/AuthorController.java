@@ -45,7 +45,7 @@ public class AuthorController {
     @DeleteMapping("/{id}")
     public void deleteAuthorById(@PathVariable Long id) {
         if (authorService.deleteById(id) <= 0) {
-            throw new AuthorNotFoundException("Ошибка удаления, автор с ID: " + id + " не найден");
+            throw new AuthorNotFoundException();
         }
     }
 
