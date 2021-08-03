@@ -1,8 +1,10 @@
 package ru.geekbrains.library.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -33,10 +35,11 @@ public class Author {
     @Column(name = "country")
     private String country;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
+//    @Cascade({org.hibernate.annotations.CascadeType.DELETE, org.hibernate.annotations.CascadeType.REMOVE})
     @Fetch(FetchMode.SUBSELECT)
-    @JoinTable(name = "books_authors",
-                joinColumns = @JoinColumn(name = "author_id"),
-                inverseJoinColumns = @JoinColumn(name = "book_id"))
+//    @JoinTable(name = "books_authors",
+//                joinColumns = @JoinColumn(name = "author_id"),
+//                inverseJoinColumns = @JoinColumn(name = "book_id"))
     private List<Book> books;
 }

@@ -30,4 +30,19 @@ public class ExceptionControllerInterceptor {
         LibraryError error = new LibraryError(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(AuthorNotFoundException.class)
+    public ResponseEntity<?> handleAuthorNotFoundException(AuthorNotFoundException ex) {
+        log.error(ex.getMessage());
+        LibraryError error = new LibraryError(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(AuthorBadDataException.class)
+    public ResponseEntity<?> handleAuthorBadDataException(AuthorBadDataException ex) {
+        log.error(ex.getMessage());
+        LibraryError error = new LibraryError(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
 }

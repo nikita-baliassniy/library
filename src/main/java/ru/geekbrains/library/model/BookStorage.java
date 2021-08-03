@@ -2,7 +2,6 @@ package ru.geekbrains.library.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -19,7 +18,6 @@ public class BookStorage {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Book book;
 
     @Column(name = "link_cover", length = 255)

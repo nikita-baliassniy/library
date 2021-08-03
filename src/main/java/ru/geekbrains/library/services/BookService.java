@@ -43,16 +43,14 @@ public class BookService {
 
     public Optional<BookDto> insertOrUpdateBook(BookDto bookDto) {
         try {
-            Book upBook;
+//            Book upBook;
             Book book = modelMapper.map(bookDto, Book.class);
-            if (book.getId() != null) {
-                upBook = bookRepository.save(book);
-            } else {
+            if (book.getId() == null) {
                 book.getBookInfo().setBook(book);
                 book.getBookStorage().setBook(book);
-                upBook = bookRepository.save(book);
             }
-                return Optional.of(modelMapper.map(upBook, BookDto.class));
+//            upBook = bookRepository.save(book);
+            return Optional.of(modelMapper.map(bookRepository.save(book), BookDto.class));
         } catch (RuntimeException e) {
             log.error(e.getMessage());
             return Optional.empty();
