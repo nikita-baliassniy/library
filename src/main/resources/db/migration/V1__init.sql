@@ -7,6 +7,8 @@ DROP TABLE IF EXISTS books CASCADE;
 
 CREATE TABLE books (
     id                  BIGSERIAL PRIMARY KEY,
+--     info_id             BIGSERIAL NOT NULL REFERENCES books_info (id),
+--     storage_id          BIGSERIAL NOT NULL REFERENCES books_storage (id),
     title               VARCHAR(255) NOT NULL,
     price               NUMERIC(8, 2),
     description         TEXT,
@@ -135,6 +137,9 @@ create table cart_items (
     updated_at          TIMESTAMP default current_timestamp
 );
 
+INSERT INTO users (email, password) VALUES
+('123@asd.ru', '111'),
+('444@asd.ru', '222');
 
 INSERT INTO books (title, price, description, year_of_publish)
 VALUES
@@ -146,6 +151,26 @@ VALUES
 ('Приключения Шерлока Холмса', 22.90, 'Сборник из 12 детективных рассказов, созданных Артуром Конаном Дойлом.', 2015),
 ('Портрет Дориана Грея', 32.90, 'Единственный роман Оскара Уайльда. В жанровом отношении представляет смесь романа воспитания с моральной притчей; оказался самым успешным произведением Уайльда, экранизировался в разных странах мира более 30 раз. Существует в трёх версиях — журнальный вариант в тринадцати главах, опубликованный в Lippincott’s Monthly Magazine в июле 1890 года, подвергшийся сокращениям, сделанными редактором журнала; первое книжное издание в двадцати главах (апрель 1891 года), в которое автором были добавлены главы III, V, XV—XVIII, а последняя глава разделена на две, ставшие главами XIX и XX и «бесцензурная» версия романа в тринадцати главах, представляющая собой первоначальную оригинальную машинопись Уайльда, впервые опубликованную в 2011 году Издательством Гарвардского университета. В основе всех изданий на английском языке и переводов лежит книжная версия 1891 года.',
  2012);
+
+ INSERT INTO books_info (book_id, size, score, age_recommendation)
+VALUES
+(1, 240, 4.6, 6),
+(2, 260, 3.7, 6),
+(3, 710, 4.6, 16),
+(4, 270, 4.6, 16);
+
+INSERT INTO books_storage (book_id, link_cover, link_fb2, link_pdf, link_doc, link_audio)
+VALUES
+(1, '/storage/cover/test1.txt', '/storage/fb2/test1.fb2', '/storage/pdf/test1.pdf', '/storage/doc/test1.doc', '/storage/audio/test1.mp3'),
+(2, '/storage/cover/test2.txt', '/storage/fb2/test2.fb2', '/storage/pdf/test2.pdf', '/storage/doc/test2.doc', '/storage/audio/test2.mp3'),
+(3, '/storage/cover/test3.txt', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(4, '/storage/cover/test4.txt', '/storage/fb2/test4.fb2', '/storage/pdf/test4.pdf', '/storage/doc/test4.doc', '/storage/audio/test4.mp3');
+
+INSERT INTO comments (book_id, text, user_id) VALUES
+(1, 'Comment 1', 1),
+(2, 'Comment 2', 2),
+(1, 'Comment 3', 2),
+(3, 'Comment 4', 1);
 
 INSERT INTO authors (name, date_of_birth, biography, country)
 VALUES
@@ -186,13 +211,6 @@ VALUES
 (3, 10),
 (4, 10),
 (4, 7);
-
-INSERT INTO books_info (book_id, size, score, age_recommendation)
-VALUES
-(1, 240, 4.6, 6),
-(2, 260, 3.7, 6),
-(3, 710, 4.6, 16),
-(4, 270, 4.6, 16);
 
 INSERT INTO books_authors (book_id, author_id)
 VALUES

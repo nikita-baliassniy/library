@@ -2,12 +2,9 @@ package ru.geekbrains.library.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.geekbrains.library.model.Author;
-import ru.geekbrains.library.model.Book;
-import ru.geekbrains.library.model.Genre;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -17,16 +14,23 @@ public class BookDto {
     private Double price;
     private String description;
     private int yearOfPublish;
-    private List<String> genres;
-    private List<String> authors;
+    private BookInfoDto bookInfo;
+    private BookStorageDto bookStorage;
+    private List<AuthorListDto> authors;
+    private List<GenreListDto> genres;
+    private List<CommentDto> comments;
 
-    public BookDto(Book book) {
-        this.id = book.getId();
-        this.title = book.getTitle();
-        this.price = book.getPrice();
-        this.description = book.getDescription();
-        this.yearOfPublish = book.getYearOfPublish();
-        this.genres = book.getGenres().stream().map(Genre::getName).collect(Collectors.toList());
-        this.authors = book.getAuthors().stream().map(Author::getName).collect(Collectors.toList());
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {return true;}
+        if (o == null || getClass() != o.getClass()) {return false;}
+        BookDto tmp = (BookDto) o;
+        return o.equals(this.getId());
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
 }
