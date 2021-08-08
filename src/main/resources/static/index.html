@@ -1,48 +1,101 @@
 <!doctype html>
-
-<html ng-app="lib">
+<html ng-app="library" lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+
+    <title>Книжный магазин Noname</title>
+    <link rel="stylesheet" href="main.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
-    <script src="index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
 </head>
 
-<body>
-<div class="container" ng-controller="indexController">
+<body ng-controller='indexController'>
+    <div class="header">
+        <div class="container top-header">
+            <ul class="header-top-list">
+                <li>
+                    <a href="/index.html" class="icon-li hearth animated">Избранное (0)</a>
+                </li>
+                <li>
+                    <div class="user-menu">
+                        <a href="" class="icon-li user animated">Пользователь: Noname &#11163</a>
+                        <div class="user-content">
+                            <ul>
+                                <li>
+                                    <a href="" class="icon-li acc animated">Учетная запись</a>
+                                </li>
+                                <hr />
+                                <li>
+                                    <a href="" class="icon-li admin animated">Панель управления</a>
+                                </li>
+                                <hr />
+                                <li>
+                                    <a href="" class="icon-li orders-history animated">История заказов</a>
+                                </li>
+                                <hr />
+                                <li>
+                                    <a href="" class="icon-li logout animated">Выйти</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="container">
+            <div class="bottom-header">
+                <div class="col-lg-6">
+                    <div class="header-phone">
+                        <div class="icon">
+                            <img src="content/icons/support-phone.svg" alt="">
+                        </div>
+                        <div class="text">
+                            <p>Горячая линия</p>
+                            <p class="font-weight-bold number">+7(800)555-35-35</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="main-navigation flex-lg-right">
+                        <ul class="main-menu menu-right li-last-0">
+                            <li class="menu-item">
+                                <a href="#!/" class="animated">ГЛАВНАЯ</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="#!/shop-list" class="animated">КАТАЛОГ</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="" class="animated">КОНТАКТЫ</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <h1>Онлайн библиотека</h1>
-    <br><br>
+    <div class="container content">
+        <ng-view></ng-view>
+    </div>
 
-    <h3>Каталог книг</h3>
-    <table class="table table-hover" cellpadding="0" cellspacing="0">
-        <thead>
-        <tr>
-            <td>Номер</td>
-            <td>Название</td>
-            <td>Цена</td>
-            <td>Описание</td>
-            <td>Год выпуска</td>
-            <td>Жанр</td>
-            <td>Автор</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="b in BooksCatalog">
-            <td>{{b.id}}</td>
-            <td>{{b.title}}</td>
-            <td>{{b.price}}</td>
-            <td>{{b.description}}</td>
-            <td>{{b.yearOfPublish}}</td>
-            <td>{{b.genres}}</td>
-            <td>{{b.authors}}</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <div class="footer">
 
+    </div>
+
+    <script src="index.js"></script>
+    <script src="pages/admin/admin.js"></script>
+    <script src="pages/auth/auth.js"></script>
+    <script src="pages/cart/cart.js"></script>
+    <script src="pages/checkout/checkout.js"></script>
+    <script src="pages/home/home.js"></script>
+    <script src="pages/orders-history/orders-history.js"></script>
+    <script src="pages/product-details/product-details.js"></script>
+    <script src="pages/shop-list/shop-list.js"></script>
+    <script src="pages/user-details/user-details.js"></script>
 </body>
+
 </html>
