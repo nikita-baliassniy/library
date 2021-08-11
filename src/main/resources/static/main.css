@@ -433,7 +433,7 @@ img{
     align-items: center!important;
 }
 
-.col-lg-3, .col-lg-6{
+.col-lg-3, .col-lg-5, .col-lg-6, .col-lg-7{
     position: relative;
     width: 100%;
     padding-right: 15px;
@@ -445,9 +445,21 @@ img{
     max-width: 25%;
 }
 
+.col-lg-5 {
+    -ms-flex: 0 0 41.666667%;
+    flex: 0 0 41.666667%;
+    max-width: 41.666667%;
+}
+
 .col-lg-6{
     max-width: 50%;
     flex:0 0 50%;
+}
+
+.col-lg-7 {
+    -ms-flex: 0 0 58.333333%;
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
 }
 
 .header-phone{
@@ -850,7 +862,131 @@ ul.main-menu > li.menu-item > a {
     width: 250px;
 }
 
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
 
+.book-details-info .book-title {
+    text-transform: capitalize;
+    margin: 0px 0 15px 0;
+    background: none;
+    color: #282828;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.3;
+}
+    @media (min-width: 768px) {
+        .book-details-info .book-title {
+            font-size: 20px;
+            line-height: 1;
+        }
+    }
 
+.book-details-info .add-to-cart-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-bottom: -10px;
+}
 
+.book-details-info .add-to-cart-row > div {
+    margin-bottom: 10px;
+}
 
+.add-cart-btn .btn {
+    font-size: 12px;
+    font-weight: 500;
+    border: 2px solid #62ab00;
+    color: #62ab00;
+    background: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    padding: 0 30px;
+    height: 44px;
+}
+
+.book-details-info .add-to-cart-row .add-cart-btn .btn {
+    padding: 0 30px;
+    color: #333;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: none;
+}
+
+.genre-block {
+    text-transform: capitalize;
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 13px;
+}
+
+.genre-block a:hover {
+    color: #62ab00;
+}
+
+.book-details-info .list-unstyled li {
+    color: #181818;
+    display: block;
+    line-height: 22px;
+}
+
+.book-details-info .list-unstyled li .list-value {
+    color: #62ab00;
+}
+
+.book-details-info .price-block {
+    margin-bottom: 13px;
+}
+
+.book-details-info .price-block .price-new {
+    color: #62ab00;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.book-details-info .rating-widget {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-bottom: 13px;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.book-details-info .rating-widget .rating-block {
+    margin-right: 8px;
+}
+
+.rating-block .star_on {
+    color: #eccd00;
+}
+
+.rating-block span {
+    color: #b6b6b6;
+    font-size: 16px;
+}
+
+/********* TAB *********/
+
+md-tabs.md-default-theme .md-tab.md-active,
+md-tabs .md-tab.md-active,
+md-tabs.md-default-theme .md-tab.md-active md-icon,
+md-tabs .md-tab.md-active md-icon,
+md-tabs.md-default-theme .md-tab.md-focused,
+md-tabs .md-tab.md-focused,
+md-tabs.md-default-theme .md-tab.md-focused md-icon,
+md-tabs .md-tab.md-focused md-icon {
+    color: #62ab00;
+}
+
+md-tabs.md-default-theme md-ink-bar,
+md-tabs md-ink-bar {
+    color: #62ab00;
+    background: #62ab00;
+}
