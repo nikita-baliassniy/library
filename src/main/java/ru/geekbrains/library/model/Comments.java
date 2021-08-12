@@ -28,6 +28,9 @@ public class Comments {
     @Column(name = "text")
     private String text;
 
+    @Column(name = "score")
+    private Integer score;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;

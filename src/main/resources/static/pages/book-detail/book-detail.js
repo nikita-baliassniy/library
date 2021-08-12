@@ -19,6 +19,18 @@ angular.module('library').controller('bookDetailController', function ($scope, $
         )
     }
 
+    $scope.setSelectedRating = function(rating) {
+        $scope.newComment.rating = rating;
+    }
+
+    $scope.addNewComment = function() {
+        $http.post(apiPath + '/products', $scope.newProduct)
+            .then(function (response) {
+                $scope.newProduct = null;
+                $scope.fillTable();
+            });
+    }
+
     $scope.checkBookId = function() {
         let bookID = parseInt($routeParams.bookId);
         if (!isNaN(bookID) && angular.isNumber(bookID)) {

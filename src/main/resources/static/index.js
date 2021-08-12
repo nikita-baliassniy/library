@@ -63,26 +63,39 @@ angular.module('library').controller('indexController', function ($scope, $http,
 angular.module('library').directive('starRating', function () {
     return {
         restrict: 'A',
-        template: '<span ng-repeat="star in stars" ng-class="star" class="fas"></span>',
+        template: '<span ng-repeat="star in stars" ng-class="star" class="fas" ng-click="toggle($index)"></span>',
         scope: {
             ratingValue: '=',
-            max: '='
+            max: '=',
+            clicked: '@'
         },
         link: function (scope, elem, attrs) {
-            scope.stars = [];
+
+            var updeteStars = function() {
+                scope.stars = [];
+                for (var i = 0; i < scope.max; i++) {
+                    if ((scope.ratingValue - i) >= 1) {
+                        scope.stars.push('fa-star star_on ' + i);
+                    } else if (((scope.ratingValue - i) < 1) && ((scope.ratingValue - i) > 0)) {
+                        scope.stars.push('fa-star-half-alt star_on ' + i);
+                    } else {
+                        scope.stars.push('fa-star ' + i);
+                    }
+                }
+            }
+
+            scope.toggle = function(index) {
+                if (scope.clicked === '') {
+                    scope.ratingValue = index + 1;
+                     scope.onRatingSelected({
+                        rating: index + 1
+                    });
+                }
+            };
+
             scope.$watch('ratingValue', function(newVal, oldVal) {
                 if (newVal !== undefined) {
-                    for (var i = 0; i < scope.max; i++) {
-                        if ((newVal - i) > 1) {
-                            scope.stars.push('fa-star star_on ' + i);
-                        } else if (((newVal - i) < 1) && ((newVal - i) > 0)) {
-                            scope.stars.push('fa-star-half-alt star_on ' + i);
-                        } else {
-                            scope.stars.push('fa-star ' + i);
-                        }
-
-
-                    }
+                    updeteStars();
                 }
             });
 
