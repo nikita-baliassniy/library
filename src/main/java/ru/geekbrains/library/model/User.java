@@ -18,6 +18,10 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "users")
+@NamedEntityGraph(name = "user-userInfo-graph",
+        attributeNodes = {
+                @NamedAttributeNode(value = "userInfo")
+        })
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

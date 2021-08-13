@@ -142,6 +142,10 @@ INSERT INTO users (email, password) VALUES
 ('123@asd.ru', '111'),
 ('444@asd.ru', '222');
 
+INSERT INTO users_info (user_id, name, phone, discount, address, date_of_birth) VALUES
+(1, 'John', '89991234567', 10, 'Москва, ул. не знаю', PARSEDATETIME('10.05.1981', 'dd.MM.yyyy')),
+(2, 'Vova', '89992223344', 20, 'Москва, Кремль', PARSEDATETIME('07.10.1952', 'dd.MM.yyyy'));
+
 INSERT INTO books (title, price, description, year_of_publish)
 VALUES
 ('Приключения Тома Сойера', 29.90,
