@@ -9,7 +9,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.library.dto.BookDto;
 import ru.geekbrains.library.dto.BookListDto;
+import ru.geekbrains.library.dto.CommentDto;
 import ru.geekbrains.library.model.Book;
+import ru.geekbrains.library.model.Comments;
 import ru.geekbrains.library.repositories.BookRepository;
 
 import java.util.List;
@@ -22,6 +24,10 @@ import java.util.stream.Collectors;
 public class BookService {
     private final BookRepository bookRepository;
     private final ModelMapper modelMapper;
+
+    public Optional<Book> findBookById(Long id) {
+        return bookRepository.findBookById(id);
+    }
 
     public Optional<BookDto> findBookDtoById(Long id) {
         return bookRepository.findBookById(id).map(book -> modelMapper.map(book, BookDto.class));
@@ -55,6 +61,12 @@ public class BookService {
             log.error(e.getMessage());
             return Optional.empty();
         }
+    }
+
+    public Optional<BookDto> addComment(CommentDto commentDto, Long bookId) {
+        Book book = bookRepository.findBookById(bookId).get();
+        book.addCommentAndRecalcScore(modelMapper.map(commentDto, Comments.class));
+        return Optional.of(modelMapper.map(bookRepository.save(book), BookDto.class));
     }
 
     public Integer deleteById(Long id) {

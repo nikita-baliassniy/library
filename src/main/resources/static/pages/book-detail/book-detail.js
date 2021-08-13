@@ -1,7 +1,7 @@
 angular.module('library').controller('bookDetailController', function ($scope, $http, $routeParams) {
     const apiPath = 'http://localhost:8189/lib/api/v1';
-
-    // $scope.bookDetail = NaN;
+    $scope.newComment = {};
+    $scope.newComment.score = 1;
 
     $scope.getBookDetailById = function (id) {
         console.log("bookId = " + id);
@@ -11,7 +11,6 @@ angular.module('library').controller('bookDetailController', function ($scope, $
         })
             .then(function (response) {
                 $scope.bookDetail = response.data;
-                // vm.score = $scope.bookDetail.bookInfo.score;
                 console.log($scope.bookDetail);
             }, function errorCallback() {
                 console.log("----ERROR---")
@@ -20,14 +19,23 @@ angular.module('library').controller('bookDetailController', function ($scope, $
     }
 
     $scope.setSelectedRating = function(rating) {
-        $scope.newComment.rating = rating;
+        $scope.newComment.score = rating;
     }
 
     $scope.addNewComment = function() {
-        $http.post(apiPath + '/products', $scope.newProduct)
+        $scope.newComment.createdAt = new Date();
+        if (!$scope.newComment.score) {
+            $scope.newComment.score = 1;
+        }
+        // if (!$scope.newComment.user) {
+        //     $scope.newComment.user.id = 1;
+        // }
+        $http.put(apiPath + '/books/' + $scope.bookDetail.id + '/comment', $scope.newComment)
             .then(function (response) {
-                $scope.newProduct = null;
-                $scope.fillTable();
+                $scope.newComment.score = 1;
+                $scope.newComment.text = '';
+                $scope.newComment.user.id = 1;  //todo переделать на нормального пользователя
+                $scope.bookDetail = response.data;
             });
     }
 

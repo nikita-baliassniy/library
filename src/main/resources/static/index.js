@@ -67,7 +67,8 @@ angular.module('library').directive('starRating', function () {
         scope: {
             ratingValue: '=',
             max: '=',
-            clicked: '@'
+            clicked: '@',
+            onRatingSelected: '&'
         },
         link: function (scope, elem, attrs) {
 

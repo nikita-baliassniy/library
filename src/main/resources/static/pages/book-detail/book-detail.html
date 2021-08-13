@@ -82,10 +82,9 @@
                                 </h2>
                                 <div class="rating-row pt-2">
                                     <p class="d-block">Оцените книгу</p>
-                                    <div clicked star-rating rating-value="1" max="5" class="rating-block" on-rating-selected="setSelectedRating(rating)"></div>
+                                    <div clicked star-rating rating-value="newComment.score" max="5" class="rating-block" on-rating-selected="setSelectedRating(rating)"></div>
                                     <form class="mt--15 site-form">
-                                        <input type="hidden" ng-model="newComment.user.id" value="1">
-
+                                        <input type="hidden" ng-init="newComment.user.id=1" ng-value="newComment.user.id">
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
