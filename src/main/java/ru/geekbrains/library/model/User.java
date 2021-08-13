@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -29,15 +30,20 @@ public class User {
     @Column(name = "password")
     private String password;
 
-//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-//    private List<Comments> comments;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private List<Comments> comments;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "user")
+    private UserInfo userInfo;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -50,5 +56,9 @@ public class User {
     public User(String username, String password, String email) {
         this.password = password;
         this.email = email;
+    }
+
+    public String getUsername() {
+        return userInfo.getName();
     }
 }
