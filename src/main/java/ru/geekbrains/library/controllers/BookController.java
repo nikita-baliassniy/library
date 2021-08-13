@@ -8,12 +8,11 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.library.dto.BookDto;
 import ru.geekbrains.library.dto.BookListDto;
+import ru.geekbrains.library.dto.CommentDto;
 import ru.geekbrains.library.exceptions.BookBadDataException;
 import ru.geekbrains.library.exceptions.BookNotFoundException;
 import ru.geekbrains.library.repositories.specifications.BookSpecifications;
 import ru.geekbrains.library.services.BookService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/books")
@@ -51,5 +50,10 @@ public class BookController {
         if (bookService.deleteById(id) <= 0) {
             throw new BookNotFoundException("Ошибка удаления книги с ID: " + id + ". Ткая книга не найдена.");
         }
+    }
+
+    @PutMapping("/{bookId}/comment")
+    public BookDto addNewComment(@RequestBody CommentDto commentDto, @PathVariable Long bookId) {
+        return bookService.addComment(commentDto, bookId).orElseThrow(() -> new BookBadDataException("Ошибка сохранения комментария"));
     }
 }

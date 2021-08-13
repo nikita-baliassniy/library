@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 public class CommentDto {
     private Long id;
 //    private Book book;
-//    private User user;
+    private UserListDto user;
     private String text;
+    private Integer score;
     private LocalDateTime createdAt;
 }

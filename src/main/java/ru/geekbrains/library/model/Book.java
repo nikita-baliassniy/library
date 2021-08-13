@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 
 @Entity
@@ -78,6 +79,14 @@ public class Book {
 
     public int getCommentsCount() {
         return this.comments.size();
+    }
+
+    public void addCommentAndRecalcScore(Comments comment) {
+        comment.setBook(this);
+        this.comments.add(comment);
+        IntSummaryStatistics stats = this.comments.stream().mapToInt(Comments::getScore).summaryStatistics();
+        this.bookInfo.setScore(stats.getAverage());
+
     }
 
     @Override

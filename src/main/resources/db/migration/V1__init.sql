@@ -96,6 +96,7 @@ CREATE TABLE comments (
     book_id             BIGINT NOT NULL REFERENCES books (id),
     text                VARCHAR(2000),
     user_id             BIGINT NOT NULL REFERENCES users (id),
+    score               NUMERIC(1, 0),
     created_at          TIMESTAMP default current_timestamp
 );
 
@@ -141,6 +142,10 @@ INSERT INTO users (email, password) VALUES
 ('123@asd.ru', '111'),
 ('444@asd.ru', '222');
 
+INSERT INTO users_info (user_id, name, phone, discount, address, date_of_birth) VALUES
+(1, 'John', '89991234567', 10, 'Москва, ул. не знаю', PARSEDATETIME('10.05.1981', 'dd.MM.yyyy')),
+(2, 'Vova', '89992223344', 20, 'Москва, Кремль', PARSEDATETIME('07.10.1952', 'dd.MM.yyyy'));
+
 INSERT INTO books (title, price, description, year_of_publish)
 VALUES
 ('Приключения Тома Сойера', 29.90,
@@ -166,11 +171,11 @@ VALUES
 (3, '/storage/cover/test3.txt', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
 (4, '/storage/cover/test4.txt', '/storage/fb2/test4.fb2', '/storage/pdf/test4.pdf', '/storage/doc/test4.doc', '/storage/audio/test4.mp3');
 
-INSERT INTO comments (book_id, text, user_id) VALUES
-(1, 'Comment 1', 1),
-(2, 'Comment 2', 2),
-(1, 'Comment 3', 2),
-(3, 'Comment 4', 1);
+INSERT INTO comments (book_id, text, user_id, score) VALUES
+(1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap', 1, 4),
+(2, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley', 2, 3),
+(1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus euismod, ex in auctor convallis, velit enim maximus neque, a tincidunt leo mi eget turpis. Proin rutrum volutpat quam id laoreet. Aliquam ullamcorper ultrices malesuada. Duis laoreet, dolor ac feugiat mollis.', 2, 2),
+(3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse scelerisque ipsum id nisl maximus fringilla. Nunc sed nibh porttitor mi dignissim pulvinar at ut nulla.', 1, 5);
 
 INSERT INTO authors (name, date_of_birth, biography, country)
 VALUES

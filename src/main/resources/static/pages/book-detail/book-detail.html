@@ -1,0 +1,117 @@
+<div class="row">
+    <div class="col-lg-5">
+        <img src="image_repo/1.jpg">
+    </div>
+    <div class="col-lg-7">
+        <div class="book-details-info">
+            <p class="genre-block">
+                Жанры:
+                <a ng-repeat="genre in bookDetail.genres" href="#!/books/genre/{{genre.id}}">
+                    {{genre.name + ($last ? '' : ', ')}}
+                </a>
+            </p>
+            <h3 class="book-title">
+                {{bookDetail.title}}
+            </h3>
+            <ul class="list-unstyled">
+                <li>
+                    Авторы:
+                    <span ng-repeat="author in bookDetail.authors" class="list-value">{{author.name + ($last ? '' : ', ')}}</span>
+                </li>
+                <li>
+                    Опубликована: <span class="list-value">{{bookDetail.yearOfPublish}}</span>
+                </li>
+                <li>
+                    Рекомендуемый возраст: <span class="list-value">{{bookDetail.bookInfo.age_recommendation}}</span>
+                </li>
+                <li>
+                    Страниц: <span class="list-value">{{bookDetail.bookInfo.size}}</span>
+                </li>
+            </ul>
+            <div class="price-block">
+                <span class="price-new">{{bookDetail.price}}</span>
+                <span class="fas fa-ruble-sign"></span>
+            </div>
+            <div class="rating-widget">
+                <div  star-rating rating-value="bookDetail.bookInfo.score" max="5" class="rating-block"></div>
+                <div class="review-widget">
+                    <a href="#">({{bookDetail.comments.length}} отзывов)</a>
+                    <span> | </span>
+                    <a href="#">Добавить отзыв</a>
+                </div>
+            </div>
+            <article>
+                {{bookDetail.comments[0].text}}
+            </article>
+            <div class="add-to-cart-row">
+                <div class="add-cart-btn">
+                    <a class="btn btn-outlined--primary">
+                        <span class="plus-icon">+</span>
+                        Добавить в корзину
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="sb-custom-tab review-tab section-padding">
+    <div ng-cloak>
+        <md-content>
+            <md-tabs md-dynamic-height md-border-bottom md-center-tabs>
+                <md-tab label="ОПИСАНИЕ">
+                    <md-content class="md-padding">
+                        <p>{{bookDetail.description}}</p>
+                    </md-content>
+                </md-tab>
+                <md-tab label="ОТЗЫВЫ ({{bookDetail.comments.length}})">
+                    <md-content class="md-padding">
+                        <div class="review-wrapper mb--20">
+                            <div ng-repeat="comment in bookDetail.comments" class="review-comment">
+                                <div class="text">
+                                    <div star-rating rating-value="comment.score" max="5" class="rating-block mb--15"></div>
+                                    <h6 class="author">
+                                        {{comment.user.name}}
+                                        <span>{{comment.createdAt | date:'dd.MM.yyyy HH:mm'}}</span>
+                                    </h6>
+                                    <p>{{comment.text}}</p>
+                                </div>
+                            </div>
+                            <div>
+                                <h2 class="title-lg mb--20 pt--15">
+                                    Добавить комментрий
+                                </h2>
+                                <div class="rating-row pt-2">
+                                    <p class="d-block">Оцените книгу</p>
+                                    <div clicked star-rating rating-value="newComment.score" max="5" class="rating-block" on-rating-selected="setSelectedRating(rating)"></div>
+                                    <form class="mt--15 site-form">
+                                        <input type="hidden" ng-init="newComment.user.id=1" ng-value="newComment.user.id">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="message">Комментарий</label>
+                                                    <textarea ng-model="newComment.text" id="message" maxlength="2000" cols="30" rows="10" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="submit-btn">
+                                                    <a class="btn btn-black" ng-click="addNewComment()">Отправить</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </div>
+</div>
+
+
+
+
+
+
