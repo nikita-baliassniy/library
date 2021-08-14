@@ -62,6 +62,7 @@ CREATE TABLE books_genres (
 
 CREATE TABLE users (
     id                  BIGSERIAL PRIMARY KEY,
+    username            VARCHAR(255) NOT NULL,
     email               VARCHAR(50) NOT NULL UNIQUE,
     password            VARCHAR(80) NOT NULL,
     created_at          TIMESTAMP default current_timestamp,
