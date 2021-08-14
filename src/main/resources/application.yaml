@@ -18,3 +18,5 @@ spring:
       enabled: true
       settings:
         web-allow-others: false
+jwt:
+    secret: asdadadadasdsadadadsdfvfsaedgbhbnqrioghjr3iou3u94y8g987ayg298
