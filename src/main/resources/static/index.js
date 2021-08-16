@@ -56,6 +56,9 @@
     }
 })();
 
+angular.module('library').constant('API_SERVER', 'http://localhost:8189/lib/api/v1');
+angular.module('library').constant('HOME_SERVER', 'http://localhost:8189/lib');
+
 angular.module('library').controller('indexController', function ($scope, $http, $localStorage) {
 
 });
