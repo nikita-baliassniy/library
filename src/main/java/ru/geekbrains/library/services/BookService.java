@@ -75,17 +75,34 @@ public class BookService {
     }
 
     public List<BookListDto> getSimilarBookPage(Long id, Integer minimumSimilarGenres) {
-        List<BookListDto> similarBooks = new ArrayList<>();
+        Map<BookListDto, Integer> similarBooks = new HashMap<>();
         Book exampleBook = bookRepository.findBookById(id).get();
-        Set<String> genresForSearch = exampleBook.getGenres().stream().map(Genre::getName).collect(Collectors.toSet());
-        bookRepository.findAll().stream().filter(b -> !b.getId().equals(id)).forEach(b -> {
-            Set<String> inter = b.getGenres().stream().map(Genre::getName).collect(Collectors.toSet());
-            inter.retainAll(genresForSearch);
-            if(inter.size() >= minimumSimilarGenres) {
-                similarBooks.add(modelMapper.map(b, BookListDto.class));
-            }
-        });
-        return similarBooks;
+        Set<String> genresForSearch = exampleBook
+                .getGenres()
+                .stream()
+                .map(Genre::getName)
+                .collect(Collectors.toSet());
+        bookRepository
+                .findAll()
+                .stream()
+                .filter(b -> !b.getId().equals(id))
+                .forEach(b -> {
+                    Set<String> inter = b
+                            .getGenres()
+                            .stream()
+                            .map(Genre::getName)
+                            .collect(Collectors.toSet());
+                    inter.retainAll(genresForSearch);
+                    if (inter.size() >= minimumSimilarGenres) {
+                        similarBooks.put(modelMapper.map(b, BookListDto.class), inter.size());
+                    }
+                });
+        return similarBooks
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.<BookListDto, Integer>comparingByValue().reversed())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
 }
