@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb--30 mb-lg--0">
+
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
+        <form>
+            <div class="login-form">
+                <h4 class="login-title">Авторизация</h4>
+                <p><span class="font-weight-bold">У меня есть логин и пароль</span> </p>
+                <div class="row">
+                    <div class="col-md-12 col-12 mb--15">
+                        <label for="email">Укажите здесь свой Email</label>
+                        <input ng-model="user.username" class="mb-0 form-control" type="email" id="email" placeholder="Ваш Email...">
+                    </div>
+                    <div class="col-12 mb--20">
+                        <label for="login-password">Пароль</label>
+                        <input ng-model="user.pass" class="mb-0 form-control" type="password" id="login-password" placeholder="Укажите пароль">
+                    </div>
+                    <div class="col-md-12">
+                        <a ng-click="tryAuth()" class="btn btn-outlined">войти</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

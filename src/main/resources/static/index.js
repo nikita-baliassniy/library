@@ -6,7 +6,8 @@
         .config(config)
         .run(run);
 
-    function config($routeProvider) {
+    function config($routeProvider, $httpProvider) {
+        $httpProvider.interceptors.push('AuthInterceptor');
         $routeProvider
             .when('/admin', {
                 templateUrl: 'pages/admin/admin.html',
@@ -50,17 +51,27 @@
     }
 
     function run($rootScope, $http, $localStorage) {
-        if ($localStorage.authUser) {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.authUser.token;
-        }
+        // if ($localStorage.authUser) {
+        //     $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.authUser.token;
+        // }
     }
 })();
 
 angular.module('library').constant('API_SERVER', 'http://localhost:8189/lib/api/v1');
 angular.module('library').constant('HOME_SERVER', 'http://localhost:8189/lib');
 
-angular.module('library').controller('indexController', function ($scope, $http, $localStorage) {
+angular.module('library').controller('indexController', function ($scope, $http, $localStorage, AuthService) {
 
+    $scope.alias = AuthService.getAlias();
+
+    $scope.checkAuth = function () {
+        // console.log('auth---- ' + AuthService.isAuthorized());
+        return AuthService.isAuthorized();
+    }
+
+    $scope.checkToken = function () {
+        AuthService.checkTokenExpired();
+    }
 });
 
 angular.module('library').directive('starRating', function () {

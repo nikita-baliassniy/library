@@ -1,20 +1,16 @@
-angular.module('library').controller('bookDetailController', function ($scope, $http, $routeParams, Auth, API_SERVER) {
+angular.module('library').controller('bookDetailController', function ($scope, $http, $routeParams, AuthService, API_SERVER) {
     $scope.newComment = {};
     $scope.newComment.score = 1;
 
     $scope.getBookDetailById = function (id) {
-        console.log("bookId = " + id);
+        // console.log("bookId = " + id);
         $http({
             url: API_SERVER + '/books/' + id,
             method: 'GET'
         })
             .then(function (response) {
                 $scope.bookDetail = response.data;
-                console.log($scope.bookDetail);
-                Auth.setToken('11111111---------');
-
-                console.log(Auth.getToken());
-                console.log(API_SERVER);
+                // console.log($scope.bookDetail);
             }, function errorCallback() {
                 console.log("----ERROR---")
             }

@@ -52,6 +52,7 @@ public class JwtTokenUtil {
     }
 
     private Claims getAllClaimsFromToken(String token) {
+        //todo проверить токен на валидный формат и выбросить exception (без этого падаем с 500)
         return Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)
