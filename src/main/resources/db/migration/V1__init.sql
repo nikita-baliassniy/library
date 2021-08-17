@@ -275,10 +275,36 @@ VALUES
 
 INSERT INTO books_storage (book_id, link_cover, link_fb2, link_pdf, link_doc, link_audio)
 VALUES
-(1, '/storage/cover/test1.txt', '/storage/fb2/test1.fb2', '/storage/pdf/test1.pdf', '/storage/doc/test1.doc', '/storage/audio/test1.mp3'),
-(2, '/storage/cover/test2.txt', '/storage/fb2/test2.fb2', '/storage/pdf/test2.pdf', '/storage/doc/test2.doc', '/storage/audio/test2.mp3'),
-(3, '/storage/cover/test3.txt', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
-(4, '/storage/cover/test4.txt', '/storage/fb2/test4.fb2', '/storage/pdf/test4.pdf', '/storage/doc/test4.doc', '/storage/audio/test4.mp3');
+(1, '/storage/cover/1.jpg', '/storage/fb2/test1.fb2', '/storage/pdf/test1.pdf', '/storage/doc/test1.doc', '/storage/audio/test1.mp3'),
+(2, '/storage/cover/2.jpg', '/storage/fb2/test2.fb2', '/storage/pdf/test2.pdf', '/storage/doc/test2.doc', '/storage/audio/test2.mp3'),
+(3, '/storage/cover/3.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(4, '/storage/cover/4.jpg', '/storage/fb2/test4.fb2', '/storage/pdf/test4.pdf', '/storage/doc/test4.doc', '/storage/audio/test4.mp3'),
+(5, '/storage/cover/5.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(6, '/storage/cover/6.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(7, '/storage/cover/7.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(8, '/storage/cover/8.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(9, '/storage/cover/9.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(10, '/storage/cover/10.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(11, '/storage/cover/11.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(12, '/storage/cover/12.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(13, '/storage/cover/13.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(14, '/storage/cover/14.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(15, '/storage/cover/15.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(16, '/storage/cover/16.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(17, '/storage/cover/17.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(18, '/storage/cover/18.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(19, '/storage/cover/19.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(20, '/storage/cover/20.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(21, '/storage/cover/21.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(22, '/storage/cover/22.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(23, '/storage/cover/23.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(24, '/storage/cover/24.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(25, '/storage/cover/25.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(26, '/storage/cover/26.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(27, '/storage/cover/27.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(28, '/storage/cover/28.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(29, '/storage/cover/29.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3'),
+(30, '/storage/cover/30.jpg', '/storage/fb2/test3.fb2', '/storage/pdf/test3.pdf', '/storage/doc/test3.doc', '/storage/audio/test3.mp3');
 
 INSERT INTO comments (book_id, text, user_id, score) VALUES
 (1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap', 1, 4),
