@@ -10,12 +10,13 @@ import org.springframework.stereotype.Service;
 import ru.geekbrains.library.dto.BookDto;
 import ru.geekbrains.library.dto.BookListDto;
 import ru.geekbrains.library.dto.CommentDto;
+import ru.geekbrains.library.exceptions.BookNotFoundException;
 import ru.geekbrains.library.model.Book;
 import ru.geekbrains.library.model.Comments;
+import ru.geekbrains.library.model.Genre;
 import ru.geekbrains.library.repositories.BookRepository;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,7 +44,7 @@ public class BookService {
 
     public Page<BookListDto> getBookPage(Specification<Book> specification, Integer page, Integer count) {
         return bookRepository
-                .findAll(specification, PageRequest.of(page, count))
+                .findAll(specification, PageRequest.of(page-1, count))
                 .map(book -> modelMapper.map(book, BookListDto.class));
     }
 
@@ -73,5 +74,35 @@ public class BookService {
         return bookRepository.deleteBookById(id);
     }
 
+    public List<BookListDto> getSimilarBookPage(Long id, Integer minimumSimilarGenres) {
+        Map<BookListDto, Integer> similarBooks = new HashMap<>();
+        Book exampleBook = bookRepository.findBookById(id).get();
+        Set<String> genresForSearch = exampleBook
+                .getGenres()
+                .stream()
+                .map(Genre::getName)
+                .collect(Collectors.toSet());
+        bookRepository
+                .findAll()
+                .stream()
+                .filter(b -> !b.getId().equals(id))
+                .forEach(b -> {
+                    Set<String> inter = b
+                            .getGenres()
+                            .stream()
+                            .map(Genre::getName)
+                            .collect(Collectors.toSet());
+                    inter.retainAll(genresForSearch);
+                    if (inter.size() >= minimumSimilarGenres) {
+                        similarBooks.put(modelMapper.map(b, BookListDto.class), inter.size());
+                    }
+                });
+        return similarBooks
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.<BookListDto, Integer>comparingByValue().reversed())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+    }
 
 }

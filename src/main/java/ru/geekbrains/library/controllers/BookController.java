@@ -14,6 +14,8 @@ import ru.geekbrains.library.exceptions.BookNotFoundException;
 import ru.geekbrains.library.repositories.specifications.BookSpecifications;
 import ru.geekbrains.library.services.BookService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/books")
 @RequiredArgsConstructor
@@ -32,6 +34,11 @@ public class BookController {
                                          @RequestParam(defaultValue = "10", name = "count") Integer count) {
         Page<BookListDto> bld = bookService.getBookPage(BookSpecifications.build(params), page, count);
         return bld;
+    }
+
+    @GetMapping("/similar/{id}")
+    public List<BookListDto> getSimilarBooks(@PathVariable Long id) {
+        return bookService.getSimilarBookPage(id, 2);
     }
 
     @PostMapping

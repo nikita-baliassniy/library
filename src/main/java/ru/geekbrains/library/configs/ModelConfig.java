@@ -27,7 +27,6 @@ public class ModelConfig {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
-
         configureBook(modelMapper);
         configureUser(modelMapper);
         return modelMapper;

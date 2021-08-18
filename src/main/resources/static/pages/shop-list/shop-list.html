@@ -1,16 +1,16 @@
 <div class="container">
     <div class="shop-toolbar"></div>
-    <div class="products-list">
+    <div ng-repeat="b in ProductsList" class="products-list">
         <div class="product-card">
             <div class="product-header">
-                <a href="" class="author animated">Автор</a>
+                <a ng-repeat="a in b.authors" href="" class="author animated">{{a.name}}</a>
                 <h3>
-                    <a href="#!/books/1" class="product-name animated">Название</a>
+                    <a href="#!/books/{{b.id}}" class="product-name animated">{{b.title}}</a>
                 </h3>
             </div>
             <div class="product-body">
                 <div class="product-image">
-                    <img src="content/book-covers/test-cover.jpg" alt="Обложка">
+                    <img src="/lib/api/v1/storage/cover/{{b.id}}" alt="Обложка">
                 </div>
                 <div class="product-hover-toolbar">
                     <a href="" class="single-btn">
@@ -19,31 +19,44 @@
                     <a href="" class="single-btn">
                         <img src="content/icons/hearth.svg" alt="like">
                     </a>
-                    <a href="" class="single-btn">
+                    <a href="#!/books/{{b.id}}" class="single-btn">
                         <img src="content/icons/eye.svg" alt="">
                     </a>
                 </div>
                 <div class="product-cost">
-                    <span class="price">440.00 руб</span>
+                    <span class="price">{{b.price}}</span>
                     <del class="price-old"> 550.00 руб</del>
                     <span class="price-discount">20%</span>
                 </div>
             </div>
-
         </div>
     </div>
-    <div class="pagination">
-        <ul class="pagination-bar">
-            <li>
-                <a href="" class="single-btn">1</a>
-            </li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
+    <div style="display: flex; justify-content: space-between ">
+        <nav aria-label="Page navigation example" ng-model="filter.page">
+            <ul class="pagination" style="margin: 0px">
+
+                <li ng-class="ProductsPage.first ? 'page-item disabled' : 'page-item'">
+                    <a class="page-link" ng-click="fillTable(ProductsPage.number)"><</a>
+                </li>
+
+                <li data-ng-repeat="index in PageArray"
+                    ng-class="ProductsPage.number == index-1 ? 'page-item active' : 'page-item'">
+                    <a class="page-link" ng-click="fillTable(index)">{{index}}</a>
+                </li>
+
+                <li ng-class="ProductsPage.last ? 'page-item disabled' : 'page-item'">
+                    <a class="page-link" ng-click="fillTable(ProductsPage.number + 2)">></a>
+                </li>
+            </ul>
+        </nav>
+        <div style="display: flex; min-width: 200px; vertical-align: center">
+            <h5 style="font-size: 18px; min-inline-size: 140px; margin: 0; align-self: center">Показывать по</h5>
+            <select id="pagination" class="form-select" aria-label="Default select example"
+                    style="max-width: 150px" ng-click="changePagination()" ng-model="filter.size">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>
+        </div>
     </div>
 </div>
