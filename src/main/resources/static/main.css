@@ -470,6 +470,12 @@ img{
     padding-left: 15px;
 }
 
+.col-sm-6 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
 .col-lg-3{
     flex:0 0 25%;
     max-width: 25%;
@@ -497,6 +503,8 @@ img{
     flex: 0 0 58.333333%;
     max-width: 58.333333%;
 }
+
+
 
 .header-phone{
     display: flex;
@@ -658,6 +666,10 @@ ul.main-menu > li.menu-item > a {
     width: 100%;
     padding-right: 15px;
     padding-left: 15px;
+}
+
+.product-card .product-header {
+    padding: 0 15px;
 }
 
 .product-body{
@@ -1828,6 +1840,29 @@ textarea.form-control {
     margin-bottom: 18px;
     color: #333;
     font-weight: 600;
+}
+
+/********** SIMILAR *********/
+
+.section-title--bordered {
+    position: relative;
+    border-bottom: 1px solid #e5e5e5;
+}
+.section-title {
+    margin-bottom: 40px;
+}
+.section-title {
+    text-align: center;
+    margin-top: -8px;
+    margin-bottom: 30px;
+}
+
+.similar .product-card {
+    max-width: none;
+}
+
+.shop-border [class*="col"] .product-card .product-card--body {
+    position: relative;
 }
 
 /********* TAB *********/
