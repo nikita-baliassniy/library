@@ -63,14 +63,38 @@ angular.module('library')
                         Auth.setAlias(response.data.name);
                         $location.path('/');
                         console.log('ALIAS------' + Auth.getAlias());
+                        toastr.success('Добро пожаловать ' + Auth.getAlias());
                     }, function errorGetInfo(response) {
                         console.log("ERROR get self info");
                     });
                 }
                 deferred.resolve(response);
+
             }, function errorCallBack (response) {
                 Auth.setIsAuthorized('false');
                 deferred.reject(response);
+            });
+            return deferred.promise;
+        },
+        register: function (username, email, password) {
+            var deferred = $q.defer();
+            $http.put(HOME_SERVER + '/auth', {
+                name: username, email: email, password: password
+            }).then(function successCallBack(response) {
+                console.log('OK REGISTER');
+                console.log(Auth);
+                toastr.success('Вы зарегистрированы под логином ' + email, 'Регистрация успешна');
+                Auth.login(email, password).then(function successCallBack(response) {
+                    console.log('OK LOGIN');
+                    // Auth.setAlias(username);
+                });
+                deferred.resolve(response);
+            }, function errorCallBack(response) {
+                console.log('ERROR REGISTER');
+                console.log(response);
+                console.log(response.data);
+                deferred.reject(response);
+                toastr.error(response.data.message, 'Ошибка регистрации');
             });
         }
     };
@@ -106,6 +130,7 @@ angular.module('library')
             },
 
             responseError: function (response) {
+                var deferred = $q.defer();
                 if (response.status === 403) {
                     console.log('******FORBIDDEN*********');
 //                    var Auth = $injector.get('AuthService');
@@ -115,14 +140,14 @@ angular.module('library')
                 if (response.status === 401) {
                     console.log('******UNAUTHORIZED*********');
                     var Auth = $injector.get('AuthService');
-                    var defer = $q.defer();
+                    // var defer = $q.defer();
                     Auth.deleteToken();
                     Auth.deleteAlias();
                     Auth.setIsAuthorized('false');
 //                    $location.path('/auth');
                 }
-                defer.reject(response);
-                return defer.promise;
+                deferred.reject(response);
+                return deferred.promise;
                 // return response;
             }
         };

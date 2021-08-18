@@ -1796,6 +1796,13 @@ textarea.form-control {
     font-size: 13px;
 }
 
+.login-form input:focus {
+    border-color: #62ab00;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    outline: none;
+}
+
 .login-form .btn {
     text-transform: capitalize;
     font-size: 15px;

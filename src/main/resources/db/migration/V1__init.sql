@@ -147,6 +147,15 @@ INSERT INTO users_info (user_id, name, phone, discount, address, date_of_birth) 
 (1, 'John', '89991234567', 10, 'Москва, ул. не знаю', PARSEDATETIME('10.05.1981', 'dd.MM.yyyy')),
 (2, 'Vova', '89992223344', 20, 'Москва, Кремль', PARSEDATETIME('07.10.1952', 'dd.MM.yyyy'));
 
+INSERT INTO roles (name) VALUES
+('ROLE_ADMIN'),
+('ROLE_MANAGER'),
+('ROLE_USER');
+
+INSERT INTO users_roles (user_id, role_id) VALUES
+(1, 1),
+(2, 3);
+
 INSERT INTO books (title, price, description, year_of_publish)
 VALUES
 ('Приключения Тома Сойера', 29.90,
