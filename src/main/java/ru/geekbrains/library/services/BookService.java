@@ -44,7 +44,7 @@ public class BookService {
 
     public Page<BookListDto> getBookPage(Specification<Book> specification, Integer page, Integer count) {
         return bookRepository
-                .findAll(specification, PageRequest.of(page, count))
+                .findAll(specification, PageRequest.of(page-1, count))
                 .map(book -> modelMapper.map(book, BookListDto.class));
     }
 
