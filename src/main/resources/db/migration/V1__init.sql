@@ -62,7 +62,7 @@ CREATE TABLE books_genres (
 
 CREATE TABLE users (
     id                  BIGSERIAL PRIMARY KEY,
-    username            VARCHAR(255) NOT NULL,
+--     username            VARCHAR(255) NOT NULL,
     email               VARCHAR(50) NOT NULL UNIQUE,
     password            VARCHAR(80) NOT NULL,
     created_at          TIMESTAMP default current_timestamp,
@@ -139,13 +139,22 @@ create table cart_items (
     updated_at          TIMESTAMP default current_timestamp
 );
 
-INSERT INTO users (username, email, password) VALUES
-('admin','123@asd.ru', '111'),
-('admin_mini','444@asd.ru', '222');
+INSERT INTO users (/*username,*/ email, password) VALUES
+(/*'admin',*/'123@asd.ru', '$2a$12$XwOoolcqL5gwjHAaqb4tTes9hoedw50kyOdq6I4xv2x4QHg9VtQ/e'), -- 111
+(/*'admin_mini',*/'444@asd.ru', '$2a$12$aRjLVCKZHGpQ26dm7zZfjOwDXq1MUA/dEGHt67VbueAnLMBnwP5G.'); --222
 
 INSERT INTO users_info (user_id, name, phone, discount, address, date_of_birth) VALUES
 (1, 'John', '89991234567', 10, 'Москва, ул. не знаю', PARSEDATETIME('10.05.1981', 'dd.MM.yyyy')),
 (2, 'Vova', '89992223344', 20, 'Москва, Кремль', PARSEDATETIME('07.10.1952', 'dd.MM.yyyy'));
+
+INSERT INTO roles (name) VALUES
+('ROLE_ADMIN'),
+('ROLE_MANAGER'),
+('ROLE_USER');
+
+INSERT INTO users_roles (user_id, role_id) VALUES
+(1, 1),
+(2, 3);
 
 INSERT INTO books (title, price, description, year_of_publish)
 VALUES
@@ -275,36 +284,36 @@ VALUES
 
 INSERT INTO books_storage (book_id, link_cover, link_fb2, link_pdf, link_epub, link_audio)
 VALUES
-(1, '/storage/cover/1.jpg', '/storage/fb2/1.fb2', '/storage/pdf/1.pdf', '/storage/epub/1.epub', '/storage/audio/1.mp3'),
-(2, '/storage/cover/2.jpg', '/storage/fb2/2.fb2', '/storage/pdf/2.pdf', '/storage/epub/2.epub', '/storage/audio/2.mp3'),
-(3, '/storage/cover/3.jpg', '/storage/fb2/3.fb2', '/storage/pdf/3.pdf', '/storage/epub/3.epub', '/storage/audio/3.mp3'),
-(4, '/storage/cover/4.jpg', '/storage/fb2/4.fb2', '/storage/pdf/4.pdf', '/storage/epub/4.epub', '/storage/audio/4.mp3'),
-(5, '/storage/cover/5.jpg', '/storage/fb2/5.fb2', '/storage/pdf/5.pdf', '/storage/epub/5.epub', '/storage/audio/3.mp3'),
-(6, '/storage/cover/6.jpg', '/storage/fb2/6.fb2', '/storage/pdf/6.pdf', '/storage/epub/6.epub', '/storage/audio/3.mp3'),
-(7, '/storage/cover/7.jpg', '/storage/fb2/7.fb2', '/storage/pdf/7.pdf', '/storage/epub/7.epub', '/storage/audio/3.mp3'),
-(8, '/storage/cover/8.jpg', '/storage/fb2/8.fb2', '/storage/pdf/8.pdf', '/storage/epub/8.epub', '/storage/audio/3.mp3'),
-(9, '/storage/cover/9.jpg', '/storage/fb2/9.fb2', '/storage/pdf/9.pdf', '/storage/epub/9.epub', '/storage/audio/3.mp3'),
-(10, '/storage/cover/10.jpg', '/storage/fb2/10.fb2', '/storage/pdf/10.pdf', '/storage/epub/10.epub', '/storage/audio/3.mp3'),
-(11, '/storage/cover/11.jpg', '/storage/fb2/11.fb2', '/storage/pdf/11.pdf', '/storage/epub/11.epub', '/storage/audio/3.mp3'),
-(12, '/storage/cover/12.jpg', '/storage/fb2/12.fb2', '/storage/pdf/12.pdf', '/storage/epub/12.epub', '/storage/audio/3.mp3'),
-(13, '/storage/cover/13.jpg', '/storage/fb2/13.fb2', '/storage/pdf/13.pdf', '/storage/epub/13.epub', '/storage/audio/3.mp3'),
-(14, '/storage/cover/14.jpg', '/storage/fb2/14.fb2', '/storage/pdf/14.pdf', '/storage/epub/14.epub', '/storage/audio/3.mp3'),
-(15, '/storage/cover/15.jpg', '/storage/fb2/15.fb2', '/storage/pdf/15.pdf', '/storage/epub/15.epub', '/storage/audio/3.mp3'),
-(16, '/storage/cover/16.jpg', '/storage/fb2/16.fb2', '/storage/pdf/16.pdf', '/storage/epub/16.epub', '/storage/audio/3.mp3'),
-(17, '/storage/cover/17.jpg', '/storage/fb2/17.fb2', '/storage/pdf/17.pdf', '/storage/epub/17.epub', '/storage/audio/3.mp3'),
-(18, '/storage/cover/18.jpg', '/storage/fb2/18.fb2', '/storage/pdf/18.pdf', '/storage/epub/18.epub', '/storage/audio/3.mp3'),
-(19, '/storage/cover/19.jpg', '/storage/fb2/19.fb2', '/storage/pdf/19.pdf', '/storage/epub/19.epub', '/storage/audio/3.mp3'),
-(20, '/storage/cover/20.jpg', '/storage/fb2/20.fb2', '/storage/pdf/20.pdf', '/storage/epub/20.epub', '/storage/audio/3.mp3'),
-(21, '/storage/cover/21.jpg', '/storage/fb2/21.fb2', '/storage/pdf/21.pdf', '/storage/epub/21.epub', '/storage/audio/3.mp3'),
-(22, '/storage/cover/22.jpg', '/storage/fb2/22.fb2', '/storage/pdf/22.pdf', '/storage/epub/22.epub', '/storage/audio/3.mp3'),
-(23, '/storage/cover/23.jpg', '/storage/fb2/23.fb2', '/storage/pdf/23.pdf', '/storage/epub/23.epub', '/storage/audio/3.mp3'),
-(24, '/storage/cover/24.jpg', '/storage/fb2/24.fb2', '/storage/pdf/24.pdf', '/storage/epub/24.epub', '/storage/audio/3.mp3'),
-(25, '/storage/cover/25.jpg', '/storage/fb2/25.fb2', '/storage/pdf/25.pdf', '/storage/epub/25.epub', '/storage/audio/3.mp3'),
-(26, '/storage/cover/26.jpg', '/storage/fb2/26.fb2', '/storage/pdf/26.pdf', '/storage/epub/26.epub', '/storage/audio/3.mp3'),
-(27, '/storage/cover/27.jpg', '/storage/fb2/27.fb2', '/storage/pdf/27.pdf', '/storage/epub/27.epub', '/storage/audio/3.mp3'),
-(28, '/storage/cover/28.jpg', '/storage/fb2/28.fb2', '/storage/pdf/28.pdf', '/storage/epub/28.epub', '/storage/audio/3.mp3'),
-(29, '/storage/cover/29.jpg', '/storage/fb2/29.fb2', '/storage/pdf/29.pdf', '/storage/epub/29.epub', '/storage/audio/3.mp3'),
-(30, '/storage/cover/30.jpg', '/storage/fb2/30.fb2', '/storage/pdf/30.pdf', '/storage/epub/30.epub', '/storage/audio/3.mp3');
+(1, 'storage_repo/cover/1.jpg', 'storage_repo/fb2/1.fb2', 'storage_repo/pdf/1.pdf', 'storage_repo/epub/1.epub', 'storage_repo/audio/1.mp3'),
+(2, 'storage_repo/cover/2.jpg', 'storage_repo/fb2/2.fb2', 'storage_repo/pdf/2.pdf', 'storage_repo/epub/2.epub', 'storage_repo/audio/2.mp3'),
+(3, 'storage_repo/cover/3.jpg', 'storage_repo/fb2/3.fb2', 'storage_repo/pdf/3.pdf', 'storage_repo/epub/3.epub', 'storage_repo/audio/3.mp3'),
+(4, 'storage_repo/cover/4.jpg', 'storage_repo/fb2/4.fb2', 'storage_repo/pdf/4.pdf', 'storage_repo/epub/4.epub', 'storage_repo/audio/4.mp3'),
+(5, 'storage_repo/cover/5.jpg', 'storage_repo/fb2/5.fb2', 'storage_repo/pdf/5.pdf', 'storage_repo/epub/5.epub', 'storage_repo/audio/3.mp3'),
+(6, 'storage_repo/cover/6.jpg', 'storage_repo/fb2/6.fb2', 'storage_repo/pdf/6.pdf', 'storage_repo/epub/6.epub', 'storage_repo/audio/3.mp3'),
+(7, 'storage_repo/cover/7.jpg', 'storage_repo/fb2/7.fb2', 'storage_repo/pdf/7.pdf', 'storage_repo/epub/7.epub', 'storage_repo/audio/3.mp3'),
+(8, 'storage_repo/cover/8.jpg', 'storage_repo/fb2/8.fb2', 'storage_repo/pdf/8.pdf', 'storage_repo/epub/8.epub', 'storage_repo/audio/3.mp3'),
+(9, 'storage_repo/cover/9.jpg', 'storage_repo/fb2/9.fb2', 'storage_repo/pdf/9.pdf', 'storage_repo/epub/9.epub', 'storage_repo/audio/3.mp3'),
+(10, 'storage_repo/cover/10.jpg', 'storage_repo/fb2/10.fb2', 'storage_repo/pdf/10.pdf', 'storage_repo/epub/10.epub', 'storage_repo/audio/3.mp3'),
+(11, 'storage_repo/cover/11.jpg', 'storage_repo/fb2/11.fb2', 'storage_repo/pdf/11.pdf', 'storage_repo/epub/11.epub', 'storage_repo/audio/3.mp3'),
+(12, 'storage_repo/cover/12.jpg', 'storage_repo/fb2/12.fb2', 'storage_repo/pdf/12.pdf', 'storage_repo/epub/12.epub', 'storage_repo/audio/3.mp3'),
+(13, 'storage_repo/cover/13.jpg', 'storage_repo/fb2/13.fb2', 'storage_repo/pdf/13.pdf', 'storage_repo/epub/13.epub', 'storage_repo/audio/3.mp3'),
+(14, 'storage_repo/cover/14.jpg', 'storage_repo/fb2/14.fb2', 'storage_repo/pdf/14.pdf', 'storage_repo/epub/14.epub', 'storage_repo/audio/3.mp3'),
+(15, 'storage_repo/cover/15.jpg', 'storage_repo/fb2/15.fb2', 'storage_repo/pdf/15.pdf', 'storage_repo/epub/15.epub', 'storage_repo/audio/3.mp3'),
+(16, 'storage_repo/cover/16.jpg', 'storage_repo/fb2/16.fb2', 'storage_repo/pdf/16.pdf', 'storage_repo/epub/16.epub', 'storage_repo/audio/3.mp3'),
+(17, 'storage_repo/cover/17.jpg', 'storage_repo/fb2/17.fb2', 'storage_repo/pdf/17.pdf', 'storage_repo/epub/17.epub', 'storage_repo/audio/3.mp3'),
+(18, 'storage_repo/cover/18.jpg', 'storage_repo/fb2/18.fb2', 'storage_repo/pdf/18.pdf', 'storage_repo/epub/18.epub', 'storage_repo/audio/3.mp3'),
+(19, 'storage_repo/cover/19.jpg', 'storage_repo/fb2/19.fb2', 'storage_repo/pdf/19.pdf', 'storage_repo/epub/19.epub', 'storage_repo/audio/3.mp3'),
+(20, 'storage_repo/cover/20.jpg', 'storage_repo/fb2/20.fb2', 'storage_repo/pdf/20.pdf', 'storage_repo/epub/20.epub', 'storage_repo/audio/3.mp3'),
+(21, 'storage_repo/cover/21.jpg', 'storage_repo/fb2/21.fb2', 'storage_repo/pdf/21.pdf', 'storage_repo/epub/21.epub', 'storage_repo/audio/3.mp3'),
+(22, 'storage_repo/cover/22.jpg', 'storage_repo/fb2/22.fb2', 'storage_repo/pdf/22.pdf', 'storage_repo/epub/22.epub', 'storage_repo/audio/3.mp3'),
+(23, 'storage_repo/cover/23.jpg', 'storage_repo/fb2/23.fb2', 'storage_repo/pdf/23.pdf', 'storage_repo/epub/23.epub', 'storage_repo/audio/3.mp3'),
+(24, 'storage_repo/cover/24.jpg', 'storage_repo/fb2/24.fb2', 'storage_repo/pdf/24.pdf', 'storage_repo/epub/24.epub', 'storage_repo/audio/3.mp3'),
+(25, 'storage_repo/cover/25.jpg', 'storage_repo/fb2/25.fb2', 'storage_repo/pdf/25.pdf', 'storage_repo/epub/25.epub', 'storage_repo/audio/3.mp3'),
+(26, 'storage_repo/cover/26.jpg', 'storage_repo/fb2/26.fb2', 'storage_repo/pdf/26.pdf', 'storage_repo/epub/26.epub', 'storage_repo/audio/3.mp3'),
+(27, 'storage_repo/cover/27.jpg', 'storage_repo/fb2/27.fb2', 'storage_repo/pdf/27.pdf', 'storage_repo/epub/27.epub', 'storage_repo/audio/3.mp3'),
+(28, 'storage_repo/cover/28.jpg', 'storage_repo/fb2/28.fb2', 'storage_repo/pdf/28.pdf', 'storage_repo/epub/28.epub', 'storage_repo/audio/3.mp3'),
+(29, 'storage_repo/cover/29.jpg', 'storage_repo/fb2/29.fb2', 'storage_repo/pdf/29.pdf', 'storage_repo/epub/29.epub', 'storage_repo/audio/3.mp3'),
+(30, 'storage_repo/cover/30.jpg', 'storage_repo/fb2/30.fb2', 'storage_repo/pdf/30.pdf', 'storage_repo/epub/30.epub', 'storage_repo/audio/3.mp3');
 
 INSERT INTO comments (book_id, text, user_id, score) VALUES
 (1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap', 1, 4),

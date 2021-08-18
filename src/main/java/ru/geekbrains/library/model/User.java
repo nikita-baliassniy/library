@@ -28,8 +28,8 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username")
-    private String username;
+//    @Column(name = "username")
+//    private String username;
 
     @Column(name = "email")
     private String email;
@@ -67,5 +67,13 @@ public class User {
 
     public String getUsername() {
         return userInfo.getName();
+    }
+
+    public void setUsername(String name) {
+        if (userInfo == null) {
+            userInfo = new UserInfo();
+            userInfo.setUser(this);
+        }
+        userInfo.setName(name);
     }
 }

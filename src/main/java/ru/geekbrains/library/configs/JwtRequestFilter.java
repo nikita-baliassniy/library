@@ -33,11 +33,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             jwt = authHeader.substring(7);
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwt);
+                response.addHeader("isvalidtokendate","true");
             } catch (ExpiredJwtException e) {
                 log.debug("The token is expired");
 //                String error = JsonUtils.convertObjectToJson(new BookServiceError(HttpStatus.UNAUTHORIZED.value(), "Jwt is expired"));
-//                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, error);
-//                return;
+//                response.sendError(HttpServletResponse.SC_UNAUTHORIZED,  "Jwt is expired");
+                response.addHeader("isvalidtokendate","false");
+                //return;
             }
         }
 

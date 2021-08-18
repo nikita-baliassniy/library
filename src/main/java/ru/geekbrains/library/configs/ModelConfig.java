@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.geekbrains.library.dto.BookListDto;
 import ru.geekbrains.library.dto.UserDto;
+import ru.geekbrains.library.dto.UserRegisterDto;
 import ru.geekbrains.library.model.Book;
 import ru.geekbrains.library.model.User;
 
@@ -19,6 +20,8 @@ public class ModelConfig {
     private void configureUser(ModelMapper modelMapper) {
         modelMapper.typeMap(User.class, UserDto.class)
                 .addMappings(mapper -> mapper.map(User::getUsername, UserDto::setName));
+        modelMapper.typeMap(UserRegisterDto.class, User.class)
+                .addMappings(mapper -> mapper.map(UserRegisterDto::getName, User::setUsername));
     }
 
     @Bean

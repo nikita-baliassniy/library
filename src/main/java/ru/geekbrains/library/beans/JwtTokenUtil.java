@@ -28,7 +28,7 @@ public class JwtTokenUtil {
         claims.put("roles", rolesList);
 
         Date issuedDate = new Date();
-        Date expiredDate = new Date(issuedDate.getTime() + 20 * 60 * 1000); // todo
+        Date expiredDate = new Date(issuedDate.getTime() + /*20 **/ 60 * 1000); // todo
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername())
@@ -52,6 +52,7 @@ public class JwtTokenUtil {
     }
 
     private Claims getAllClaimsFromToken(String token) {
+        //todo проверить токен на валидный формат и выбросить exception (без этого падаем с 500)
         return Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)
