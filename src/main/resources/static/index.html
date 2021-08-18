@@ -158,14 +158,8 @@
                                         </a>
                                     </div>
                                     <ul class="category-menu">
-                                        <li class="cat-item">
-                                            <a class="animated" href="">Жанр 1</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a class="animated" href="">Жанр 2</a>
-                                        </li>
-                                        <li class="cat-item">
-                                            <a class="animated" href="">Жанр 3</a>
+                                        <li ng-repeat="genre in genres" class="cat-item">
+                                            <a class="animated" href="">{{genre.name}}</a>
                                         </li>
                                     </ul>
                                 </nav>

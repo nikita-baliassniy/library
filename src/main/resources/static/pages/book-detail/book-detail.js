@@ -10,7 +10,7 @@ angular.module('library').controller('bookDetailController', function ($scope, $
         })
             .then(function (response) {
                 $scope.bookDetail = response.data;
-                // console.log($scope.bookDetail);
+                console.log($scope.bookDetail);
             }, function errorCallback() {
                 console.log("----ERROR---")
             }

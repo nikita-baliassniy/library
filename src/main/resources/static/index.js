@@ -60,7 +60,7 @@
 angular.module('library').constant('API_SERVER', 'http://localhost:8189/lib/api/v1');
 angular.module('library').constant('HOME_SERVER', 'http://localhost:8189/lib');
 
-angular.module('library').controller('indexController', function ($scope, $http, $localStorage, AuthService) {
+angular.module('library').controller('indexController', function ($scope, $http, $localStorage, AuthService, API_SERVER) {
 
     $scope.alias = AuthService.getAlias();
 
@@ -72,6 +72,15 @@ angular.module('library').controller('indexController', function ($scope, $http,
     $scope.checkToken = function () {
         AuthService.checkTokenExpired();
     }
+
+    $scope.getGenres = function () {
+        $http.get(API_SERVER + '/genres').then(function successCallBack(response) {
+            $scope.genres = response.data;
+        })
+
+    }
+
+    $scope.getGenres();
 });
 
 angular.module('library').directive('starRating', function () {

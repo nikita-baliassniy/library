@@ -1,7 +1,7 @@
-angular.module('library').controller('shopListController', function ($scope, $http) {
+angular.module('library').controller('shopListController', function ($scope, $http, API_SERVER) {
     // $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|ftp|blob):|data:image\//);
-    const rootPath = 'http://localhost:8189/lib';
-    const apiPath = rootPath + '/api/v1';
+    // const rootPath = 'http://localhost:8189/lib';
+    // const apiPath = rootPath + '/api/v1';
 
     $scope.fillTable = function (pageIndex) {
         $scope.findAllProducts(pageIndex);
@@ -10,7 +10,7 @@ angular.module('library').controller('shopListController', function ($scope, $ht
 
     $scope.findAllProducts = function (pageIndex = 1) {
         $http({
-            url: apiPath + '/books',
+            url: API_SERVER + '/books',
             method: 'GET',
             params: {
                 min: $scope.filter ? $scope.filter.min : null,
@@ -35,7 +35,7 @@ angular.module('library').controller('shopListController', function ($scope, $ht
     };
 
     $scope.findProductById = function () {
-        $http.get(apiPath + '/products/' + $scope.filter.id)
+        $http.get(API_SERVER + '/books/' + $scope.filter.id)
             .then(function (response) {
                 $scope.ProductsList = [response.data];
                 console.log($scope.ProductsList)
@@ -67,4 +67,6 @@ angular.module('library').controller('shopListController', function ($scope, $ht
         $scope.filter ? $scope.filter.max = null : null;
         $scope.fillTable();
     };
+
+    $scope.fillTable();
 });

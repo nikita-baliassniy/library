@@ -1,5 +1,6 @@
 package ru.geekbrains.library.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,19 +19,10 @@ public class BookListDto {
     private int yearOfPublish;
     private Integer commentsCount;
     private BookInfoDto bookInfo;
+    @JsonProperty("link_cover")
+    private String bookStorageLink_cover;
     private List<AuthorListDto> authors;
     private List<GenreListDto> genres;
-
-//    public BookListDto(Book book) {
-//        this.id = book.getId();
-//        this.title = book.getTitle();
-//        this.price = book.getPrice();
-//        this.description = book.getDescription();
-//        this.yearOfPublish = book.getYearOfPublish();
-//        this.authors = book.getAuthors().stream().map(AuthorListDto::new).collect(Collectors.toList());
-//        this.bookInfo = new BookInfoDto(book.getBookInfo());
-////        this.bookStorage = new BookStorageDto(book.getBookStorage());
-//    }
 
     @Override
     public boolean equals(Object o) {
