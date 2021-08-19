@@ -504,8 +504,6 @@ img{
     max-width: 58.333333%;
 }
 
-
-
 .header-phone{
     display: flex;
 }
@@ -647,8 +645,21 @@ ul.main-menu > li.menu-item > a {
 }
 /* ======SHOP-LIST====== */
 
-.products-list{
-    overflow:hidden;
+/*.products-list{*/
+/*    overflow:hidden;*/
+/*    margin-bottom: -30px;*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    margin-right: -15px;*/
+/*    margin-left: -15px;*/
+/*}*/
+.shop-border {
+    overflow: hidden;
+}
+.shop-product-wrap {
+    overflow: hidden;
+}
+.space-db--30 {
     margin-bottom: -30px;
     display: flex;
     flex-wrap: wrap;
@@ -671,6 +682,60 @@ ul.main-menu > li.menu-item > a {
 .product-card .product-header {
     padding: 0 15px;
 }
+
+div {
+    display: block;
+}
+
+.shop-product-wrap .product-card {
+    margin-bottom: 30px;
+}
+
+.product-card {
+    text-align: center;
+    max-width: none;
+}
+
+.product-card .product-header {
+    padding: 0 15px;
+}
+
+.shop-border [class*="col"] .product-card .product-card--body {
+    position: relative;
+}
+
+.product-card .author {
+    font-size: 14px;
+    font-weight: 400;
+    padding: 0;
+    color: #333;
+    text-transform: capitalize;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.shop-border [class*="col"] .product-card .product-card--body::before {
+    position: absolute;
+    background: #e5e5e5;
+    content: "";
+    left: -16px;
+    height: 100%;
+    width: 1px;
+    top: 0;
+}
+
+
+/*.product-card{*/
+/*    text-align: center;*/
+/*    margin-bottom: 30px;*/
+/*    -ms-flex: 0 0 33.333333%;*/
+/*    flex: 0 0 33.333333%;*/
+/*    max-width: 33.333333%;*/
+/*    position: relative;*/
+/*    width: 100%;*/
+/*    padding-right: 15px;*/
+/*    padding-left: 15px;*/
+/*}*/
 
 .product-body{
     position: relative;
@@ -1861,8 +1926,12 @@ textarea.form-control {
     max-width: none;
 }
 
-.shop-border [class*="col"] .product-card .product-card--body {
-    position: relative;
+.similar .product-card h3{
+    font-size: 1.2rem;
+}
+
+.similar .product-card img{
+    width: 160px;
 }
 
 /********* TAB *********/

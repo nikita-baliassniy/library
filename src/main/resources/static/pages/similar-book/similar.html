@@ -4,11 +4,11 @@
             <h2>{{title}}</h2>
         </div>
         <div class="row">
-            <div ng-repeat="book in bookList" class="col-lg-4 col-sm-6">
+            <div ng-repeat="book in bookList" class="col-lg-3 col-sm-6">
                 <div class="product-card">
                     <div class="product-header">
                         <a ng-repeat="author in book.authors" href="" class="author" tabindex="0">
-                            {{author.name}}
+                            {{author.name + ($last ? '' : ', ')}}
                         </a>
                         <h3><a href="#!/books/{{book.id}}" tabindex="0">{{book.title}}</a>
                         </h3>
@@ -17,6 +17,11 @@
                         <div class="card-image">
                             <img src="{{book.link_cover}}">
                         </div>
+                    </div>
+
+                    <div class="price-block">
+                        <span class="price">{{book.price}} <span class="fas fa-ruble-sign"></span></span>
+
                     </div>
                 </div>
             </div>

@@ -73,6 +73,10 @@ angular.module('library').controller('indexController', function ($scope, $http,
         AuthService.checkTokenExpired();
     }
 
+    $scope.doLogout = function() {
+        AuthService.logout();
+    }
+
     $scope.getGenres = function () {
         $http.get(API_SERVER + '/genres').then(function successCallBack(response) {
             $scope.genres = response.data;

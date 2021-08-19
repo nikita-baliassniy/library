@@ -72,6 +72,7 @@ angular.module('library')
 
             }, function errorCallBack (response) {
                 Auth.setIsAuthorized('false');
+                toastr.error(response.data.message, 'Ошибка авторизации')
                 deferred.reject(response);
             });
             return deferred.promise;
@@ -96,6 +97,11 @@ angular.module('library')
                 deferred.reject(response);
                 toastr.error(response.data.message, 'Ошибка регистрации');
             });
+        },
+        logout: function () {
+            Auth.deleteToken();
+            Auth.deleteAlias();
+            Auth.setIsAuthorized('false');
         }
     };
     return Auth;

@@ -1,32 +1,36 @@
 <div class="container">
     <div class="shop-toolbar"></div>
-    <div ng-repeat="b in ProductsList" class="products-list">
-        <div class="product-card">
-            <div class="product-header">
-                <a ng-repeat="a in b.authors" href="" class="author animated">{{a.name}}</a>
-                <h3>
-                    <a href="#!/books/{{b.id}}" class="product-name animated">{{b.title}}</a>
-                </h3>
-            </div>
-            <div class="product-body">
-                <div class="product-image">
-                    <img ng-src="{{b.link_cover}}" alt="Обложка">
-                </div>
-                <div class="product-hover-toolbar">
-                    <a href="" class="single-btn">
-                        <img src="content/icons/bag.svg" alt="buy">
-                    </a>
-                    <a href="" class="single-btn">
-                        <img src="content/icons/hearth.svg" alt="like">
-                    </a>
-                    <a href="#!/books/{{b.id}}" class="single-btn">
-                        <img src="content/icons/eye.svg" alt="">
-                    </a>
-                </div>
-                <div class="product-cost">
-                    <span class="price">{{b.price}}</span>
-                    <del class="price-old"> 550.00 руб</del>
-                    <span class="price-discount">20%</span>
+    <div class="shop-product-wrap grid with-pagination row space-db--30 shop-border">
+        <div ng-repeat="b in ProductsList" class="col-lg-4 col-cm-6">
+            <div class="product-card">
+                <div class="product-grid-content">
+                    <div class="product-header">
+                        <a ng-repeat="a in b.authors" href="" class="author animated">{{a.name}}</a>
+                        <h3>
+                            <a href="#!/books/{{b.id}}" class="product-name animated">{{b.title}}</a>
+                        </h3>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-image">
+                            <img ng-src="{{b.link_cover}}" alt="Обложка">
+                        </div>
+                        <div class="product-hover-toolbar">
+                            <a href="" class="single-btn">
+                                <img src="content/icons/bag.svg" alt="buy">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/hearth.svg" alt="like">
+                            </a>
+                            <a href="#!/books/{{b.id}}" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="product-cost">
+                            <span class="price">{{b.price}}</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
