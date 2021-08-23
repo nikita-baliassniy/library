@@ -48,6 +48,12 @@ public class BookService {
                 .map(book -> modelMapper.map(book, BookListDto.class));
     }
 
+    public Page<BookListDto> getBookPage(Integer page, Integer count) {
+        return bookRepository
+                .findAll(PageRequest.of(page-1, count))
+                .map(book -> modelMapper.map(book, BookListDto.class));
+    }
+
     public Optional<BookDto> insertOrUpdateBook(BookDto bookDto) {
         try {
 //            Book upBook;
@@ -103,6 +109,10 @@ public class BookService {
                 .sorted(Map.Entry.<BookListDto, Integer>comparingByValue().reversed())
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
+    }
+
+    public List<BookListDto> getBookPageByGenre(Genre genre, Integer page, Integer count) {
+        return bookRepository.findAllByGenres(genre).stream().map(book -> modelMapper.map(book, BookListDto.class)).collect(Collectors.toList());
     }
 
 }

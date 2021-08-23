@@ -41,6 +41,10 @@
                 templateUrl: 'pages/shop-list/shop-list.html',
                 controller: 'shopListController'
             })
+            .when('/shop-list/genre/:genreId', {
+                templateUrl: 'pages/shop-list/shop-list.html',
+                controller: 'bookByGenreController'
+            })
             .when('/userDetails', {
                 templateUrl: 'pages/user-details/user-details.html',
                 controller: 'userDetailsController'

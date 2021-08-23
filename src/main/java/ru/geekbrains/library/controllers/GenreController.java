@@ -5,7 +5,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.library.dto.GenreDto;
 import ru.geekbrains.library.dto.GenreListDto;
-import ru.geekbrains.library.exceptions.AuthorNotFoundException;
 import ru.geekbrains.library.exceptions.GenreBadDataException;
 import ru.geekbrains.library.exceptions.GenreNotFoundException;
 import ru.geekbrains.library.services.GenreService;
@@ -26,7 +25,7 @@ public class GenreController {
 
     @GetMapping("/{id}")
     public GenreDto getGenreById(@PathVariable Long id) {
-        return genreService.getGenreById(id).orElseThrow(() -> new GenreNotFoundException("Жанр с ID: " + id + " не найден"));
+        return genreService.getGenreDtoById(id).orElseThrow(() -> new GenreNotFoundException("Жанр с ID: " + id + " не найден"));
     }
 
     @PostMapping
