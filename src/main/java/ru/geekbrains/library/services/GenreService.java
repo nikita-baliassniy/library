@@ -31,8 +31,12 @@ public class GenreService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<GenreDto> getGenreById(Long id) {
+    public Optional<GenreDto> getGenreDtoById(Long id) {
         return genreRepository.findById(id).map(genre -> modelMapper.map(genre, GenreDto.class));
+    }
+
+    public Optional<Genre> getGenreById(Long id) {
+        return genreRepository.findById(id);
     }
 
     public Optional<GenreDto> insertOrUpdateGenre(GenreDto genreDto) {
