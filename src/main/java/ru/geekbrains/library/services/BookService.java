@@ -111,8 +111,8 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-    public List<BookListDto> getBookPageByGenre(Genre genre, Integer page, Integer count) {
-        return bookRepository.findAllByGenres(genre).stream().map(book -> modelMapper.map(book, BookListDto.class)).collect(Collectors.toList());
+    public Page<BookListDto> getBookPageByGenre(Genre genre, Integer page, Integer count) {
+        return bookRepository.findAllByGenres(genre, PageRequest.of(page-1, count)).map(book -> modelMapper.map(book, BookListDto.class));
     }
 
 }

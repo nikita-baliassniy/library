@@ -1,7 +1,14 @@
 angular.module('library').controller('bookByGenreController', function ($scope, $http, $routeParams, API_SERVER) {
 
     $scope.getBooksByGenreId = function(genreId, pageIndex = 1) {
-        $http.get(API_SERVER + '/books/genre/' + genreId).then(
+        $http({
+            url: API_SERVER + '/books/genre/' + genreId,
+            method: 'GET',
+            params: {
+                count: $scope.filter ? $scope.filter.size : 10,
+                page: pageIndex
+            },
+        }).then(
             function successCallBack(response) {
                 $scope.ProductsPage = response.data;
                 $scope.ProductsList = $scope.ProductsPage.content;
@@ -37,11 +44,15 @@ angular.module('library').controller('bookByGenreController', function ($scope, 
         }
     };
 
-    $scope.checkGenreId = function () {
+    $scope.checkGenreId = function (pageIndex = 1) {
         let genreID = parseInt($routeParams.genreId);
         if (!isNaN(genreID) && angular.isNumber(genreID)) {
-            $scope.getBooksByGenreId(genreID);
+            $scope.getBooksByGenreId(genreID, pageIndex);
         }
+    }
+
+    $scope.fillTable = function(pageIndex) {
+        $scope.checkGenreId(pageIndex);
     }
 
     $scope.checkGenreId();

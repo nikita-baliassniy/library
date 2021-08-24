@@ -40,16 +40,16 @@
             <ul class="pagination" style="margin: 0px">
 
                 <li ng-class="ProductsPage.first ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" ng-click="fillTable(ProductsPage.number)"><</a>
+                    <a href="" class="page-link" ng-click="fillTable(ProductsPage.number)"><</a>
                 </li>
 
                 <li data-ng-repeat="index in PageArray"
                     ng-class="ProductsPage.number == index-1 ? 'page-item active' : 'page-item'">
-                    <a class="page-link" ng-click="fillTable(index)">{{index}}</a>
+                    <a href="" class="page-link" ng-click="fillTable(index)">{{index}}</a>
                 </li>
 
                 <li ng-class="ProductsPage.last ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" ng-click="fillTable(ProductsPage.number + 2)">></a>
+                    <a href="" class="page-link" ng-click="fillTable(ProductsPage.number + 2)">></a>
                 </li>
             </ul>
         </nav>

@@ -70,10 +70,10 @@ public class BookController {
     }
 
     @GetMapping("/genre/{id}")
-    public List<BookListDto> getBooksByGenre(@PathVariable Long id,
-                                             @RequestParam(defaultValue = "0", name = "page") Integer page,
+    public Page<BookListDto> getBooksByGenre(@PathVariable Long id,
+                                             @RequestParam(defaultValue = "1", name = "page") Integer page,
                                              @RequestParam(defaultValue = "10", name = "count") Integer count) {
         Genre genre = genreService.getGenreById(id).orElseThrow(()-> new GenreNotFoundException("Автор с Id: " + " не найлен"));
-        return bookService.getBookByGenre(genre);
+        return bookService.getBookPageByGenre(genre, page, count);
     }
 }
