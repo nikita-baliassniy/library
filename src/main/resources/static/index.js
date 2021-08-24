@@ -17,6 +17,10 @@
                 templateUrl: 'pages/auth/auth.html',
                 controller: 'authController'
             })
+            .when('/authors/:authorId', {
+                templateUrl: 'pages/author/author.html',
+                controller: 'authorController'
+            })
             .when('/cart', {
                 templateUrl: 'pages/cart/cart.html',
                 controller: 'cartController'
