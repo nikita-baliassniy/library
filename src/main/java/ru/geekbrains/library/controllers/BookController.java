@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.library.dto.BookDto;
 import ru.geekbrains.library.dto.BookListDto;
 import ru.geekbrains.library.dto.CommentDto;
-import ru.geekbrains.library.dto.GenreDto;
 import ru.geekbrains.library.exceptions.BookBadDataException;
 import ru.geekbrains.library.exceptions.BookNotFoundException;
 import ru.geekbrains.library.exceptions.GenreNotFoundException;
@@ -73,7 +72,7 @@ public class BookController {
     public Page<BookListDto> getBooksByGenre(@PathVariable Long id,
                                              @RequestParam(defaultValue = "1", name = "page") Integer page,
                                              @RequestParam(defaultValue = "10", name = "count") Integer count) {
-        Genre genre = genreService.getGenreById(id).orElseThrow(()-> new GenreNotFoundException("Автор с Id: " + " не найлен"));
+        Genre genre = genreService.getGenreById(id).orElseThrow(()-> new GenreNotFoundException("Жанр с Id: " + " не найлен"));
         return bookService.getBookPageByGenre(genre, page, count);
     }
 }

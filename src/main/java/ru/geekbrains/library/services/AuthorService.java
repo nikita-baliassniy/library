@@ -29,7 +29,7 @@ public class AuthorService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<AuthorDto> findAuthorById(Long id) {
+    public Optional<AuthorDto> findAuthorDtoById(Long id) {
         return authorRepository.findById(id).map(author -> modelMapper.map(author, AuthorDto.class));
     }
 

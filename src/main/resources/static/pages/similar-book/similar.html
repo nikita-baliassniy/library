@@ -7,7 +7,7 @@
             <div ng-repeat="book in bookList" class="col-lg-3 col-sm-6">
                 <div class="product-card">
                     <div class="product-header">
-                        <a ng-repeat="author in book.authors" href="" class="author" tabindex="0">
+                        <a ng-repeat="author in book.authors" href="#!/authors/{{author.id}}" class="author" tabindex="0">
                             {{author.name + ($last ? '' : ', ')}}
                         </a>
                         <h3><a href="#!/books/{{book.id}}" tabindex="0">{{book.title}}</a>
