@@ -46,7 +46,7 @@
                         </div>
                         <div class="product-cost">
                             <span class="price">{{n.price}} руб.</span>
-                            <del ng-show="n.discount != 0" class="price-old"> 550.00 руб</del>
+                            <del ng-show="n.discount != 0" class="price-old"> {{n.price*(1+n.discount/100)}} руб.</del>
                             <span ng-show="n.discount !=0" class="price-discount">{{n.discount}}%</span>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                         </div>
                         <div class="product-cost">
                             <span class="price">{{s.price}} руб.</span>
-                            <del ng-show="n.discount != 0" class="price-old"> 550.00 руб</del>
+                            <del ng-show="n.discount != 0" class="price-old"> {{s.price*(1+s.discount/100)}} руб.</del>
                             <span ng-show="n.discount !=0" class="price-discount">{{s.discount}}%</span>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                         </div>
                         <div class="product-cost">
                             <span class="price">{{a.price}} руб.</span>
-                            <del ng-show="a.discount != 0" class="price-old"> 550.00 руб</del>
+                            <del ng-show="a.discount != 0" class="price-old">{{a.price*(1+a.discount/100)}} руб.</del>
                             <span ng-show="a.discount !=0" class="price-discount">{{a.discount}}%</span>
                         </div>
                     </div>

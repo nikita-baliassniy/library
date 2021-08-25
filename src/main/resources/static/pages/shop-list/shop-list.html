@@ -26,9 +26,9 @@
                             </a>
                         </div>
                         <div class="product-cost">
-                            <span class="price">{{b.price}}</span>
-                            <del class="price-old"> 550.00 руб</del>
-                            <span class="price-discount">20%</span>
+                            <span class="price">{{b.price}} руб.</span>
+                            <del ng-show="n.discount != 0" class="price-old"> {{b.price*(1+b.discount/100)}} руб.</del>
+                            <span ng-show="n.discount !=0" class="price-discount">{{b.discount}}%</span>
                         </div>
                     </div>
                 </div>
