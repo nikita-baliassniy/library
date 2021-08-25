@@ -1,10 +1,11 @@
-<div class="container" ng-controller="shopListController">
+<div class="container">
+    <div class="shop-toolbar"></div>
     <div class="shop-product-wrap grid with-pagination row space-db--30 shop-border">
         <div ng-repeat="b in ProductsList" class="col-lg-4 col-cm-6">
             <div class="product-card">
                 <div class="product-grid-content">
                     <div class="product-header">
-                        <a ng-repeat="a in b.authors" href="" class="author animated">{{a.name}}</a>
+                        <a ng-repeat="a in b.authors" href="#!/authors/{{a.id}}" class="author animated">{{a.name}}</a>
                         <h3>
                             <a href="#!/books/{{b.id}}" class="product-name animated">{{b.title}}</a>
                         </h3>
@@ -25,62 +26,40 @@
                             </a>
                         </div>
                         <div class="product-cost">
-                            <span class="price">{{b.price}} руб.</span>
-                            <del ng-show="b.discount != 0" class="price-old"> {{b.price*(1+b.discount/100)}} руб.</del>
-                            <span ng-show="b.discount !=0" class="price-discount">{{b.discount}}%</span>
+                            <span class="price">{{b.price}}</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="pagination-block container">
-        <div class="pagination" style="position: absolute; max-width: inherit">
-            <nav aria-label="Page navigation example" ng-model="filter.page">
-                <ul class="pagination" style="margin: 0px">
+    <div style="display: flex; justify-content: space-between ">
+        <nav aria-label="Page navigation example" ng-model="filter.page">
+            <ul class="pagination" style="margin: 0px">
 
-                    <li ng-class="ProductsPage.first ? 'page-item disabled' : 'page-item'">
-                        <a class="page-link" ng-click="fillTable(ProductsPage.number)"><</a>
-                    </li>
+                <li ng-class="ProductsPage.first ? 'page-item disabled' : 'page-item'">
+                    <a href="" class="page-link" ng-click="fillTable(ProductsPage.number)"><</a>
+                </li>
 
-                    <li ng-show="ProductsPage.number-3 >=0 "
-                        ng-class="ProductsPage.number == 1 ? 'page-item active' : 'page-item'">
-                        <a class="page-link" ng-click="fillTable(1)">1</a>
-                    </li>
+                <li data-ng-repeat="index in PageArray"
+                    ng-class="ProductsPage.number == index-1 ? 'page-item active' : 'page-item'">
+                    <a href="" class="page-link" ng-click="fillTable(index)">{{index}}</a>
+                </li>
 
-                    <li ng-show="ProductsPage.number-3 >= 1" class="page-item disabled">
-                        <a class="page-link">...</a>
-                    </li>
-
-                    <li data-ng-repeat="index in PageArray"
-                        ng-class="ProductsPage.number == index-1 ? 'page-item active' : 'page-item'">
-                        <a class="page-link" ng-click="fillTable(index)">{{index}}</a>
-                    </li>
-
-                    <li ng-show="ProductsPage.number < ProductsPage.totalPages-4" class="page-item disabled">
-                        <a class="page-link">...</a>
-                    </li>
-
-                    <li ng-show="ProductsPage.number < ProductsPage.totalPages-3"
-                        ng-class="ProductsPage.number == ProductsPage.totalPages-1 ? 'page-item active' : 'page-item'">
-                        <a class="page-link"
-                           ng-click="fillTable(ProductsPage.totalPages)">{{ProductsPage.totalPages}}</a>
-                    </li>
-
-                    <li ng-class="ProductsPage.last ? 'page-item disabled' : 'page-item'">
-                        <a class="page-link" ng-click="fillTable(ProductsPage.number + 2)">></a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="index-selector">
+                <li ng-class="ProductsPage.last ? 'page-item disabled' : 'page-item'">
+                    <a href="" class="page-link" ng-click="fillTable(ProductsPage.number + 2)">></a>
+                </li>
+            </ul>
+        </nav>
+        <div style="display: flex; min-width: 200px; vertical-align: center">
             <h5 style="font-size: 18px; min-inline-size: 140px; margin: 0; align-self: center">Показывать по</h5>
-            <select class="form-select" aria-label="Default select example">
-                <option value="3">3</option>
-                <option value="6">6</option>
-                <option value="9">9</option>
-                <option value="12">12</option>
-                <option value="15">15</option>
+            <select id="pagination" class="form-select" aria-label="Default select example"
+                    style="max-width: 150px" ng-click="changePagination()" ng-model="filter.size">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
             </select>
         </div>
     </div>

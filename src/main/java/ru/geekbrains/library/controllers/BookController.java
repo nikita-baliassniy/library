@@ -13,7 +13,6 @@ import ru.geekbrains.library.exceptions.BookBadDataException;
 import ru.geekbrains.library.exceptions.BookNotFoundException;
 import ru.geekbrains.library.exceptions.GenreNotFoundException;
 import ru.geekbrains.library.model.Genre;
-import ru.geekbrains.library.model.filter.ModelSorter;
 import ru.geekbrains.library.repositories.specifications.BookSpecifications;
 import ru.geekbrains.library.services.BookService;
 import ru.geekbrains.library.services.GenreService;
@@ -35,9 +34,9 @@ public class BookController {
 
     @GetMapping
     public Page<BookListDto> getAllBooks(@RequestParam MultiValueMap<String, String> params,
-                                         @RequestParam(defaultValue = "1", name = "page") Integer page,
-                                         @RequestParam(defaultValue = "9", name = "count") Integer count) {
-        Page<BookListDto> bld = bookService.getBookPage(BookSpecifications.build(params), page, count, new ModelSorter(params));
+                                         @RequestParam(defaultValue = "0", name = "page") Integer page,
+                                         @RequestParam(defaultValue = "10", name = "count") Integer count) {
+        Page<BookListDto> bld = bookService.getBookPage(BookSpecifications.build(params), page, count);
         return bld;
     }
 

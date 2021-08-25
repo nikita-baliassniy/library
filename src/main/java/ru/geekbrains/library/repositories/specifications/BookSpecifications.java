@@ -4,18 +4,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.MultiValueMap;
 import ru.geekbrains.library.model.Book;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class BookSpecifications {
     private static Specification<Book> titleLike(String titlePart) {
         return (Specification<Book>) (root, criteriaQuery, criteriaBuilder) ->
                 criteriaBuilder.like(root.get("title"), String.format("%%%s%%", titlePart));
-    }
-
-    private static Specification<Book> genreEquals(Long genreId) {
-        return (Specification<Book>) (root, criteriaQuery, criteriaBuilder) ->
-                criteriaBuilder.isMember(genreId, root.get("genres"));
     }
 
     private static Specification<Book> yearEquals(int year) {
@@ -48,15 +40,6 @@ public class BookSpecifications {
         }
         if (params.containsKey("year_of_publish") && !params.getFirst("year_of_publish").isBlank()) {
             spec = spec.and(BookSpecifications.yearEquals(Integer.parseInt(params.getFirst("year_of_publish"))));
-        }
-        if (params.containsKey("genre") && !params.getFirst("genre").isBlank()) {
-            List<Long> genres = params.get("genre")
-                    .stream()
-                    .map(Long::parseLong)
-                    .collect(Collectors.toList());
-            for (Long genreId : genres) {
-                spec = spec.and(BookSpecifications.genreEquals(genreId));
-            }
         }
         return spec;
     }
