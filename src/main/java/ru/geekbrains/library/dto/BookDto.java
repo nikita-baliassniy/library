@@ -14,6 +14,7 @@ public class BookDto {
     private Double price;
     private String description;
     private int yearOfPublish;
+    private int discount;
     private BookInfoDto bookInfo;
     private BookStorageDto bookStorage;
     private List<AuthorListDto> authors;
@@ -22,8 +23,12 @@ public class BookDto {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {return true;}
-        if (o == null || getClass() != o.getClass()) {return false;}
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         BookDto tmp = (BookDto) o;
         return o.equals(this.getId());
     }
