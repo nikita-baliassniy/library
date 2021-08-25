@@ -11,11 +11,9 @@ import ru.geekbrains.library.dto.BookListDto;
 import ru.geekbrains.library.dto.CommentDto;
 import ru.geekbrains.library.exceptions.BookBadDataException;
 import ru.geekbrains.library.exceptions.BookNotFoundException;
-import ru.geekbrains.library.exceptions.GenreNotFoundException;
-import ru.geekbrains.library.model.Genre;
+import ru.geekbrains.library.model.filter.ModelSorter;
 import ru.geekbrains.library.repositories.specifications.BookSpecifications;
 import ru.geekbrains.library.services.BookService;
-import ru.geekbrains.library.services.GenreService;
 
 import java.util.List;
 
@@ -24,7 +22,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookController {
     private final BookService bookService;
-    private final GenreService genreService;
 
     @GetMapping("/{id}")
     public BookDto getBookById(@PathVariable Long id) {
@@ -34,9 +31,9 @@ public class BookController {
 
     @GetMapping
     public Page<BookListDto> getAllBooks(@RequestParam MultiValueMap<String, String> params,
-                                         @RequestParam(defaultValue = "0", name = "page") Integer page,
-                                         @RequestParam(defaultValue = "10", name = "count") Integer count) {
-        Page<BookListDto> bld = bookService.getBookPage(BookSpecifications.build(params), page, count);
+                                         @RequestParam(defaultValue = "1", name = "page") Integer page,
+                                         @RequestParam(defaultValue = "9", name = "count") Integer count) {
+        Page<BookListDto> bld = bookService.getBookPage(BookSpecifications.build(params), page, count, new ModelSorter(params));
         return bld;
     }
 
@@ -66,13 +63,5 @@ public class BookController {
     @PutMapping("/{bookId}/comment")
     public BookDto addNewComment(@RequestBody CommentDto commentDto, @PathVariable Long bookId) {
         return bookService.addComment(commentDto, bookId).orElseThrow(() -> new BookBadDataException("Ошибка сохранения комментария"));
-    }
-
-    @GetMapping("/genre/{id}")
-    public Page<BookListDto> getBooksByGenre(@PathVariable Long id,
-                                             @RequestParam(defaultValue = "1", name = "page") Integer page,
-                                             @RequestParam(defaultValue = "10", name = "count") Integer count) {
-        Genre genre = genreService.getGenreById(id).orElseThrow(()-> new GenreNotFoundException("Жанр с Id: " + " не найлен"));
-        return bookService.getBookPageByGenre(genre, page, count);
     }
 }

@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import ru.geekbrains.library.dto.BookDto;
 import ru.geekbrains.library.dto.BookListDto;
 import ru.geekbrains.library.dto.CommentDto;
-import ru.geekbrains.library.exceptions.BookNotFoundException;
 import ru.geekbrains.library.model.Book;
 import ru.geekbrains.library.model.Comments;
 import ru.geekbrains.library.model.Genre;
+import ru.geekbrains.library.model.filter.ModelSorter;
 import ru.geekbrains.library.repositories.BookRepository;
 
 import java.util.*;
@@ -42,9 +42,9 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-    public Page<BookListDto> getBookPage(Specification<Book> specification, Integer page, Integer count) {
+    public Page<BookListDto> getBookPage(Specification<Book> specification, Integer page, Integer count, ModelSorter modelSorter) {
         return bookRepository
-                .findAll(specification, PageRequest.of(page-1, count))
+                .findAll(specification, PageRequest.of(page - 1, count, modelSorter.byFiltered()))
                 .map(book -> modelMapper.map(book, BookListDto.class));
     }
 
