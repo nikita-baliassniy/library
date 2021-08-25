@@ -5,16 +5,19 @@ CREATE SCHEMA hiber;
 SET search_path TO hiber,public;
 DROP TABLE IF EXISTS books CASCADE;
 
-CREATE TABLE books (
-    id                  BIGSERIAL PRIMARY KEY,
+CREATE TABLE books
+(
+    id              BIGSERIAL PRIMARY KEY,
 --     info_id             BIGSERIAL NOT NULL REFERENCES books_info (id),
 --     storage_id          BIGSERIAL NOT NULL REFERENCES books_storage (id),
-    title               VARCHAR(255) NOT NULL,
-    price               NUMERIC(8, 2),
-    description         TEXT,
-    year_of_publish     INT,
-    created_at          TIMESTAMP default current_timestamp,
-    updated_at          TIMESTAMP default current_timestamp
+    title           VARCHAR(255) NOT NULL,
+    price           NUMERIC(8, 2),
+    description     TEXT,
+    year_of_publish INT,
+    discount        INTEGER   default 0,
+    editors_advice  BOOLEAN   default false,
+    created_at      TIMESTAMP default current_timestamp,
+    updated_at      TIMESTAMP default current_timestamp
 );
 
 CREATE TABLE books_info (
@@ -496,5 +499,14 @@ VALUES
 (28, 11),
 (29, 11),
 (30, 12);
+
+UPDATE books
+SET discount = 20
+WHERE id > 10
+  AND id < 20;
+UPDATE books
+SET editors_advice = true
+WHERE id > 0
+  AND id < 10;
 
 COMMIT

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -17,6 +18,7 @@ public class BookListDto {
     private double price;
     private String description;
     private int yearOfPublish;
+    private int discount;
     private Integer commentsCount;
     private BookInfoDto bookInfo;
     @JsonProperty("link_cover")
@@ -26,8 +28,12 @@ public class BookListDto {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {return true;}
-        if (o == null || getClass() != o.getClass()) {return false;}
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         BookListDto tmp = (BookListDto) o;
         return id.equals(tmp.getId());
     }

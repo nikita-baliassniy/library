@@ -20,10 +20,10 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "books")
 @NamedEntityGraph(name = "book-bookInfo-bookStorage-graph",
-            attributeNodes = {
+        attributeNodes = {
                 @NamedAttributeNode(value = "bookInfo"),
                 @NamedAttributeNode(value = "bookStorage")
-            })
+        })
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +41,12 @@ public class Book {
 
     @Column(name = "year_of_publish")
     private int yearOfPublish;
+
+    @Column(name = "discount")
+    private int discount;
+
+    @Column(name = "editors_advice")
+    private boolean editorsAdvice;
 
     @Column(name = "created_at")
     @CreationTimestamp
