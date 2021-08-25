@@ -1,4 +1,4 @@
-(function () {
+(function ($localStorage) {
     'use strict';
 
     angular
@@ -66,6 +66,13 @@
         // if ($localStorage.authUser) {
         //     $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.authUser.token;
         // }
+        if (!$localStorage.marketCartUuid) {
+            $http.post(API_SERVER + '/cart')
+                .then(function (response) {
+                    $localStorage.marketCartUuid = response.data;
+                });
+        }
+
     }
 })();
 
