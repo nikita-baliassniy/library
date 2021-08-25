@@ -316,10 +316,13 @@ VALUES
 (30, 'storage_repo/cover/30.jpg', 'storage_repo/fb2/30.fb2', 'storage_repo/pdf/30.pdf', 'storage_repo/epub/30.epub', 'storage_repo/audio/3.mp3');
 
 INSERT INTO comments (book_id, text, user_id, score) VALUES
-(1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap', 1, 4),
-(2, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley', 2, 3),
-(1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus euismod, ex in auctor convallis, velit enim maximus neque, a tincidunt leo mi eget turpis. Proin rutrum volutpat quam id laoreet. Aliquam ullamcorper ultrices malesuada. Duis laoreet, dolor ac feugiat mollis.', 2, 2),
-(3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse scelerisque ipsum id nisl maximus fringilla. Nunc sed nibh porttitor mi dignissim pulvinar at ut nulla.', 1, 5);
+(1, 'Неплохая книга для детской аудитории. Во взрослом возрасте перечитывать уже не рекомендую.', 1, 3),
+(2, 'Детская сказочка про магию, исключительно для детей', 2, 3),
+(2, 'Гарри Поттер - это замечательно, всем рекомендую, если есть такие, кто еще не читал его.', 1, 5),
+(1, 'Не зашла, уж очень занудно', 2, 2),
+(4, 'Прекрасное классическое произведение, стиль Уайльда непревзойден.', 1, 5),
+(5, 'Одна из самых лучших частей саги о Ведьмаке, как по мне.', 1, 5),
+(3, 'Столкнулся с Шерлоком Холмсом уже в сознательном взрослом возрасте, показался слишком простым.', 1, 3);
 
 INSERT INTO authors (name, date_of_birth, biography, country)
 VALUES

@@ -42,7 +42,12 @@ public class BookController {
 
     @GetMapping("/similar/{id}")
     public List<BookListDto> getSimilarBooks(@PathVariable Long id) {
-        return bookService.getSimilarBookPage(id, 2);
+        return bookService.getSimilarBooks(id, 2);
+    }
+
+    @GetMapping("/recommend/{userId}")
+    public List<BookListDto> getRecommendations(@PathVariable Long userId) {
+        return bookService.getRecommendations(userId, 3.5, 2);
     }
 
     @PostMapping

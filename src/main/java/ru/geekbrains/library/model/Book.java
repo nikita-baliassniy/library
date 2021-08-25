@@ -61,7 +61,7 @@ public class Book {
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     @Cascade(CascadeType.ALL)
     @Fetch(FetchMode.SUBSELECT)
-    private List<Comments> comments;
+    private List<Comment> comments;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @Fetch(FetchMode.SUBSELECT)
@@ -81,10 +81,10 @@ public class Book {
         return this.comments.size();
     }
 
-    public void addCommentAndRecalcScore(Comments comment) {
+    public void addCommentAndRecalcScore(Comment comment) {
         comment.setBook(this);
         this.comments.add(comment);
-        IntSummaryStatistics stats = this.comments.stream().mapToInt(Comments::getScore).summaryStatistics();
+        IntSummaryStatistics stats = this.comments.stream().mapToInt(Comment::getScore).summaryStatistics();
         this.bookInfo.setScore(stats.getAverage());
 
     }
