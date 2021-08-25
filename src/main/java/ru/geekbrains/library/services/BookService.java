@@ -46,13 +46,13 @@ public class BookService {
 
     public Page<BookListDto> getBookPage(Specification<Book> specification, Integer page, Integer count) {
         return bookRepository
-                .findAll(specification, PageRequest.of(page-1, count))
+                .findAll(specification, PageRequest.of(page - 1, count))
                 .map(book -> modelMapper.map(book, BookListDto.class));
     }
 
     public Page<BookListDto> getBookPage(Integer page, Integer count) {
         return bookRepository
-                .findAll(PageRequest.of(page-1, count))
+                .findAll(PageRequest.of(page - 1, count))
                 .map(book -> modelMapper.map(book, BookListDto.class));
     }
 
@@ -114,7 +114,7 @@ public class BookService {
     }
 
     public Page<BookListDto> getBookPageByGenre(Genre genre, Integer page, Integer count) {
-        return bookRepository.findAllByGenres(genre, PageRequest.of(page-1, count)).map(book -> modelMapper.map(book, BookListDto.class));
+        return bookRepository.findAllByGenres(genre, PageRequest.of(page - 1, count)).map(book -> modelMapper.map(book, BookListDto.class));
     }
 
     public List<BookListDto> getRecommendations(Long userId, double minimumScore, Integer minimumSimilarGenres) {
@@ -122,12 +122,14 @@ public class BookService {
         Map<Long, Integer> scores = commentService.findBooksScoresByUser(user);
         Map<BookListDto, Integer> recommendationMap = new HashMap<>();
         scores.forEach((key, value) -> {
-            List<BookListDto> currentSimilar = getSimilarBooks(key, minimumSimilarGenres);
-            currentSimilar.forEach(b -> {
-                if (scores.get(b.getId()) == null) {
-                    recommendationMap.put(b, recommendationMap.getOrDefault(b, 0) + 1);
-                }
-            });
+            if (value >= minimumScore) {
+                List<BookListDto> currentSimilar = getSimilarBooks(key, minimumSimilarGenres);
+                currentSimilar.forEach(b -> {
+                    if (scores.get(b.getId()) == null) {
+                        recommendationMap.put(b, recommendationMap.getOrDefault(b, 0) + 1);
+                    }
+                });
+            }
         });
         return recommendationMap
                 .entrySet()
