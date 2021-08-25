@@ -53,6 +53,10 @@
                 templateUrl: 'pages/user-details/user-details.html',
                 controller: 'userDetailsController'
             })
+            .when('/my-account', {
+                templateUrl: 'pages/my-account/my-account.html',
+                controller: 'myAccountController'
+            })
             .otherwise({
                 redirectTo: '/'
             });
