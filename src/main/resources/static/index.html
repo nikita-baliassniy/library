@@ -5,9 +5,16 @@
     <meta charset="UTF-8">
 
     <title>Книжный магазин Noname</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.2.0/angular-material.min.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.2.0/angular-material.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
@@ -16,22 +23,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-aria.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.2.0/angular-material.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>-->
 </head>
 
-<body ng-controller='indexController'>
+<body ng-controller="indexController" ng-init="checkToken()">
     <div class="header">
-        <div class="container top-header">
+        <div ng-show="checkAuth()" class="container top-header">
             <ul class="header-top-list">
                 <li>
                     <a href="/index.html" class="icon-li hearth animated">Избранное (0)</a>
                 </li>
                 <li>
                     <div class="user-menu">
-                        <a href="" class="icon-li user animated">Пользователь: Noname &#11163</a>
+                        <a href="" ng-if="alias" class="icon-li user animated">Пользователь: {{alias}}</a>
                         <div class="user-content">
                             <ul>
                                 <li>
@@ -47,7 +54,7 @@
                                 </li>
                                 <hr />
                                 <li>
-                                    <a href="" class="icon-li logout animated">Выйти</a>
+                                    <a ng-click="doLogout()" class="icon-li logout animated">Выйти</a>
                                 </li>
                             </ul>
                         </div>
@@ -84,6 +91,83 @@
                     </div>
                 </div>
             </div>
+            <div class="product-header">
+                <div class="container middle-header">
+                    <div class="middle-content">
+                        <img height="39" src="content/liblogo.png">
+                        <div class="find-group">
+                            <input type="text" placeholder="Введите название книги, автора">
+                            <button>Найти</button>
+                        </div>
+                        <div ng-show="!checkAuth()" class="login-group">
+                            <a href="#!/auth" class="font-weight-bold animated">Авторизоваться</a>
+                            <br>
+                            <span>Нет учетной записи?</span>
+                            <br>
+                            <a href="#!/auth" class="font-weight-bold animated">Зарегистрироваться</a>
+                        </div>
+                        <div class="cart">
+                            <div class="cart-group">
+                                <div class="icon">
+                                    <img src="content/icons/cart.svg" />
+                                </div>
+                                <div class="icon text">
+                                    <p>Корзина</p>
+                                    <h3 class="price">10,00&nbsp;руб.&nbsp;&#11163</h3>
+                                </div>
+                                <span class="counter">1</span>
+                            </div>
+                            <div class="cart-menu">
+                                <ul>
+                                    <li>
+                                        <div class="cart-item-mini">
+                                            <img src="content/book-covers/test-cover-mini.jpg" />
+                                            <div class="text-block">
+                                                <h3 class="font-weigth-bold">Название книги</h3>
+                                                <i>Жанр</i>
+                                                <i>Автор</i>
+                                                <div class="cart-item-mini-control-group">
+                                                    <input type="text" value="1">
+                                                    <span>x</span>
+                                                    <span class="price">10,00 руб.</span>
+                                                    <button class="cart-item-mini-bt">&plus;</button>
+                                                    <p>/</p>
+                                                    <button class="cart-item-mini-bt">&minus;</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <hr />
+                                <div class="cart-control-group">
+                                    <a href="cart.html" class="btn animated">В корзину > </a>
+                                    <a href="checkout.html" class="btn btn--primary">Оформить ></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-header">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-3">
+                                <nav ng-class="{'show':clicked}" ng-click="clicked = !clicked" class="category-nav">
+                                    <div>
+                                        <a href="javascript:void(0)" class="icon-li menu category-trigger">
+                                            Выбор жанра&nbsp&#11163;
+                                        </a>
+                                    </div>
+                                    <ul class="category-menu">
+                                        <li ng-repeat="genre in genres" class="cat-item">
+                                            <a class="animated" href="#!/shop-list/genre/{{genre.id}}">{{genre.name}}</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -97,15 +181,19 @@
 
 <!--    <script src="plugins.js"></script>-->
     <script src="index.js"></script>
+    <script src="authService.js"></script>
     <script src="pages/admin/admin.js"></script>
     <script src="pages/auth/auth.js"></script>
+    <script src="pages/author/author.js"></script>
     <script src="pages/cart/cart.js"></script>
     <script src="pages/checkout/checkout.js"></script>
     <script src="pages/home/home.js"></script>
     <script src="pages/orders-history/orders-history.js"></script>
     <script src="pages/book-detail/book-detail.js"></script>
     <script src="pages/shop-list/shop-list.js"></script>
+    <script src="pages/shop-list/bookByGenres.js"></script>
     <script src="pages/user-details/user-details.js"></script>
+    <script src="pages/similar-book/similar.js"></script>
 </body>
 
 </html>

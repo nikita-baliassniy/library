@@ -72,4 +72,13 @@ public class Cart {
         recalculate();
     }
 
+    public CartItem getItemBookId (Long id) {
+        for (CartItem ci : items) {
+            if (ci.getId().equals(id)) {
+                return ci;
+            }
+        }
+        return null;
+    }
+
 }

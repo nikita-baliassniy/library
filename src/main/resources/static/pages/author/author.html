@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col">
+        <div class="book-details-info">
+            <h3 class="book-title">
+                {{authorDetail.name}}
+            </h3>
+            <ul class="list-unstyled">
+                <li>
+                    Дата рождения: <span class="list-value">{{authorDetail.dateOfBirth | date:'dd.MM.yyyy'}}</span>
+                </li>
+                <li>
+                    Страна: <span class="list-value">{{authorDetail.country}}</span>
+                </li>
+            </ul>
+            <article>
+                {{authorDetail.biography}}
+            </article>
+        </div>
+    </div>
+</div>
+<ng-include src="'pages/similar-book/similar.html'" ng-controller="authorController"></ng-include>
+
+
+
+
+
+
+

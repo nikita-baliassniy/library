@@ -68,4 +68,12 @@ public class User {
     public String getUsername() {
         return userInfo.getName();
     }
+
+    public void setUsername(String name) {
+        if (userInfo == null) {
+            userInfo = new UserInfo();
+            userInfo.setUser(this);
+        }
+        userInfo.setName(name);
+    }
 }

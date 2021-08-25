@@ -1,4 +1,4 @@
-(function () {
+(function ($localStorage) {
     'use strict';
 
     angular
@@ -6,7 +6,8 @@
         .config(config)
         .run(run);
 
-    function config($routeProvider) {
+    function config($routeProvider, $httpProvider) {
+        $httpProvider.interceptors.push('AuthInterceptor');
         $routeProvider
             .when('/admin', {
                 templateUrl: 'pages/admin/admin.html',
@@ -15,6 +16,10 @@
             .when('/auth', {
                 templateUrl: 'pages/auth/auth.html',
                 controller: 'authController'
+            })
+            .when('/authors/:authorId', {
+                templateUrl: 'pages/author/author.html',
+                controller: 'authorController'
             })
             .when('/cart', {
                 templateUrl: 'pages/cart/cart.html',
@@ -40,6 +45,10 @@
                 templateUrl: 'pages/shop-list/shop-list.html',
                 controller: 'shopListController'
             })
+            .when('/shop-list/genre/:genreId', {
+                templateUrl: 'pages/shop-list/shop-list.html',
+                controller: 'bookByGenreController'
+            })
             .when('/userDetails', {
                 templateUrl: 'pages/user-details/user-details.html',
                 controller: 'userDetailsController'
@@ -50,14 +59,47 @@
     }
 
     function run($rootScope, $http, $localStorage) {
-        if ($localStorage.authUser) {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.authUser.token;
+        // if ($localStorage.authUser) {
+        //     $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.authUser.token;
+        // }
+        if (!$localStorage.marketCartUuid) {
+            $http.post(API_SERVER + '/cart')
+                .then(function (response) {
+                    $localStorage.marketCartUuid = response.data;
+                });
         }
+
     }
 })();
 
-angular.module('library').controller('indexController', function ($scope, $http, $localStorage) {
+angular.module('library').constant('API_SERVER', 'http://localhost:8189/lib/api/v1');
+angular.module('library').constant('HOME_SERVER', 'http://localhost:8189/lib');
 
+angular.module('library').controller('indexController', function ($scope, $http, $localStorage, AuthService, API_SERVER) {
+
+    $scope.alias = AuthService.getAlias();
+
+    $scope.checkAuth = function () {
+        // console.log('auth---- ' + AuthService.isAuthorized());
+        return AuthService.isAuthorized();
+    }
+
+    $scope.checkToken = function () {
+        AuthService.checkTokenExpired();
+    }
+
+    $scope.doLogout = function() {
+        AuthService.logout();
+    }
+
+    $scope.getGenres = function () {
+        $http.get(API_SERVER + '/genres').then(function successCallBack(response) {
+            $scope.genres = response.data;
+        })
+
+    }
+
+    $scope.getGenres();
 });
 
 angular.module('library').directive('starRating', function () {

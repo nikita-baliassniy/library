@@ -26,7 +26,7 @@ public class AuthorController {
 
     @GetMapping("/{id}")
     public AuthorDto getAuthorById(@PathVariable Long id) {
-        return authorService.findAuthorById(id).orElseThrow(() -> new AuthorNotFoundException("Автор с ID: " + id + " не найден"));
+        return authorService.findAuthorDtoById(id).orElseThrow(() -> new AuthorNotFoundException("Автор с ID: " + id + " не найден"));
     }
 
     @PostMapping

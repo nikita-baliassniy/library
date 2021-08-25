@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-lg-5">
-        <img src="image_repo/1.jpg">
+        <img src="{{bookDetail.bookStorage.link_cover}}" alt="Обложка">
     </div>
     <div class="col-lg-7">
         <div class="book-details-info">
             <p class="genre-block">
                 Жанры:
-                <a ng-repeat="genre in bookDetail.genres" href="#!/books/genre/{{genre.id}}">
+                <a ng-repeat="genre in bookDetail.genres" href="#!/shop-list/genre/{{genre.id}}">
                     {{genre.name + ($last ? '' : ', ')}}
                 </a>
             </p>
@@ -16,7 +16,11 @@
             <ul class="list-unstyled">
                 <li>
                     Авторы:
-                    <span ng-repeat="author in bookDetail.authors" class="list-value">{{author.name + ($last ? '' : ', ')}}</span>
+                    <a href="#!/authors/{{author.id}}" ng-repeat="author in bookDetail.authors">
+                    <span  class="list-value">
+                        {{author.name + ($last ? '' : ', ')}}
+                    </span>
+                    </a>
                 </li>
                 <li>
                     Опубликована: <span class="list-value">{{bookDetail.yearOfPublish}}</span>
@@ -109,6 +113,7 @@
         </md-content>
     </div>
 </div>
+<ng-include src="'pages/similar-book/similar.html'" ng-controller="similarController"></ng-include>
 
 
 

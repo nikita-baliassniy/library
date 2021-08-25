@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.geekbrains.library.model.Book;
+import ru.geekbrains.library.model.Genre;
 
 import javax.persistence.NamedNativeQuery;
 import java.util.Collection;
@@ -38,4 +39,9 @@ public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificat
     @EntityGraph(type = EntityGraph.EntityGraphType.FETCH,
             value ="book-bookInfo-bookStorage-graph")
     Optional<Book> findBookById(Long id);
+
+    @EntityGraph(type = EntityGraph.EntityGraphType.FETCH,
+            value ="book-bookInfo-bookStorage-graph")
+    Page<Book> findAllByGenres(Genre genre, Pageable pageable);
+
 }

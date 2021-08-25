@@ -29,8 +29,8 @@ public class BookStorage {
     @Column(name = "link_pdf", length = 255)
     private String link_pdf;
 
-    @Column(name = "link_doc", length = 255)
-    private String link_doc;
+    @Column(name = "link_epub", length = 255)
+    private String link_epub;
 
     @Column(name = "link_audio", length = 255)
     private String link_audio;
