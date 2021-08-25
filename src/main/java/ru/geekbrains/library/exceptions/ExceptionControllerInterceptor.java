@@ -52,11 +52,4 @@ public class ExceptionControllerInterceptor {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(BadSortingRequestException.class)
-    public ResponseEntity<?> handleBadSortingRequestException(BadSortingRequestException ex) {
-        log.error(ex.getMessage());
-        LibraryError error = new LibraryError(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-    }
-
 }

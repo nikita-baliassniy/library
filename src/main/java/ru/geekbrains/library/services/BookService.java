@@ -14,7 +14,6 @@ import ru.geekbrains.library.model.Book;
 import ru.geekbrains.library.model.Comment;
 import ru.geekbrains.library.model.Genre;
 import ru.geekbrains.library.model.User;
-import ru.geekbrains.library.model.filter.ModelSorter;
 import ru.geekbrains.library.repositories.BookRepository;
 
 import java.util.*;
@@ -45,9 +44,9 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-    public Page<BookListDto> getBookPage(Specification<Book> specification, Integer page, Integer count, ModelSorter modelSorter) {
+    public Page<BookListDto> getBookPage(Specification<Book> specification, Integer page, Integer count) {
         return bookRepository
-                .findAll(specification, PageRequest.of(page - 1, count, modelSorter.byFiltered()))
+                .findAll(specification, PageRequest.of(page - 1, count))
                 .map(book -> modelMapper.map(book, BookListDto.class));
     }
 

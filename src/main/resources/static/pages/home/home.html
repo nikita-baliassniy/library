@@ -1,4 +1,4 @@
-<div class="" ng-controller="homeController">
+<div class="">
     <section class="pt--30 section-margin">
         <div class="container">
             <div class="category-gallery-block">
@@ -23,15 +23,21 @@
         </div>
     </section>
     <section class="section-margin">
-        <div class="container novelties" ng-init="getNovelties()">
+        <div class="container">
             <div class="section-title section-title--bordered">
                 <h2>Новинки</h2>
             </div>
             <div class="section-content">
-                <div ng-repeat="n in noveltiesList" class="product-card">
+                <div class="product-card">
+                    <div class="product-header">
+                        <a href="" class="author animated">Автор</a>
+                        <h3>
+                            <a href="" class="product-name animated">Название</a>
+                        </h3>
+                    </div>
                     <div class="product-body">
                         <div class="product-image">
-                            <img src="{{n.link_cover}}" alt="Обложка">
+                            <img src="content/book-covers/test-cover.jpg" alt="Обложка">
                         </div>
                         <div class="product-hover-toolbar">
                             <a href="" class="single-btn">
@@ -40,30 +46,157 @@
                             <a href="" class="single-btn">
                                 <img src="content/icons/hearth.svg" alt="like">
                             </a>
-                            <a href="#!/books/{{n.id}}" class="single-btn">
-                                <img src="content/icons/eye.svg" alt="eye">
+                            <a href="" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
                             </a>
                         </div>
                         <div class="product-cost">
-                            <span class="price">{{n.price}} руб.</span>
-                            <del ng-show="n.discount != 0" class="price-old"> 550.00 руб</del>
-                            <span ng-show="n.discount !=0" class="price-discount">{{n.discount}}%</span>
+                            <span class="price">440.00 руб</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
                         </div>
                     </div>
+
+                </div>
+                <div class="product-card">
+                    <div class="product-header">
+                        <a href="" class="author animated">Автор</a>
+                        <h3>
+                            <a href="" class="product-name animated">Название</a>
+                        </h3>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-image">
+                            <img src="content/book-covers/test-cover.jpg" alt="Обложка">
+                        </div>
+                        <div class="product-hover-toolbar">
+                            <a href="" class="single-btn">
+                                <img src="content/icons/bag.svg" alt="buy">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/hearth.svg" alt="like">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="product-cost">
+                            <span class="price">440.00 руб</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="product-card">
+                    <div class="product-header">
+                        <a href="" class="author animated">Автор</a>
+                        <h3>
+                            <a href="" class="product-name animated">Название</a>
+                        </h3>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-image">
+                            <img src="content/book-covers/test-cover.jpg" alt="Обложка">
+                        </div>
+                        <div class="product-hover-toolbar">
+                            <a href="" class="single-btn">
+                                <img src="content/icons/bag.svg" alt="buy">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/hearth.svg" alt="like">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="product-cost">
+                            <span class="price">440.00 руб</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="product-card">
+                    <div class="product-header">
+                        <a href="" class="author animated">Автор</a>
+                        <h3>
+                            <a href="" class="product-name animated">Название</a>
+                        </h3>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-image">
+                            <img src="content/book-covers/test-cover.jpg" alt="Обложка">
+                        </div>
+                        <div class="product-hover-toolbar">
+                            <a href="" class="single-btn">
+                                <img src="content/icons/bag.svg" alt="buy">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/hearth.svg" alt="like">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="product-cost">
+                            <span class="price">440.00 руб</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="product-card">
+                    <div class="product-header">
+                        <a href="" class="author animated">Автор</a>
+                        <h3>
+                            <a href="" class="product-name animated">Название</a>
+                        </h3>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-image">
+                            <img src="content/book-covers/test-cover.jpg" alt="Обложка">
+                        </div>
+                        <div class="product-hover-toolbar">
+                            <a href="" class="single-btn">
+                                <img src="content/icons/bag.svg" alt="buy">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/hearth.svg" alt="like">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="product-cost">
+                            <span class="price">440.00 руб</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
     <section class="section-margin">
-        <div class="container novelties" ng-init="getSale()">
+        <div class="container">
             <div class="section-title section-title--bordered">
                 <h2>Распродажа</h2>
             </div>
             <div class="section-content">
-                <div ng-repeat="s in saleList" class="product-card">
+                <div class="product-card">
+                    <div class="product-header">
+                        <a href="" class="author animated">Автор</a>
+                        <h3>
+                            <a href="" class="product-name animated">Название</a>
+                        </h3>
+                    </div>
                     <div class="product-body">
                         <div class="product-image">
-                            <img src="{{s.link_cover}}" alt="Обложка">
+                            <img src="content/book-covers/test-cover.jpg" alt="Обложка">
                         </div>
                         <div class="product-hover-toolbar">
                             <a href="" class="single-btn">
@@ -72,30 +205,157 @@
                             <a href="" class="single-btn">
                                 <img src="content/icons/hearth.svg" alt="like">
                             </a>
-                            <a href="#!/books/{{s.id}}" class="single-btn">
+                            <a href="" class="single-btn">
                                 <img src="content/icons/eye.svg" alt="">
                             </a>
                         </div>
                         <div class="product-cost">
-                            <span class="price">{{s.price}} руб.</span>
-                            <del ng-show="n.discount != 0" class="price-old"> 550.00 руб</del>
-                            <span ng-show="n.discount !=0" class="price-discount">{{s.discount}}%</span>
+                            <span class="price">440.00 руб</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
                         </div>
                     </div>
+
+                </div>
+                <div class="product-card">
+                    <div class="product-header">
+                        <a href="" class="author animated">Автор</a>
+                        <h3>
+                            <a href="" class="product-name animated">Название</a>
+                        </h3>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-image">
+                            <img src="content/book-covers/test-cover.jpg" alt="Обложка">
+                        </div>
+                        <div class="product-hover-toolbar">
+                            <a href="" class="single-btn">
+                                <img src="content/icons/bag.svg" alt="buy">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/hearth.svg" alt="like">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="product-cost">
+                            <span class="price">440.00 руб</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="product-card">
+                    <div class="product-header">
+                        <a href="" class="author animated">Автор</a>
+                        <h3>
+                            <a href="" class="product-name animated">Название</a>
+                        </h3>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-image">
+                            <img src="content/book-covers/test-cover.jpg" alt="Обложка">
+                        </div>
+                        <div class="product-hover-toolbar">
+                            <a href="" class="single-btn">
+                                <img src="content/icons/bag.svg" alt="buy">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/hearth.svg" alt="like">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="product-cost">
+                            <span class="price">440.00 руб</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="product-card">
+                    <div class="product-header">
+                        <a href="" class="author animated">Автор</a>
+                        <h3>
+                            <a href="" class="product-name animated">Название</a>
+                        </h3>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-image">
+                            <img src="content/book-covers/test-cover.jpg" alt="Обложка">
+                        </div>
+                        <div class="product-hover-toolbar">
+                            <a href="" class="single-btn">
+                                <img src="content/icons/bag.svg" alt="buy">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/hearth.svg" alt="like">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="product-cost">
+                            <span class="price">440.00 руб</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="product-card">
+                    <div class="product-header">
+                        <a href="" class="author animated">Автор</a>
+                        <h3>
+                            <a href="" class="product-name animated">Название</a>
+                        </h3>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-image">
+                            <img src="content/book-covers/test-cover.jpg" alt="Обложка">
+                        </div>
+                        <div class="product-hover-toolbar">
+                            <a href="" class="single-btn">
+                                <img src="content/icons/bag.svg" alt="buy">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/hearth.svg" alt="like">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="product-cost">
+                            <span class="price">440.00 руб</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
     <section class="section-margin">
-        <div class="container novelties" ng-init="getAdvices()">
+        <div class="container">
             <div class="section-title section-title--bordered">
                 <h2>Выбор редакции</h2>
             </div>
             <div class="section-content">
-                <div ng-repeat="a in advancesList" class="product-card">
+                <div class="product-card">
+                    <div class="product-header">
+                        <a href="" class="author animated">Автор</a>
+                        <h3>
+                            <a href="" class="product-name animated">Название</a>
+                        </h3>
+                    </div>
                     <div class="product-body">
                         <div class="product-image">
-                            <img src="{{a.link_cover}}" alt="Обложка">
+                            <img src="content/book-covers/test-cover.jpg" alt="Обложка">
                         </div>
                         <div class="product-hover-toolbar">
                             <a href="" class="single-btn">
@@ -104,16 +364,137 @@
                             <a href="" class="single-btn">
                                 <img src="content/icons/hearth.svg" alt="like">
                             </a>
-                            <a href="#!/books/{{a.id}}" class="single-btn">
+                            <a href="" class="single-btn">
                                 <img src="content/icons/eye.svg" alt="">
                             </a>
                         </div>
                         <div class="product-cost">
-                            <span class="price">{{a.price}} руб.</span>
-                            <del ng-show="a.discount != 0" class="price-old"> 550.00 руб</del>
-                            <span ng-show="a.discount !=0" class="price-discount">{{a.discount}}%</span>
+                            <span class="price">440.00 руб</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
                         </div>
                     </div>
+
+                </div>
+                <div class="product-card">
+                    <div class="product-header">
+                        <a href="" class="author animated">Автор</a>
+                        <h3>
+                            <a href="" class="product-name animated">Название</a>
+                        </h3>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-image">
+                            <img src="content/book-covers/test-cover.jpg" alt="Обложка">
+                        </div>
+                        <div class="product-hover-toolbar">
+                            <a href="" class="single-btn">
+                                <img src="content/icons/bag.svg" alt="buy">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/hearth.svg" alt="like">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="product-cost">
+                            <span class="price">440.00 руб</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="product-card">
+                    <div class="product-header">
+                        <a href="" class="author animated">Автор</a>
+                        <h3>
+                            <a href="" class="product-name animated">Название</a>
+                        </h3>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-image">
+                            <img src="content/book-covers/test-cover.jpg" alt="Обложка">
+                        </div>
+                        <div class="product-hover-toolbar">
+                            <a href="" class="single-btn">
+                                <img src="content/icons/bag.svg" alt="buy">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/hearth.svg" alt="like">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="product-cost">
+                            <span class="price">440.00 руб</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="product-card">
+                    <div class="product-header">
+                        <a href="" class="author animated">Автор</a>
+                        <h3>
+                            <a href="" class="product-name animated">Название</a>
+                        </h3>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-image">
+                            <img src="content/book-covers/test-cover.jpg" alt="Обложка">
+                        </div>
+                        <div class="product-hover-toolbar">
+                            <a href="" class="single-btn">
+                                <img src="content/icons/bag.svg" alt="buy">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/hearth.svg" alt="like">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="product-cost">
+                            <span class="price">440.00 руб</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="product-card">
+                    <div class="product-header">
+                        <a href="" class="author animated">Автор</a>
+                        <h3>
+                            <a href="" class="product-name animated">Название</a>
+                        </h3>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-image">
+                            <img src="content/book-covers/test-cover.jpg" alt="Обложка">
+                        </div>
+                        <div class="product-hover-toolbar">
+                            <a href="" class="single-btn">
+                                <img src="content/icons/bag.svg" alt="buy">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/hearth.svg" alt="like">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="product-cost">
+                            <span class="price">440.00 руб</span>
+                            <del class="price-old"> 550.00 руб</del>
+                            <span class="price-discount">20%</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

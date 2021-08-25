@@ -1,4 +1,7 @@
 angular.module('library').controller('shopListController', function ($scope, $http, API_SERVER) {
+    // $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|ftp|blob):|data:image\//);
+    // const rootPath = 'http://localhost:8189/lib';
+    // const apiPath = rootPath + '/api/v1';
 
     $scope.fillTable = function (pageIndex) {
         $scope.findAllProducts(pageIndex);
