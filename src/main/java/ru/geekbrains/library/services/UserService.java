@@ -35,6 +35,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email);
     }
 
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
     public Optional<UserListDto> findUserListDtoByEmail(String email) {
         return userRepository.findByEmail(email).map(user -> modelMapper.map(user, UserListDto.class));
     }

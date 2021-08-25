@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import ru.geekbrains.library.dto.BookDto;
 import ru.geekbrains.library.dto.BookListDto;
 import ru.geekbrains.library.dto.CommentDto;
-import ru.geekbrains.library.exceptions.BookNotFoundException;
 import ru.geekbrains.library.model.Book;
-import ru.geekbrains.library.model.Comments;
+import ru.geekbrains.library.model.Comment;
 import ru.geekbrains.library.model.Genre;
+import ru.geekbrains.library.model.User;
 import ru.geekbrains.library.repositories.BookRepository;
 
 import java.util.*;
@@ -24,6 +24,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class BookService {
     private final BookRepository bookRepository;
+    private final CommentService commentService;
+    private final UserService userService;
     private final ModelMapper modelMapper;
 
     public Optional<Book> findBookById(Long id) {
@@ -72,7 +74,7 @@ public class BookService {
 
     public Optional<BookDto> addComment(CommentDto commentDto, Long bookId) {
         Book book = bookRepository.findBookById(bookId).get();
-        book.addCommentAndRecalcScore(modelMapper.map(commentDto, Comments.class));
+        book.addCommentAndRecalcScore(modelMapper.map(commentDto, Comment.class));
         return Optional.of(modelMapper.map(bookRepository.save(book), BookDto.class));
     }
 
@@ -80,7 +82,7 @@ public class BookService {
         return bookRepository.deleteBookById(id);
     }
 
-    public List<BookListDto> getSimilarBookPage(Long id, Integer minimumSimilarGenres) {
+    public List<BookListDto> getSimilarBooks(Long id, Integer minimumSimilarGenres) {
         Map<BookListDto, Integer> similarBooks = new HashMap<>();
         Book exampleBook = bookRepository.findBookById(id).get();
         Set<String> genresForSearch = exampleBook
@@ -115,4 +117,23 @@ public class BookService {
         return bookRepository.findAllByGenres(genre, PageRequest.of(page-1, count)).map(book -> modelMapper.map(book, BookListDto.class));
     }
 
+    public List<BookListDto> getRecommendations(Long userId, double minimumScore, Integer minimumSimilarGenres) {
+        User user = userService.findById(userId).get();
+        Map<Long, Integer> scores = commentService.findBooksScoresByUser(user);
+        Map<BookListDto, Integer> recommendationMap = new HashMap<>();
+        scores.forEach((key, value) -> {
+            List<BookListDto> currentSimilar = getSimilarBooks(key, minimumSimilarGenres);
+            currentSimilar.forEach(b -> {
+                if (scores.get(b.getId()) == null) {
+                    recommendationMap.put(b, recommendationMap.getOrDefault(b, 0) + 1);
+                }
+            });
+        });
+        return recommendationMap
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.<BookListDto, Integer>comparingByValue().reversed())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+    }
 }
