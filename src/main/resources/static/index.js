@@ -62,7 +62,7 @@
             });
     }
 
-    function run($rootScope, $http, $localStorage) {
+    function run($rootScope, $http, $localStorage, API_SERVER) {
         // if ($localStorage.authUser) {
         //     $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.authUser.token;
         // }
