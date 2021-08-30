@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 public class BookSpecifications {
     private static Specification<Book> titleLike(String titlePart) {
         return (Specification<Book>) (root, criteriaQuery, criteriaBuilder) ->
-                criteriaBuilder.like(root.get("title"), String.format("%%%s%%", titlePart));
+                criteriaBuilder.like(criteriaBuilder.lower(root.get("title"))
+                        , String.format("%%%s%%", titlePart).toLowerCase());
     }
 
     private static Specification<Book> genreEquals(Long genreId) {

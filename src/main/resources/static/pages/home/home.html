@@ -1,22 +1,42 @@
+<div class="bottom-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-3">
+                <nav ng-class="{'show':clicked}" ng-click="clicked = !clicked" class="category-nav">
+                    <div>
+                        <a href="javascript:void(0)" class="icon-li menu category-trigger">
+                            Выбор жанра&nbsp&#11163;
+                        </a>
+                    </div>
+                    <ul class="category-menu">
+                        <li ng-repeat="genre in genres" class="cat-item">
+                            <a class="animated" href="#!/shop-list/genre/{{genre.id}}">{{genre.name}}</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="" ng-controller="homeController">
     <section class="pt--30 section-margin">
         <div class="container">
             <div class="category-gallery-block">
-                <a href="" class="single-block hr-large">
-                    <img src="content/other/cat-gal-large.png" alt="">
+                <a href="#!/compilation/3/Фентези" class="single-block hr-large">
+                    <img src="storage_repo/homepage/fantasy.jpg" alt="">
                 </a>
                 <div class="single-block inner-block-wrapper">
-                    <a href="" class="single-image mid-image">
-                        <img src="content/other/cat-gal-mid.jpg" alt="">
+                    <a href="#!/compilation/1/Детективы" class="single-image mid-image">
+                        <img src="storage_repo/homepage/detectives.jpg" alt="">
                     </a>
-                    <a href="" class="single-image small-image">
-                        <img src="content/other/cat-gal-small.jpg" alt="">
+                    <a href="#!/compilation/6/Книги для детей" class="single-image small-image">
+                        <img src="storage_repo/homepage/for-children.jpeg" alt="">
                     </a>
-                    <a href="" class="single-image small-image">
-                        <img src="content/other/cat-gal-small.jpg" alt="">
+                    <a href="#!/compilation/11/Историческая и современная проза" class="single-image small-image">
+                        <img src="storage_repo/homepage/proza.jpg" alt="">
                     </a>
-                    <a href="" class="single-image mid-image">
-                        <img src="content/other/cat-gal-mid.jpg" alt="">
+                    <a href="#!/shop-list" class="single-image mid-image">
+                        <img src="storage_repo/homepage/akcia.jpg" alt="">
                     </a>
                 </div>
             </div>

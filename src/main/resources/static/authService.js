@@ -1,111 +1,126 @@
 angular.module('library')
     .service('AuthService', function ($http, $location, $q, $window, HOME_SERVER, API_SERVER) {
-    var Auth = {
+        var Auth = {
 
-        isAuthorized: function() {
-            // console.log('getToken-----------');
-            //  console.log($window.localStorage.getItem('token'));
-            //  console.log($window.localStorage.getItem('isAuth'));
-            return $window.localStorage.getItem('isAuth') === 'true';
-        },
+            isAuthorized: function () {
+                // console.log('getToken-----------');
+                //  console.log($window.localStorage.getItem('token'));
+                //  console.log($window.localStorage.getItem('isAuth'));
+                return $window.localStorage.getItem('isAuth') === 'true';
+            },
 
-        setIsAuthorized: function(value) {
-            $window.localStorage.setItem('isAuth', value);
-        },
+            setIsAuthorized: function (value) {
+                $window.localStorage.setItem('isAuth', value);
+            },
 
-        getToken: function () {
-            return $window.localStorage.getItem('token');
-        },
+            getToken: function () {
+                return $window.localStorage.getItem('token');
+            },
 
-        setToken: function (token) {
-            $window.localStorage.setItem('token', token);
-        },
+            setToken: function (token) {
+                $window.localStorage.setItem('token', token);
+            },
 
-        deleteToken: function () {
-            $window.localStorage.removeItem('token');
-        },
+            deleteToken: function () {
+                $window.localStorage.removeItem('token');
+            },
 
-        getAlias: function () {
-            return $window.localStorage.getItem('alias');
-        },
+            getAlias: function () {
+                return $window.localStorage.getItem('alias');
+            },
 
-        setAlias: function(alias) {
-            $window.localStorage.setItem('alias', alias);
-        },
+            setAlias: function (alias) {
+                $window.localStorage.setItem('alias', alias);
+            },
 
-        deleteAlias: function() {
-            $window.localStorage.removeItem('alias');
-        },
+            setNewsletterSub: function (subNewsletter) {
+                $window.localStorage.setItem('subNewsletter', subNewsletter)
+            },
 
-        checkTokenExpired: function(){
-            if (this.isAuthorized()) {
-                $http.get(API_SERVER + '/users/self').then(function successGetInfo(response) {
-                    // Auth.setAlias(response.data.name);
-                    console.log('VALID TOKEN------');
-                    Auth.setIsAuthorized('true');
-                }, function errorGetInfo(response) {
-                    console.log("!!!!-----INVALID-------!!!!!");
-                    Auth.setIsAuthorized('false');
-                });
-            }
-        },
+            getNewsletterSub: function () {
+                return $window.localStorage.getItem('subNewsletter') === 'true';
+            },
 
-        login: function (username, password) {
-            var deferred = $q.defer();
+            deleteAlias: function () {
+                $window.localStorage.removeItem('alias');
+            },
 
-            $http.post(HOME_SERVER + '/auth', {
-                username: username, password: password
-            }).then(function successCallBack(response){
-                if (response.data.token) {
-                    Auth.setToken(response.data.token);
-                    Auth.setIsAuthorized('true');
+            deleteNewsletterSub: function () {
+                $window.localStorage.removeItem('subNewsletter');
+            },
+
+            checkTokenExpired: function () {
+                if (this.isAuthorized()) {
                     $http.get(API_SERVER + '/users/self').then(function successGetInfo(response) {
-                        Auth.setAlias(response.data.name);
-                        $location.path('/');
-                        console.log('ALIAS------' + Auth.getAlias());
-                        toastr.success('Добро пожаловать ' + Auth.getAlias());
+                        // Auth.setAlias(response.data.name);
+                        console.log('VALID TOKEN------');
+                        Auth.setIsAuthorized('true');
                     }, function errorGetInfo(response) {
-                        console.log("ERROR get self info");
+                        console.log("!!!!-----INVALID-------!!!!!");
+                        Auth.setIsAuthorized('false');
                     });
                 }
-                deferred.resolve(response);
+            },
 
-            }, function errorCallBack (response) {
-                Auth.setIsAuthorized('false');
-                toastr.error(response.data.message, 'Ошибка авторизации')
-                deferred.reject(response);
-            });
-            return deferred.promise;
-        },
-        register: function (username, email, password) {
-            var deferred = $q.defer();
-            $http.put(HOME_SERVER + '/auth', {
-                name: username, email: email, password: password
-            }).then(function successCallBack(response) {
-                console.log('OK REGISTER');
-                console.log(Auth);
-                toastr.success('Вы зарегистрированы под логином ' + email, 'Регистрация успешна');
-                Auth.login(email, password).then(function successCallBack(response) {
-                    console.log('OK LOGIN');
-                    // Auth.setAlias(username);
+            login: function (username, password) {
+                var deferred = $q.defer();
+
+                $http.post(HOME_SERVER + '/auth', {
+                    username: username, password: password
+                }).then(function successCallBack(response) {
+                    if (response.data.token) {
+                        Auth.setToken(response.data.token);
+                        Auth.setIsAuthorized('true');
+                        $http.get(API_SERVER + '/users/self').then(function successGetInfo(response) {
+                            Auth.setAlias(response.data.name);
+                            Auth.setNewsletterSub(response.data.subscribeNews);
+                            console.log(response.data)
+                            $location.path('/');
+                            console.log('ALIAS------' + Auth.getAlias());
+                            toastr.success('Добро пожаловать ' + Auth.getAlias());
+                        }, function errorGetInfo(response) {
+                            console.log("ERROR get self info");
+                        });
+                    }
+                    deferred.resolve(response);
+
+                }, function errorCallBack(response) {
+                    Auth.setIsAuthorized('false');
+                    toastr.error(response.data.message, 'Ошибка авторизации')
+                    deferred.reject(response);
                 });
-                deferred.resolve(response);
-            }, function errorCallBack(response) {
-                console.log('ERROR REGISTER');
-                console.log(response);
-                console.log(response.data);
-                deferred.reject(response);
-                toastr.error(response.data.message, 'Ошибка регистрации');
-            });
-        },
-        logout: function () {
-            Auth.deleteToken();
-            Auth.deleteAlias();
-            Auth.setIsAuthorized('false');
-        }
-    };
-    return Auth;
-});
+                return deferred.promise;
+            },
+            register: function (username, email, password) {
+                var deferred = $q.defer();
+                $http.put(HOME_SERVER + '/auth', {
+                    name: username, email: email, password: password
+                }).then(function successCallBack(response) {
+                    console.log('OK REGISTER');
+                    console.log(Auth);
+                    toastr.success('Вы зарегистрированы под логином ' + email, 'Регистрация успешна');
+                    Auth.login(email, password).then(function successCallBack(response) {
+                        console.log('OK LOGIN');
+                        // Auth.setAlias(username);
+                    });
+                    deferred.resolve(response);
+                }, function errorCallBack(response) {
+                    console.log('ERROR REGISTER');
+                    console.log(response);
+                    console.log(response.data);
+                    deferred.reject(response);
+                    toastr.error(response.data.message, 'Ошибка регистрации');
+                });
+            },
+            logout: function () {
+                Auth.deleteToken();
+                Auth.deleteAlias();
+                Auth.deleteNewsletterSub();
+                Auth.setIsAuthorized('false');
+            }
+        };
+        return Auth;
+    });
 
 angular.module('library')
     .service('AuthInterceptor', function ($injector, $location, $q) {
@@ -120,13 +135,13 @@ angular.module('library')
                 return config;
             },
 
-            response: function(response) {
+            response: function (response) {
                 var Auth = $injector.get('AuthService');
                 // console.log("isvalidtokendate ------ CHECK ---- " + response.headers().isvalidtokendate);
                 if (response.headers().isvalidtokendate === 'true') {
                     // console.log("isvalidtokendate ------ TRUE ---- " + response.headers().isvalidtokendate);
                     Auth.setIsAuthorized('true');
-                } else if (response.headers().isvalidtokendate === 'false'){
+                } else if (response.headers().isvalidtokendate === 'false') {
                     // console.log("isvalidtokendate ------ FALSE ---- " + response.headers().isvalidtokendate);
                     Auth.deleteToken();
                     Auth.deleteAlias();

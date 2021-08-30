@@ -1,0 +1,102 @@
+<div class="container" ng-controller="findResultsController">
+    <div ng-init="findAuthors()" class="section-title section-title--bordered" ng-show="AuthorList.length > 0">
+        <h2>Найденные авторы по запросу {{findRequest}}</h2>
+        <ul>
+            <li class="mid-text animated" ng-repeat="author in AuthorList">
+                <a href="#!/authors/{{author.id}}">{{author.name}}</a>
+            </li>
+        </ul>
+    </div>
+
+    <div ng-init="findBooks()" class="section-title section-title--bordered" ng-show="BookList.length > 0">
+        <h2>Найденные книги по запросу {{findRequest}}</h2>
+    </div>
+    <div class="shop-product-wrap grid with-pagination row space-db--30 shop-border">
+        <div ng-repeat="b in BookList" class="col-lg-4 col-cm-6">
+            <div class="product-card">
+                <div class="product-grid-content">
+                    <div class="product-header">
+                        <a ng-repeat="a in b.authors" href="#!/authors/{{a.id}}" class="author animated">{{a.name}}</a>
+                        <h3>
+                            <a href="#!/books/{{b.id}}" class="product-name animated">{{b.title}}</a>
+                        </h3>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-image">
+                            <img ng-src="{{b.link_cover}}" alt="Обложка">
+                        </div>
+                        <div class="product-hover-toolbar">
+                            <a href="" class="single-btn">
+                                <img src="content/icons/bag.svg" alt="buy">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/hearth.svg" alt="like">
+                            </a>
+                            <a href="#!/books/{{b.id}}" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="product-cost">
+                            <span class="price">{{b.price}} руб.</span>
+                            <del ng-show="b.discount != 0" class="price-old">{{b.price*(1+b.discount/100)}} руб.</del>
+                            <span ng-show="b.discount !=0" class="price-discount">{{b.discount}}%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="BookList.length != 0" class="pagination-block container">
+        <div class="pagination" style="position: absolute; max-width: inherit">
+            <nav aria-label="Page navigation example" ng-model="filter.page">
+                <ul class="pagination" style="margin: 0px">
+
+                    <li ng-class="BookPage.first ? 'page-item disabled' : 'page-item'">
+                        <a class="page-link" ng-click="findBooks(BookPage.number)"><</a>
+                    </li>
+
+                    <li ng-show="BookPage.number-3 >=0 "
+                        ng-class="BookPage.number == 1 ? 'page-item active' : 'page-item'">
+                        <a class="page-link" ng-click="findBooks(1)">1</a>
+                    </li>
+
+                    <li ng-show="BookPage.number-3 >= 1" class="page-item disabled">
+                        <a class="page-link">...</a>
+                    </li>
+
+                    <li data-ng-repeat="index in PageArray"
+                        ng-class="BookPage.number == index-1 ? 'page-item active' : 'page-item'">
+                        <a class="page-link" ng-click="findBooks(index)">{{index}}</a>
+                    </li>
+
+                    <li ng-show="BookPage.number < BookPage.totalPages-4" class="page-item disabled">
+                        <a class="page-link">...</a>
+                    </li>
+
+                    <li ng-show="BookPage.number < BookPage.totalPages-3"
+                        ng-class="BookPage.number == BookPage.totalPages-1 ? 'page-item active' : 'page-item'">
+                        <a class="page-link"
+                           ng-click="findBooks(BookPage.totalPages)">{{BookPage.totalPages}}</a>
+                    </li>
+
+                    <li ng-class="BookPage.last ? 'page-item disabled' : 'page-item'">
+                        <a class="page-link" ng-click="findBooks(BookPage.number + 2)">></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="index-selector">
+            <h5 style="font-size: 18px; min-inline-size: 140px; margin: 0; align-self: center">Показывать по</h5>
+            <select class="form-select" aria-label="Default select example">
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="9">9</option>
+                <option value="12">12</option>
+                <option value="15">15</option>
+            </select>
+        </div>
+    </div>
+    <div ng-show="BookList.length == 0 && AuthorList.length == 0" class="no-books">
+        <i>По запросу {{findRequest}} ничего не найдено</i>
+    </div>
+</div>

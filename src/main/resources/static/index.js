@@ -17,6 +17,14 @@
                 templateUrl: 'pages/auth/auth.html',
                 controller: 'authController'
             })
+            .when('/register', {
+                templateUrl: 'pages/register/register.html',
+                controller: 'regController'
+            })
+            .when('/contacts', {
+                templateUrl: 'pages/contacts/contacts.html',
+                controller: 'contactsController'
+            })
             .when('/authors/:authorId', {
                 templateUrl: 'pages/author/author.html',
                 controller: 'authorController'
@@ -46,8 +54,16 @@
                 controller: 'shopListController'
             })
             .when('/shop-list/genre/:genreId', {
-                templateUrl: 'pages/shop-list/shop-list.html',
+                templateUrl: 'pages/home/home.html',
                 controller: 'bookByGenreController'
+            })
+            .when('/compilation/:genreId/:compilationName', {
+                templateUrl: 'pages/book-compilation/book-compilation.html',
+                controller: 'bookCompilationController'
+            })
+            .when('/find-results/:findRequest', {
+                templateUrl: 'pages/find-results/find-results.html',
+                controller: 'findResultsController'
             })
             .when('/userDetails', {
                 templateUrl: 'pages/user-details/user-details.html',
@@ -56,6 +72,7 @@
             .when('/my-account', {
                 templateUrl: 'pages/my-account/my-account.html',
                 controller: 'myAccountController'
+
             })
             .otherwise({
                 redirectTo: '/'
@@ -79,20 +96,81 @@
 angular.module('library').constant('API_SERVER', 'http://localhost:8189/lib/api/v1');
 angular.module('library').constant('HOME_SERVER', 'http://localhost:8189/lib');
 
-angular.module('library').controller('indexController', function ($scope, $http, $localStorage, AuthService, API_SERVER) {
+angular.module('library').controller('indexController', function ($scope, $http, $location, $localStorage, AuthService, API_SERVER) {
+
+    let searchField = document.getElementById('search-field');
+    let helperPane = document.getElementById('helperPane');
+
+    $scope.findResults = function () {
+        let parameter = searchField.value;
+        $scope.clearSearchField();
+        $location.path("/find-results/" + parameter);
+    }
+
+    searchField.addEventListener('input', function () {
+        helperPane.hidden = false;
+        $scope.findByTitle();
+        $scope.findByAuthor();
+    });
+
+    helperPane.addEventListener('mouseleave', function () {
+        helperPane.hidden = true;
+    })
 
     $scope.alias = AuthService.getAlias();
+
+    $scope.findByTitle = function () {
+        if (searchField.value !== "") {
+            $http({
+                url: API_SERVER + '/books',
+                method: 'GET',
+                params: {
+                    title: searchField.value,
+                    page: 1,
+                    count: 100,
+                    sort: "title,asc"
+                }
+            }).then(function (response) {
+                $scope.HelperBookList = response.data.content;
+            })
+        }
+    }
+
+    $scope.findByAuthor = function () {
+        if (searchField.value !== "") {
+            $http({
+                url: API_SERVER + '/authors',
+                method: 'GET',
+                params: {
+                    name: searchField.value,
+                    sort: "name,asc"
+                }
+            }).then(function (response) {
+                $scope.HelperAuthorList = response.data;
+                console.log($scope.HelperAuthorList);
+            })
+        }
+    }
+    $scope.clearSearchField = function () {
+        delete $scope.HelperAuthorList;
+        delete $scope.HelperBookList
+        searchField.value = null;
+    }
 
     $scope.checkAuth = function () {
         // console.log('auth---- ' + AuthService.isAuthorized());
         return AuthService.isAuthorized();
     }
 
+    $scope.checkSubNewsletter = function () {
+        return AuthService.getNewsletterSub();
+    }
+
     $scope.checkToken = function () {
         AuthService.checkTokenExpired();
     }
 
-    $scope.doLogout = function() {
+    $scope.doLogout = function () {
         AuthService.logout();
     }
 
@@ -101,6 +179,24 @@ angular.module('library').controller('indexController', function ($scope, $http,
             $scope.genres = response.data;
         })
 
+    }
+
+    $scope.sub = function () {
+        $http.get(API_SERVER + '/mail/sub').then(function successCallBak(response) {
+            AuthService.setNewsletterSub(true);
+            toastr.success("Вы успешно подписались на рассылку новостей")
+        }, function errorCallBack() {
+            toastr.error("Ошибка сервера при оформлении подписки на новостную рассылку")
+        });
+    }
+
+    $scope.unsub = function () {
+        $http.get(API_SERVER + '/mail/unsub').then(function successCallBak(response) {
+            AuthService.setNewsletterSub(false);
+            toastr.success("Вы отписались от рассылки новостей")
+        }, function errorCallBack() {
+            toastr.error("Ошибка сервера при отписке от новостной рассылки")
+        });
     }
 
     $scope.getGenres();
@@ -118,7 +214,7 @@ angular.module('library').directive('starRating', function () {
         },
         link: function (scope, elem, attrs) {
 
-            var updeteStars = function() {
+            var updeteStars = function () {
                 scope.stars = [];
                 for (var i = 0; i < scope.max; i++) {
                     if ((scope.ratingValue - i) >= 1) {
@@ -131,16 +227,16 @@ angular.module('library').directive('starRating', function () {
                 }
             }
 
-            scope.toggle = function(index) {
+            scope.toggle = function (index) {
                 if (scope.clicked === '') {
                     scope.ratingValue = index + 1;
-                     scope.onRatingSelected({
+                    scope.onRatingSelected({
                         rating: index + 1
                     });
                 }
             };
 
-            scope.$watch('ratingValue', function(newVal, oldVal) {
+            scope.$watch('ratingValue', function (newVal, oldVal) {
                 if (newVal !== undefined) {
                     updeteStars();
                 }

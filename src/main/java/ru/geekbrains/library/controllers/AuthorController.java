@@ -3,11 +3,14 @@ package ru.geekbrains.library.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.library.dto.AuthorDto;
 import ru.geekbrains.library.dto.AuthorListDto;
 import ru.geekbrains.library.exceptions.AuthorBadDataException;
 import ru.geekbrains.library.exceptions.AuthorNotFoundException;
+import ru.geekbrains.library.model.filter.ModelSorter;
+import ru.geekbrains.library.repositories.specifications.AuthorSpecification;
 import ru.geekbrains.library.services.AuthorService;
 
 import java.util.List;
@@ -20,8 +23,8 @@ public class AuthorController {
     private final AuthorService authorService;
 
     @GetMapping
-    public List<AuthorListDto> getAllAuthors() {
-        return authorService.findAll();
+    public List<AuthorListDto> getAllAuthors(@RequestParam MultiValueMap<String, String> params) {
+        return authorService.findAll(AuthorSpecification.build(params), new ModelSorter(params));
     }
 
     @GetMapping("/{id}")

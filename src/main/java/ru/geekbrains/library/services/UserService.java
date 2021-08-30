@@ -54,12 +54,18 @@ public class UserService implements UserDetailsService {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
-    public void createNewUser(UserRegisterDto newUser) {
+    public User createNewUser(UserRegisterDto newUser) {
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         User user = modelMapper.map(newUser, User.class);
         user.setRoles(new ArrayList<>());
-        Role role = roleService.getRoleForNewUser();
+        Role role = roleService.getRoleByName("ROLE_USER");
         user.getRoles().add(role);
         userRepository.save(user);
+        return user;
+    }
+
+    public List<User> findAllByRoles(List<String> rolesNames) {
+        List<Role> roles = roleService.findAllByName(rolesNames);
+        return userRepository.findByRolesIn(roles);
     }
 }

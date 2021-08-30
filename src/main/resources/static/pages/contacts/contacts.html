@@ -1,0 +1,44 @@
+<div>
+    <div class="container">
+        <div class="content-contacts">
+            <div class="contacts-infobox">
+                <img class="contacts-img" src="content/contacts.png" alt="no image" width="150">
+                <h4 class="small-title address">Адрес:</h4>
+                <p class="text">ул. Новый Арбат, 8, Москва</p>
+                <h4 class="small-title">Телефоны:</h4>
+                <ul>
+                    <li class="phone-logo">+7(800)555-35-35</li>
+                    <li class="phone-logo">+7(495)789-35-91</li>
+                </ul>
+                <h4 class="small-title">Мы в сети</h4>
+                <ul>
+                    <li class="icon-li mail-logo animated"><a href="mailto:e-Library@e-library.ru">e-Library@e-library.ru</a>
+                    <li class="icon-li vk-logo animated"><a href="https://vk.com">группа vk</a>
+                    <li class="icon-li twitter-logo animated"><a href="https://twitter.com">канал twitter</a>
+                    <li class="icon-li instagram-logo animated"><a href="https://instagram.com">профиль Instagram</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="message-form-panel">
+                <h4 class="small-title form-title">Связаться с нами</h4>
+                <form ng-submit="sendMessage()">
+                    <div class="input-fields">
+                        <label for="name">Имя</label><br>
+                        <input ng-model="mail.sender" class="input-field" id="name" type="text" placeholder="Введите ваше имя" required><br>
+                        <label for="mail">Электронная почта</label><br>
+                        <input ng-model="mail.senderAddress" class="input-field" id="mail" type="email" placeholder="Введите ваш e-mail" required><br>
+                        <div class="message-area-field">
+                            <label for="msg">Сообщение</label> <br>
+                            <textarea ng-model="mail.text" class="input-field area-field" id="msg" cols="30" rows="5"
+                                      placeholder="Введите ваше сообщение" required></textarea><br>
+                        </div>
+                    </div>
+                    <button class="bt-submit" type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+        <div class="map">
+            <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A936fd5bc001cf684f1355738f978b4ae1fa5c51f3cd5858d9967509b9e1d7281&amp;width=918&amp;height=597&amp;lang=ru_RU&amp;scroll=true"></script>
+        </div>
+    </div>
+</div>

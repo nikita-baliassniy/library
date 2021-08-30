@@ -3,10 +3,12 @@ package ru.geekbrains.library.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.library.dto.AuthorDto;
 import ru.geekbrains.library.dto.AuthorListDto;
 import ru.geekbrains.library.model.Author;
+import ru.geekbrains.library.model.filter.ModelSorter;
 import ru.geekbrains.library.repositories.AuthorRepository;
 
 import java.util.List;
@@ -21,9 +23,9 @@ public class AuthorService {
     private final AuthorRepository authorRepository;
     private final ModelMapper modelMapper;
 
-    public List<AuthorListDto> findAll() {
+    public List<AuthorListDto> findAll(Specification<Author> specification, ModelSorter sorter) {
         return authorRepository
-                .findAll()
+                .findAll(specification, sorter.byFiltered())
                 .stream()
                 .map(author -> modelMapper.map(author, AuthorListDto.class))
                 .collect(Collectors.toList());

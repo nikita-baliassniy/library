@@ -1,24 +1,8 @@
-<div class="container" ng-controller="shopListController">
+<div class="container" ng-controller="bookCompilationController">
+    <div class="section-title section-title--bordered">
+        <h2>Подборка книг в жанре {{compilationName}}</h2>
+    </div>
     <div class="shop-toolbar">
-        <div class="col-lg-3">
-            <nav ng-class="{'show':clicked}" ng-click="clicked = !clicked" class="category-nav">
-                <div>
-                    <a href="javascript:void(0)" class="category-trigger">
-                        Жанры&nbsp&#11163;
-                    </a>
-                    <span ng-show="genre.length>0" class="counter">{{genre.length}}</span>
-                </div>
-                <ul id="genresMenu" class="category-menu">
-                    <li ng-class="{'active':taped}" ng-click="fillTableByGenre(g.id);taped = !taped"
-                        ng-repeat="g in genres" class="cat-item" id="genre_{{g.id}}">
-                        <a class="animated">{{g.name}}</a>
-                    </li>
-                    <li class="cat-item clean-filter">
-                        <a ng-click="cleanGenreFilter()" class="animated">СБРОСИТЬ</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
         <div class="price-filter">
             <div class="price-label">
                 <label for="min-price" class="col-sm-2 col-form-label" style="width: 100%">Минимальная
@@ -46,8 +30,7 @@
             </div>
         </div>
     </div>
-<!--    <div class="shop-product-wrap grid with-pagination row space-db&#45;&#45;30 shop-border" ng-init="fillTable()">-->
-    <div class="shop-product-wrap grid with-pagination row space-db--30 shop-border">
+    <div class="shop-product-wrap grid with-pagination row space-db--30 shop-border" ng-init="fillTable()">
         <div ng-repeat="b in ProductsList" class="col-lg-4 col-cm-6">
             <div class="product-card">
                 <div class="product-grid-content">

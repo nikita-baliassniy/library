@@ -51,6 +51,11 @@ public class User {
             mappedBy = "user")
     private UserInfo userInfo;
 
+    @OneToOne(fetch = FetchType.LAZY,
+            orphanRemoval = true,
+            mappedBy = "user")
+    private Newsletter newsletter;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;

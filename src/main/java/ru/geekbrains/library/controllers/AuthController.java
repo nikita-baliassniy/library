@@ -13,6 +13,8 @@ import ru.geekbrains.library.dto.JwtRequest;
 import ru.geekbrains.library.dto.JwtResponse;
 import ru.geekbrains.library.dto.UserRegisterDto;
 import ru.geekbrains.library.exceptions.LibraryError;
+import ru.geekbrains.library.model.User;
+import ru.geekbrains.library.services.MailService;
 import ru.geekbrains.library.services.UserService;
 
 
@@ -23,6 +25,7 @@ public class AuthController {
     private final UserService userService;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
+    private final MailService mailService;
 
     @PostMapping
     public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) {
@@ -37,9 +40,10 @@ public class AuthController {
     }
 
     @PutMapping
-    public ResponseEntity<?> registerNeUser(@RequestBody UserRegisterDto newUser) {
+    public ResponseEntity<?> registerNewUser(@RequestBody UserRegisterDto newUser) {
         try {
-            userService.createNewUser(newUser);
+            User user = userService.createNewUser(newUser);
+            mailService.greatLetter(user);
             return ResponseEntity.ok(HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(new LibraryError(HttpStatus.BAD_REQUEST.value(), "Username or Email already exists"), HttpStatus.BAD_REQUEST);
