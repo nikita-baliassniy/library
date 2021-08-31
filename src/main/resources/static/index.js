@@ -93,7 +93,6 @@
                     console.log($localStorage.marketCartUuid);
                 });
         }
-
     }
 })();
 
@@ -185,6 +184,13 @@ angular.module('library').controller('indexController', function ($scope, $http,
 
     }
 
+    $scope.getCart = function () {
+        $http.get(API_SERVER + '/cart/' + $localStorage.marketCartUuid)
+            .then(function (response) {
+                $scope.Cart = response.data;
+            });
+    }
+
     $scope.sub = function () {
         $http.get(API_SERVER + '/mail/sub').then(function successCallBak(response) {
             AuthService.setNewsletterSub(true);
@@ -204,6 +210,7 @@ angular.module('library').controller('indexController', function ($scope, $http,
     }
 
     $scope.getGenres();
+    $scope.getCart();
 });
 
 angular.module('library').directive('starRating', function () {

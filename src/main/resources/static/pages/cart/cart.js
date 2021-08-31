@@ -42,7 +42,6 @@ angular.module('library').controller('cartController', function ($scope, $http, 
             }
         }).then(function (response) {
             $scope.showCart();
-            console.log($scope.Cart);
         });
     }
 

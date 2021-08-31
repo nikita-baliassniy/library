@@ -1,4 +1,4 @@
-angular.module('library').controller('findResultsController', function ($scope, $http, $routeParams, API_SERVER) {
+angular.module('library').controller('findResultsController', function ($scope, $http, $routeParams, API_SERVER, AuthService, $localStorage) {
     $scope.findRequest = $routeParams.findRequest;
 
     let pageSelector = document.querySelector('.index-selector select');
@@ -46,6 +46,18 @@ angular.module('library').controller('findResultsController', function ($scope, 
             $scope.AuthorList = response.data;
         })
     }
+
+    $scope.addToCartJS = function (bookId) {
+        $http({
+            url: API_SERVER + '/cart/add',
+            method: 'POST',
+            params: {
+                uuid: $localStorage.marketCartUuid,
+                book_id: bookId
+            }
+        }).then(function (response) {
+        });
+    };
 
     $scope.createPagesArray = function (start, end) {
         let array = [];

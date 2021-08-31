@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>Книжный магазин Noname</title>
+    <title>Книжный магазин eLibrary</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
@@ -134,27 +134,25 @@
                             </div>
                             <div class="icon text">
                                 <p>Корзина</p>
-                                <h3 class="price">10,00&nbsp;руб.&nbsp;&#11163</h3>
+                                <h3 ng-show="checkAuth()" class="price">{{Cart.totalPrice}}&nbsp;руб.&nbsp;&#11163</h3>
+                                <h3 ng-show="!checkAuth()" class="price">0,00&nbsp;руб.&nbsp;&#11163</h3>
                             </div>
-                            <span class="counter">1</span>
+                            <span ng-show="checkAuth()" class="counter">{{Cart.items.length}}</span>
+                            <span ng-show="!checkAuth()" class="counter">0</span>
                         </div>
-                        <div class="cart-menu">
+                        <div ng-show="checkAuth() && Cart.totalPrice > 0.00" class="cart-menu">
                             <ul>
                                 <li>
                                     <div class="cart-item-mini">
-                                        <img src="content/book-covers/test-cover-mini.jpg"/>
+                                        <!-- <img src="content/book-covers/test-cover-mini.jpg"/>-->
                                         <div class="text-block">
-                                            <h3 class="font-weigth-bold">Название книги</h3>
-                                            <i>Жанр</i>
-                                            <i>Автор</i>
-                                            <div class="cart-item-mini-control-group">
-                                                <input type="text" value="1">
-                                                <span>x</span>
-                                                <span class="price">10,00 руб.</span>
-                                                <button class="cart-item-mini-bt">&plus;</button>
-                                                <p>/</p>
-                                                <button class="cart-item-mini-bt">&minus;</button>
-                                            </div>
+                                            <table class="table">
+                                                <tr ng-repeat="ci in Cart.items">
+                                                    <td>{{ci.bookTitle}}</td>
+                                                    <td>{{ci.price}}</td>
+                                                    <td> <button class="btn">Удалить</button></td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     </div>
                                 </li>
