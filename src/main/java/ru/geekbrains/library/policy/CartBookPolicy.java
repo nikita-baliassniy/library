@@ -22,15 +22,22 @@ public class CartBookPolicy {
 
     @Transactional
     public void addToCart(UUID cartId, Long bookId) {
-        Cart cart = cartService.findById(cartId).orElseThrow(() -> new CartNotFoundException("Unable to find cart with id: " + cartId));;
+        Cart cart = cartService.findById(cartId).orElseThrow(() -> new CartNotFoundException("Unable to find cart with id: " + cartId));
         CartItem cartItem = cart.getItemBookId(bookId);
+        if (cartItem == null) {
+            Book b = bookService.findBookById(bookId).orElseThrow(() -> new BookNotFoundException("Unable to add book with id: " + bookId + " to cart. Book doesn't exist"));
+            cart.add(new CartItem(b));
+        }
+    }
 
+    @Transactional
+    public void removeFromCart(UUID cartId, Long bookId) {
+        Cart cart = cartService.findById(cartId).orElseThrow(() -> new CartNotFoundException("Unable to find cart with id: " + cartId));
+        CartItem cartItem = cart.getItemBookId(bookId);
         if (cartItem != null) {
-            cartItem.incrementQuantity();
+            cart.removeFromCartTotally(bookId);
             cart.recalculate();
             return;
         }
-        Book b = bookService.findBookById(bookId).orElseThrow(() -> new BookNotFoundException("Unable to add product with id: " + bookId + " to cart. Product doesn't exist"));
-        cart.add(new CartItem(b));
     }
 }

@@ -90,6 +90,7 @@
             $http.post(API_SERVER + '/cart')
                 .then(function (response) {
                     $localStorage.marketCartUuid = response.data;
+                    console.log($localStorage.marketCartUuid);
                 });
         }
 

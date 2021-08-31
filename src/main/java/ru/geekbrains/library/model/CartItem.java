@@ -26,6 +26,9 @@ public class CartItem {
     @JoinColumn(name = "book_id")
     private Book book;
 
+    @Column
+    private String title;
+
     @Column(name = "quantity")
     private int quantity;
 

@@ -4,9 +4,7 @@
     <tr>
         <td>Название</td>
         <td>Цена</td>
-        <td></td>
         <td>Количество</td>
-        <td></td>
         <td>Общая сумма</td>
         <td></td>
     </tr>
@@ -15,13 +13,7 @@
     <tr ng-repeat="ci in Cart.items">
         <td>{{ci.bookTitle}}</td>
         <td>{{ci.pricePerBook}}</td>
-        <td>
-            <button class="btn btn-danger" ng-click="decrementQuantity(ci.bookId)">-</button>
-        </td>
         <td>{{ci.quantity}}</td>
-        <td>
-            <button class="btn btn-danger" ng-click="incrementQuantity(ci.bookId)">+</button>
-        </td>
         <td>{{ci.price}}</td>
         <td>
             <button class="btn btn-danger" ng-click="deleteBookInCartById(ci.bookId)">Удалить товар

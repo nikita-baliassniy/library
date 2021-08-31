@@ -61,6 +61,18 @@ angular.module('library').controller('shopListController', function ($scope, $ht
         return false;
     }
 
+    $scope.addToCartJS = function (bookId) {
+        $http({
+            url: API_SERVER + '/cart/add',
+            method: 'POST',
+            params: {
+                uuid: $localStorage.marketCartUuid,
+                book_id: bookId
+            }
+        }).then(function (response) {
+        });
+    };
+
     $scope.fillTable = function (pageIndex = 1) {
         if (!$scope.checkGenreId()) {
             $http({

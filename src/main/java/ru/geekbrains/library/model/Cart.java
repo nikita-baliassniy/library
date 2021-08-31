@@ -3,6 +3,7 @@ package ru.geekbrains.library.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,7 +26,7 @@ public class Cart {
     private List<CartItem> items;
 
     @Column(name = "price")
-    private int price;
+    private double price;
 
     public void add(CartItem cartItem) {
         this.items.add(cartItem);
@@ -40,26 +41,12 @@ public class Cart {
         }
     }
 
-    public void removeFromCart(Long id) {
-        ListIterator<CartItem> iterator = items.listIterator();
-        while (iterator.hasNext()) {
-            CartItem cartItem = iterator.next();
-            if (cartItem.getId().equals(id)) {
-                if (cartItem.getQuantity() > 1) {
-                    cartItem.decrementQuantity();
-                } else if (cartItem.getQuantity() == 1) {
-                    iterator.remove();
-                }
-                recalculate();
-            }
-        }
-    }
-
     public void removeFromCartTotally(Long id) {
         ListIterator<CartItem> iterator = items.listIterator();
         while (iterator.hasNext()) {
             CartItem cartItem = iterator.next();
-            if (cartItem.getId().equals(id)) {
+            if (cartItem.getBook().getId().equals(id)) {
+                cartItem.setCart(null);
                 iterator.remove();
                 recalculate();
                 break;
@@ -68,13 +55,15 @@ public class Cart {
     }
 
     public void clear() {
+        items.forEach(i
+                -> i.setCart(null));
         items.clear();
         recalculate();
     }
 
-    public CartItem getItemBookId (Long id) {
+    public CartItem getItemBookId(Long id) {
         for (CartItem ci : items) {
-            if (ci.getId().equals(id)) {
+            if (ci.getBook().getId().equals(id)) {
                 return ci;
             }
         }

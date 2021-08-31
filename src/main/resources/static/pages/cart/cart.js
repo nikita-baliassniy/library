@@ -1,4 +1,5 @@
 angular.module('library').controller('cartController', function ($scope, $http, $routeParams, $localStorage, API_SERVER) {
+
     $scope.showCart = function () {
         $http.get(API_SERVER + '/cart/' + $localStorage.marketCartUuid)
             .then(function (response) {
@@ -22,7 +23,7 @@ angular.module('library').controller('cartController', function ($scope, $http, 
     $scope.createOrder = function () {
         $http.get(API_SERVER + '/orders/create')
             .then(function (response) {
-                $scope.showMyOrders();
+
                 $scope.showCart();
             });
     }
@@ -31,7 +32,7 @@ angular.module('library').controller('cartController', function ($scope, $http, 
         $location.path('/order_confirmation');
     }
 
-    $scope.deleteProductInCartById = function (bookId) {
+    $scope.deleteBookInCartById = function (bookId) {
         $http({
             url: API_SERVER + '/cart',
             method: 'DELETE',
@@ -41,12 +42,13 @@ angular.module('library').controller('cartController', function ($scope, $http, 
             }
         }).then(function (response) {
             $scope.showCart();
+            console.log($scope.Cart);
         });
     }
 
     $scope.decrementQuantity = function (Cart) {
         if (Cart.quantity == 1) {
-            $scope.deleteProductInCartById(Cart.id);
+            $scope.deleteBookInCartById(Cart.id);
         } else {
             $http.get(API_SERVER + '/cart/dec/' + Cart.id)
                 .then(function (response) {
