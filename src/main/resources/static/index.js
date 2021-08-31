@@ -72,7 +72,10 @@
             .when('/my-account', {
                 templateUrl: 'pages/my-account/my-account.html',
                 controller: 'myAccountController'
-
+            })
+            .when('/admin', {
+                templateUrl: 'pages/admin/admin.html',
+                controller: 'adminController'
             })
             .otherwise({
                 redirectTo: '/'

@@ -11,6 +11,7 @@
             integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"></script>
 
+
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
@@ -43,11 +44,11 @@
                     <div class="user-content">
                         <ul>
                             <li>
-                                <a href="" class="icon-li acc animated">Учетная запись</a>
+                                <a href="#!/my-account" class="icon-li acc animated">Учетная запись</a>
                             </li>
                             <hr/>
                             <li>
-                                <a href="" class="icon-li admin animated">Панель управления</a>
+                                <a href="#!/admin" class="icon-li admin animated">Панель управления</a>
                             </li>
                             <hr/>
                             <li>
@@ -117,7 +118,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <button ng-click = "findResults()">Найти</button>
+                        <button ng-click="findResults()">Найти</button>
                     </div>
                     <div ng-show="!checkAuth()" class="login-group">
                         <a href="#!/auth" class="font-weight-bold animated">Авторизоваться</a>
@@ -226,6 +227,8 @@
 <script src="pages/book-compilation/book-compilation.js"></script>
 <script src="pages/contacts/contacts.js"></script>
 <script src="pages/find-results/find-results.js"></script>
+<script src="pages/admin/admin.js"></script>
+
 </body>
 
 </html>

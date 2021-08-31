@@ -1,0 +1,401 @@
+<div class="page-section inner-page-sec-padding mt--15">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 ">
+                <div class="account-main">
+                    <!-- My Account Tab Menu Start -->
+                    <div class="col-13">
+                        <div class="my-account-tab-menu nav" role="tablist" id="my-account-menu">
+                            <a class="active" data-toggle="tab" id="my-account-menu-dashboard"
+                               ng-click="showTab('my-account-menu-dashboard')"><i
+                                    class="fas fa-tachometer-alt"></i>
+                                Сотрудники</a>
+                            <a data-toggle="tab" id="my-account-menu-orders"
+                               ng-click="showTab('my-account-menu-orders')">
+                                <i class="fa fa-cart-arrow-down"></i>
+                                Продукция</a>
+                            <a data-toggle="tab" id="my-account-menu-download"
+                               id="my-account-menu-download" ng-click="showTab('my-account-menu-download')">
+                                <i class="fas fa-download"></i>
+                                Рассылки</a>
+                            <a data-toggle="tab" id="my-account-menu-payment"
+                               ng-click="showTab('my-account-menu-payment')">
+                                <i class="fa fa-credit-card"></i>
+                                Акции</a>
+                            <a data-toggle="tab" id="my-account-menu-address"
+                               ng-click="showTab('my-account-menu-address')">
+                                <i class="fa fa-map-marker"></i>
+                                Выбор редакции</a>
+                        </div>
+                    </div>
+                    <!-- My Account Tab Menu End -->
+                    <!--Панели-->
+                    <div class="ml--30" ng-init="getRoles()">
+                        <div class="tab-content" id="my-accountContent">
+                            <!-- Cотрудники -->
+                            <div ng-init="initUsersPage()" class="tab-pane fade active show" id="dashboard"
+                                 role="tabpanel">
+                                <div class="my-account-content">
+                                    <h3>Сотрудники магазина</h3>
+                                    <table class="table table-bordered">
+                                        <thead class="thead-light">
+                                        <tr>
+                                            <th>Имя</th>
+                                            <th>Почта</th>
+                                            <th>Должность</th>
+                                        </tr>
+                                        <tbody>
+                                        <tr ng-repeat="w in Workers">
+                                            <td>{{w.name}}</td>
+                                            <td>{{w.email}}</td>
+                                            <td ng-repeat="r in w.roles">
+                                                <select ng-model="r"
+                                                        ng-options="role.name for role in Roles track by role.id"
+                                                        ng-change="updateRole(w.id,r.id)"
+                                                        class="role-selector">
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr hidden id="new-user">
+                                            <td>
+                                                <select ng-model="selectedUser"
+                                                        ng-options="user.name for user in Users track by user.id"
+                                                        class="role-selector">
+                                                    <option value="" disabled selected>Выберите пользователя</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                {{selectedUser.email}}
+                                            </td>
+                                            <td>
+                                                <select ng-model="selectedUser.roles[0]"
+                                                        ng-options="role.name for role in Roles track by role.id"
+                                                        class="role-selector">
+                                                    <option value="" disabled selected>Выберите роль</option>
+                                                </select>
+                                            </td>
+
+                                        </tr>
+                                        <tr id="add">
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <button ng-click="addNewUser()" class="btn btn-success">Добавить
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr hidden id="save">
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <button ng-click="saveNewUser()" class="btn btn-success">Сохранить
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- Продукция-->
+                            <div class="tab-pane fade" id="orders" role="tabpanel">
+                                <div class="my-account-content">
+                                    <h3>Orders</h3>
+                                    <div class="my-account-table table-responsive text-center">
+                                        <table class="table table-bordered">
+                                            <thead class="thead-light">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Name</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th>Total</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Mostarizing Oil</td>
+                                                <td>Aug 22, 2018</td>
+                                                <td>Pending</td>
+                                                <td>$45</td>
+                                                <td><a href="cart.html" class="btn">View</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Katopeno Altuni</td>
+                                                <td>July 22, 2018</td>
+                                                <td>Approved</td>
+                                                <td>$100</td>
+                                                <td><a href="cart.html" class="btn">View</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Murikhete Paris</td>
+                                                <td>June 12, 2017</td>
+                                                <td>On Hold</td>
+                                                <td>$99</td>
+                                                <td><a href="cart.html" class="btn">View</a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Рассылка-->
+                            <div class="tab-pane fade" id="download" role="tabpanel">
+                                <div class="my-account-content">
+                                    <h3>Новостная рассылка</h3>
+                                    <form ng-submit="sendMessage()">
+                                        <label for="name">Тема</label><br>
+                                        <input ng-model="mail.subject" class="input-field" id="name" type="text"
+                                               placeholder="Введите тему" required><br>
+                                        <div class="message-area-field">
+                                            <label for="msg">Сообщение</label> <br>
+                                            <textarea ng-model="mail.text" class="input-field area-field" id="msg"
+                                                      cols="30" rows="5"
+                                                      placeholder="Введите сообщение" required></textarea><br>
+                                        </div>
+                                        <button type="submit" class="btn btn-success">Отправить</button>
+                                        <button type="reset" class="btn btn-danger">Очистить</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--Акции-->
+                            <div class="tab-pane fade" id="payment" role="tabpanel">
+                                <div class="my-account-content">
+                                    <h3>Управление скидками</h3>
+                                    <table ng-init="getDiscount()" class="table table-bordered">
+                                        <thead class="thead-light">
+                                        <tr>
+                                            <th>Артикул</th>
+                                            <th>Обложка</th>
+                                            <th>Название</th>
+                                            <th>Авторы</th>
+                                            <th>Цена</th>
+                                            <th>Скидка</th>
+                                            <th>Новая цена</th>
+                                        </tr>
+                                        <tbody>
+                                        <tr ng-repeat="d in DiscountList">
+                                            <td>{{d.id}}</td>
+                                            <td>
+                                                <img class="table-img" ng-src="{{d.link_cover}}" alt="Обложка">
+                                            </td>
+                                            <td>
+                                                {{d.title}}
+                                            </td>
+                                            <td>
+                                                <p ng-repeat="author in d.authors">{{author.name}}</p>
+                                            </td>
+                                            <td>
+                                                <span>{{d.price}}</span> руб.
+                                            </td>
+                                            <td>
+                                                <input type="number" value="{{d.discount}}"> %
+                                            </td>
+                                            <td>
+                                                <span>{{d.price*(1-d.discount/100)}} руб.</span>
+                                            </td>
+                                        </tr>
+                                        <tr ng-init="getNotDiscount()" hidden id="new-discount">
+                                            <td>
+                                                {{discountBook.id}}
+                                            </td>
+                                            <td>
+                                                <img ng-show="discountBook != null" class="table-img"
+                                                     ng-src="{{discountBook.link_cover}}">
+                                            </td>
+                                            <td>
+                                                <select ng-model="discountBook"
+                                                        ng-options="book.title for book in NotDiscountList track by book.id"
+                                                        class="role-selector">
+                                                    <option value="" disabled selected>Выберите книгу</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <p ng-repeat="author in discountBook.authors">{{author.name}}</p>
+                                            </td>
+                                            <td>
+                                                <span ng-show="discountBook != null">{{discountBook.price}} руб.</span>
+                                            </td>
+                                            <td>
+                                                <input ng-model="discountBook.discount" type="number" value="0" required>
+                                            </td>
+                                            <td>
+                                                <span>{{discountBook.price*(1-discountBook.discount/100)}} руб.</span>
+                                            </td>
+
+
+                                        </tr>
+                                        <tr id="add-discount">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <button ng-click="addNewDiscount()" class="btn btn-success">Добавить
+                                                </button>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr hidden id="save-discount">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <button ng-click="saveNewDiscount()" class="btn btn-success">Сохранить
+                                                </button>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        </tbody>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                            <!--Выбор редакции-->
+                            <div class="tab-pane fade" id="address" role="tabpanel">
+                                <div class="my-account-content">
+                                    <h3>Выбор редакции</h3>
+                                    <table ng-init="getAdvices()" class="table table-bordered">
+                                        <thead class="thead-light">
+                                        <tr>
+                                            <th>Артикул</th>
+                                            <th>Обложка</th>
+                                            <th>Название</th>
+                                            <th>Авторы</th>
+                                            <th>Цена</th>
+                                            <th></th>
+                                        </tr>
+                                        <tbody>
+                                        <tr ng-repeat="a in AdvicesList">
+                                            <td>{{a.id}}</td>
+                                            <td>
+                                                <img class="table-img" ng-src="{{a.link_cover}}" alt="Обложка">
+                                            </td>
+                                            <td>
+                                                {{a.title}}
+                                            </td>
+                                            <td>
+                                                <p ng-repeat="author in a.authors">{{author.name}}</p>
+                                            </td>
+                                            <td>
+                                                <span>{{a.price}} руб.</span>
+                                            </td>
+                                            <td>
+                                                <button ng-click="changeAdvice(a.id)" class="btn btn-danger">Удалить
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr ng-init="getNotAdvices()" hidden id="new-advice">
+                                            <td>
+                                                {{selectedBook.id}}
+                                            </td>
+                                            <td>
+                                                <img ng-show="selectedBook != null" class="table-img"
+                                                     ng-src="{{selectedBook.link_cover}}">
+                                            </td>
+                                            <td>
+                                                <select ng-model="selectedBook"
+                                                        ng-options="book.title for book in NotAdvicesList track by book.id"
+                                                        class="role-selector">
+                                                    <option value="" disabled selected>Выберите книгу</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <p ng-repeat="author in selectedBook.authors">{{author.name}}</p>
+                                            </td>
+                                            <td>
+                                                <span ng-show="selectedBook != null">{{selectedBook.price}} руб.</span>
+                                            </td>
+                                            <td>
+                                                <button ng-click="selectedBook = null" class="btn btn-danger">Удалить
+                                                </button>
+                                            </td>
+
+                                        </tr>
+                                        <tr id="add-advice">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <button ng-click="addNewAdvice()" class="btn btn-success">Добавить
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr hidden id="save-advice">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <button ng-click="saveNewAdvice()" class="btn btn-success">Сохранить
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- Single Tab Content End -->
+                            <!-- Single Tab Content Start -->
+                            <div class="tab-pane fade" id="account" role="tabpanel">
+                                <div class="my-account-content">
+                                    <h3>Account Details</h3>
+                                    <div class="account-details-form">
+                                        <form action="#">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-12  mb--30">
+                                                    <input id="first-name" placeholder="First Name" type="text">
+                                                </div>
+                                                <div class="col-lg-6 col-12  mb--30">
+                                                    <input id="last-name" placeholder="Last Name" type="text">
+                                                </div>
+                                                <div class="col-12  mb--30">
+                                                    <input id="display-name" placeholder="Display Name"
+                                                           type="text">
+                                                </div>
+                                                <div class="col-12  mb--30">
+                                                    <input id="email" placeholder="Email Address" type="email">
+                                                </div>
+                                                <div class="col-12  mb--30">
+                                                    <h4>Password change</h4>
+                                                </div>
+                                                <div class="col-12  mb--30">
+                                                    <input id="current-pwd" placeholder="Current Password"
+                                                           type="password">
+                                                </div>
+                                                <div class="col-lg-6 col-12  mb--30">
+                                                    <input id="new-pwd" placeholder="New Password"
+                                                           type="password">
+                                                </div>
+                                                <div class="col-lg-6 col-12  mb--30">
+                                                    <input id="confirm-pwd" placeholder="Confirm Password"
+                                                           type="password">
+                                                </div>
+                                                <div class="col-12">
+                                                    <button class="btn btn--primary">Save Changes</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single Tab Content End -->
+                        </div>
+                    </div>
+                    <!-- My Account Tab Content End -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

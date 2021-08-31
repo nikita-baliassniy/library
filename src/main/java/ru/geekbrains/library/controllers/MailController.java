@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.library.dictionary.RoleEnum;
 import ru.geekbrains.library.model.Message;
+import ru.geekbrains.library.model.NewsMessage;
 import ru.geekbrains.library.model.User;
 import ru.geekbrains.library.services.MailService;
 import ru.geekbrains.library.services.UserService;
@@ -34,7 +36,13 @@ public class MailController {
 
     @PostMapping("/feedback")
     private void sendFeedback(@RequestBody Message message) {
-        List<User> getters = userService.findAllByRoles(Arrays.asList("ROLE_MANAGER", "ROLE_ADMIN"));
+        List<User> getters = userService.findAllByRoles(
+                Arrays.asList(RoleEnum.ROLE_MANAGER, RoleEnum.ROLE_ADMIN));
         mailService.sendMessageFromFeedbackForm(getters, message);
+    }
+
+    @PostMapping("/broadcast")
+    private void sendNewsMessage(@RequestBody NewsMessage message){
+        mailService.sendNewsMessage(message);
     }
 }
