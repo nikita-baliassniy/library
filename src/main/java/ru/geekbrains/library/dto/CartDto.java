@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Data
 public class CartDto {
     private List<CartItemDto> items;
-    private int totalPrice;
+    private double totalPrice;
 
     public CartDto(Cart cart) {
         this.totalPrice = cart.getPrice();

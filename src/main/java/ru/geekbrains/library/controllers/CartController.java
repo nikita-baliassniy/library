@@ -25,7 +25,7 @@ public class CartController {
 
     @GetMapping("/{uuid}")
     public CartDto getCurrentCart(@PathVariable UUID uuid) {
-        Cart cart = cartService.findById(uuid).orElseThrow(() -> new CartNotFoundException("Unable to find cart with id: " + uuid));;
+        Cart cart = cartService.findById(uuid).orElseThrow(() -> new CartNotFoundException("Unable to find cart with id: " + uuid));
         return new CartDto(cart);
     }
 
@@ -40,7 +40,7 @@ public class CartController {
     }
 
     @DeleteMapping
-    public void deleteProductInCartById (@RequestParam UUID uuid, @RequestParam(name = "book_id") Long book_id) {
-        cartService.delete(uuid, book_id);
+    public void deleteBookFromCartById (@RequestParam UUID uuid, @RequestParam(name = "book_id") Long book_id) {
+        cartBookPolicy.removeFromCart(uuid, book_id);
     }
 }

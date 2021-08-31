@@ -1,4 +1,4 @@
-angular.module('library').controller('bookDetailController', function ($scope, $http, $routeParams, AuthService, API_SERVER) {
+angular.module('library').controller('bookDetailController', function ($scope, $http, $routeParams, AuthService, API_SERVER, $localStorage) {
     $scope.newComment = {};
     $scope.newComment.score = 1;
 
@@ -20,6 +20,18 @@ angular.module('library').controller('bookDetailController', function ($scope, $
     $scope.setSelectedRating = function(rating) {
         $scope.newComment.score = rating;
     }
+
+    $scope.addToCartJS = function (bookId) {
+        $http({
+            url: API_SERVER + '/cart/add',
+            method: 'POST',
+            params: {
+                uuid: $localStorage.marketCartUuid,
+                book_id: bookId
+            }
+        }).then(function (response) {
+        });
+    };
 
     $scope.addNewComment = function() {
         $scope.newComment.createdAt = new Date();

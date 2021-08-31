@@ -24,7 +24,6 @@ public class CartService {
         return cartRepository.findById(id);
     }
 
-
     @Transactional
     public void clearCart (UUID cartId) {
         Cart cart = findById(cartId).orElseThrow(() -> new CartNotFoundException());
@@ -34,6 +33,6 @@ public class CartService {
     @Transactional
     public void delete(UUID cartId, Long bookId) {
         Cart cart = findById(cartId).orElseThrow(() -> new CartNotFoundException("Корзина не найдена. Во время удаления книги с id: " + bookId + " в корзине"));
-        cart.removeFromCart(bookId);
+        cart.removeFromCartTotally(bookId);
     }
 }

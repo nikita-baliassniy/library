@@ -138,13 +138,13 @@ CREATE TABLE order_items
     updated_at     TIMESTAMP default current_timestamp
 );
 
-create table carts
+CREATE TABLE carts
 (
     id    UUID PRIMARY KEY,
     price NUMERIC(8, 2)
 );
 
-create table cart_items
+CREATE TABLE cart_items
 (
     id             BIGSERIAL PRIMARY KEY,
     cart_id        UUID REFERENCES carts (id),
@@ -157,7 +157,7 @@ create table cart_items
     updated_at     TIMESTAMP default current_timestamp
 );
 
-create table newsletter
+CREATE TABLE newsletter
 (
     id      BIGSERIAL PRIMARY KEY,
     user_id BIGSERIAL REFERENCES users (id)
@@ -166,13 +166,14 @@ create table newsletter
 INSERT INTO users (username, email, password)
 VALUES ('admin', '123@asd.ru', '$2a$12$XwOoolcqL5gwjHAaqb4tTes9hoedw50kyOdq6I4xv2x4QHg9VtQ/e'),      -- 111
        ('admin_mini', '444@asd.ru', '$2a$12$aRjLVCKZHGpQ26dm7zZfjOwDXq1MUA/dEGHt67VbueAnLMBnwP5G.'), --222
-       ('admin_mini2', '555@asd.ru', '$2a$12$aRjLVCKZHGpQ26dm7zZfjOwDXq1MUA/dEGHt67VbueAnLMBnwP5G.'); --222
-
+       ('admin_mini2', '555@asd.ru', '$2a$12$aRjLVCKZHGpQ26dm7zZfjOwDXq1MUA/dEGHt67VbueAnLMBnwP5G.'), --222
+       ('user', 'user@mail.ru', '$2a$12$aRjLVCKZHGpQ26dm7zZfjOwDXq1MUA/dEGHt67VbueAnLMBnwP5G.'); --222
 
 INSERT INTO users_info (user_id, name, phone, discount, address, date_of_birth)
 VALUES (1, 'John', '89991234567', 10, 'Москва, ул. не знаю', PARSEDATETIME('10.05.1981', 'dd.MM.yyyy')),
        (2, 'Vova', '89992223344', 20, 'Москва, Кремль', PARSEDATETIME('07.10.1952', 'dd.MM.yyyy')),
-       (3, 'Carl', '89992223344', 30, 'Москва, Кремль', PARSEDATETIME('07.10.1952', 'dd.MM.yyyy'));
+       (3, 'Carl', '89992223344', 30, 'Москва, Кремль', PARSEDATETIME('07.10.1952', 'dd.MM.yyyy')),
+       (4, 'Bob', '89992223311', 20, 'Москва, Кремль', PARSEDATETIME('12.11.1982', 'dd.MM.yyyy'));
 
 INSERT INTO roles (name)
 VALUES ('ROLE_ADMIN'),
@@ -182,7 +183,8 @@ VALUES ('ROLE_ADMIN'),
 INSERT INTO users_roles (user_id, role_id)
 VALUES (1, 1),
        (2, 3),
-       (3, 2);
+       (3, 2),
+       (4, 3);
 
 INSERT INTO books (title, price, description, year_of_publish)
 VALUES ('Приключения Тома Сойера', 29.90,
