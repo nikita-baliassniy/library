@@ -9,5 +9,6 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    public List<Order> findAllByOwnerUsername(String ownerUsername);
+//    public List<Order> findAllByOwnerUsername(String ownerUsername);
+    public List<Order> findAllByOwnerEmail(String email);
 }

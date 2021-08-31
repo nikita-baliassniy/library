@@ -23,8 +23,8 @@ public class OrderService {
         return order;
     }
 
-    public List<Order> findAllOrdersByOwnerName (String username) {
-        return orderRepository.findAllByOwnerUsername(username);
+    public List<Order> findAllOrdersByOwnerEmail(String email) {
+        return orderRepository.findAllByOwnerEmail(email);
     }
 
     public Optional<Order> getOrderById (Long id) {

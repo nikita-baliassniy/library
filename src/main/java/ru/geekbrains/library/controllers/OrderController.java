@@ -1,8 +1,6 @@
 package ru.geekbrains.library.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.library.dto.OrderDto;
 import ru.geekbrains.library.exceptions.OrderNotFoundException;
@@ -12,7 +10,6 @@ import ru.geekbrains.library.services.OrderService;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -37,7 +34,7 @@ public class OrderController {
 
     @GetMapping
     public List<OrderDto> getCurrentUserOrders (Principal principal) {
-        return orderService.findAllOrdersByOwnerName(principal.getName()).stream().map(OrderDto::new).collect(Collectors.toList());
+        return orderService.findAllOrdersByOwnerEmail(principal.getName()).stream().map(OrderDto::new).collect(Collectors.toList());
     }
 
 }

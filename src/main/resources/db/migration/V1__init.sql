@@ -72,7 +72,7 @@ CREATE TABLE books_genres
 CREATE TABLE users
 (
     id         BIGSERIAL PRIMARY KEY,
-    username   VARCHAR(50) NOT NULL UNIQUE,
+--     username   VARCHAR(50) NOT NULL UNIQUE,
     email      VARCHAR(50) NOT NULL UNIQUE,
     password   VARCHAR(80) NOT NULL,
     created_at TIMESTAMP default current_timestamp,
@@ -163,10 +163,10 @@ create table newsletter
     user_id BIGSERIAL REFERENCES users (id)
 );
 
-INSERT INTO users (username, email, password)
-VALUES ('admin', '123@asd.ru', '$2a$12$XwOoolcqL5gwjHAaqb4tTes9hoedw50kyOdq6I4xv2x4QHg9VtQ/e'),      -- 111
-       ('admin_mini', '444@asd.ru', '$2a$12$aRjLVCKZHGpQ26dm7zZfjOwDXq1MUA/dEGHt67VbueAnLMBnwP5G.'), --222
-       ('admin_mini2', '555@asd.ru', '$2a$12$aRjLVCKZHGpQ26dm7zZfjOwDXq1MUA/dEGHt67VbueAnLMBnwP5G.'); --222
+INSERT INTO users (/*username,*/ email, password)
+VALUES (/*'admin',*/ '123@asd.ru', '$2a$12$XwOoolcqL5gwjHAaqb4tTes9hoedw50kyOdq6I4xv2x4QHg9VtQ/e'),      -- 111
+       (/*'admin_mini',*/ '444@asd.ru', '$2a$12$aRjLVCKZHGpQ26dm7zZfjOwDXq1MUA/dEGHt67VbueAnLMBnwP5G.'), --222
+       (/*'admin_mini2',*/ '555@asd.ru', '$2a$12$aRjLVCKZHGpQ26dm7zZfjOwDXq1MUA/dEGHt67VbueAnLMBnwP5G.'); --222
 
 
 INSERT INTO users_info (user_id, name, phone, discount, address, date_of_birth)
