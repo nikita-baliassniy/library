@@ -164,13 +164,15 @@ create table newsletter
 );
 
 INSERT INTO users (username, email, password)
-VALUES ('admin', '123@asd.ru', '$2a$12$XwOoolcqL5gwjHAaqb4tTes9hoedw50kyOdq6I4xv2x4QHg9VtQ/e'), -- 111
-       ('admin_mini', '444@asd.ru', '$2a$12$aRjLVCKZHGpQ26dm7zZfjOwDXq1MUA/dEGHt67VbueAnLMBnwP5G.'); --222
+VALUES ('admin', '123@asd.ru', '$2a$12$XwOoolcqL5gwjHAaqb4tTes9hoedw50kyOdq6I4xv2x4QHg9VtQ/e'),      -- 111
+       ('admin_mini', '444@asd.ru', '$2a$12$aRjLVCKZHGpQ26dm7zZfjOwDXq1MUA/dEGHt67VbueAnLMBnwP5G.'), --222
+       ('admin_mini2', '555@asd.ru', '$2a$12$aRjLVCKZHGpQ26dm7zZfjOwDXq1MUA/dEGHt67VbueAnLMBnwP5G.'); --222
 
 
 INSERT INTO users_info (user_id, name, phone, discount, address, date_of_birth)
 VALUES (1, 'John', '89991234567', 10, 'Москва, ул. не знаю', PARSEDATETIME('10.05.1981', 'dd.MM.yyyy')),
-       (2, 'Vova', '89992223344', 20, 'Москва, Кремль', PARSEDATETIME('07.10.1952', 'dd.MM.yyyy'));
+       (2, 'Vova', '89992223344', 20, 'Москва, Кремль', PARSEDATETIME('07.10.1952', 'dd.MM.yyyy')),
+       (3, 'Carl', '89992223344', 30, 'Москва, Кремль', PARSEDATETIME('07.10.1952', 'dd.MM.yyyy'));
 
 INSERT INTO roles (name)
 VALUES ('ROLE_ADMIN'),
@@ -179,7 +181,8 @@ VALUES ('ROLE_ADMIN'),
 
 INSERT INTO users_roles (user_id, role_id)
 VALUES (1, 1),
-       (2, 3);
+       (2, 3),
+       (3, 2);
 
 INSERT INTO books (title, price, description, year_of_publish)
 VALUES ('Приключения Тома Сойера', 29.90,

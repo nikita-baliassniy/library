@@ -10,8 +10,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import ru.geekbrains.library.dictionary.RoleEnum;
 import ru.geekbrains.library.dto.UserListDto;
 import ru.geekbrains.library.dto.UserRegisterDto;
+import ru.geekbrains.library.exceptions.UserNotFoundException;
 import ru.geekbrains.library.model.Role;
 import ru.geekbrains.library.model.User;
 import ru.geekbrains.library.repositories.UserRepository;
@@ -43,6 +46,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email).map(user -> modelMapper.map(user, UserListDto.class));
     }
 
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -58,14 +65,23 @@ public class UserService implements UserDetailsService {
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         User user = modelMapper.map(newUser, User.class);
         user.setRoles(new ArrayList<>());
-        Role role = roleService.getRoleByName("ROLE_USER");
+        Role role = roleService.getRoleByName(RoleEnum.ROLE_USER);
         user.getRoles().add(role);
         userRepository.save(user);
         return user;
     }
 
-    public List<User> findAllByRoles(List<String> rolesNames) {
+    public List<User> findAllByRoles(List<RoleEnum> rolesNames) {
         List<Role> roles = roleService.findAllByName(rolesNames);
         return userRepository.findByRolesIn(roles);
     }
+
+    @Transactional
+    public void updateRole(Long userId, Long roleId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("Юзер не найден"));
+        Role role = roleService.findById(roleId);
+        user.getRoles().clear();
+        user.getRoles().add(role);
+    }
+
 }

@@ -43,10 +43,10 @@ public class Book {
     private int yearOfPublish;
 
     @Column(name = "discount")
-    private int discount;
+    private Integer discount;
 
     @Column(name = "editors_advice")
-    private boolean editorsAdvice;
+    private Boolean editorsAdvice;
 
     @Column(name = "created_at")
     @CreationTimestamp

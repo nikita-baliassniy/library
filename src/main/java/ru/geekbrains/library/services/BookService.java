@@ -7,9 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.geekbrains.library.dto.BookDto;
 import ru.geekbrains.library.dto.BookListDto;
 import ru.geekbrains.library.dto.CommentDto;
+import ru.geekbrains.library.exceptions.BookNotFoundException;
 import ru.geekbrains.library.model.Book;
 import ru.geekbrains.library.model.Comment;
 import ru.geekbrains.library.model.Genre;
@@ -138,5 +140,17 @@ public class BookService {
                 .sorted(Map.Entry.<BookListDto, Integer>comparingByValue().reversed())
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void changeAdvice(Long bookId) {
+        Book book = findBookById(bookId).orElseThrow(() -> new BookNotFoundException("Книга не найдена"));
+        book.setEditorsAdvice(!book.getEditorsAdvice());
+    }
+
+    @Transactional
+    public void updateDiscount(Long bookId, Integer discount) {
+        Book book = findBookById(bookId).orElseThrow(() -> new BookNotFoundException("Книга не найдена"));
+        book.setDiscount(discount);
     }
 }

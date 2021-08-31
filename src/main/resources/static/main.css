@@ -858,6 +858,10 @@ div {
     background-color: #c1eaf8;
 }
 
+.tab-content .active{
+    background-color: white;
+}
+
 .category-menu .cat-item {
     padding: 0;
 }
@@ -2760,4 +2764,38 @@ hr {
 .map{
     display: flex;
     justify-content: center;
+}
+
+.edit-user-bt{
+    min-width: 10px;
+    min-height: 10px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+td{
+    align-items: center;
+    vertical-align: center;
+}
+
+.role-selector{
+    min-height: 30px;
+    min-width: 175px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.role-selector option{
+    padding: 20px;
+    margin: 20px;
+    font-size: 14px;
+}
+
+.table-img{
+    max-width: 150px;
+}
+
+.table input{
+    min-height: 30px;
+    max-width: 40px;
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import ru.geekbrains.library.dictionary.RoleEnum;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,7 +20,8 @@ public class Role {
     private Long id;
 
     @Column(name = "name")
-    private String name;
+    @Enumerated(value = EnumType.STRING)
+    private RoleEnum name;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -28,4 +30,12 @@ public class Role {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public String getName() {
+        return name.getName();
+    }
+
+    public void setName(String name) {
+        this.name = RoleEnum.valueOf(name);
+    }
 }

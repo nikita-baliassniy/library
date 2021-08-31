@@ -10,11 +10,13 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.geekbrains.library.model.Message;
+import ru.geekbrains.library.model.NewsMessage;
 import ru.geekbrains.library.model.Newsletter;
 import ru.geekbrains.library.model.User;
 import ru.geekbrains.library.repositories.NewsletterRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -82,5 +84,13 @@ public class MailService {
         executor.setMaxPoolSize(500);
         executor.setWaitForTasksToCompleteOnShutdown(true);
         return executor;
+    }
+
+    public void sendNewsMessage(NewsMessage message) {
+        List<User> getters = newsletterRepository.findAll()
+                .stream()
+                .map(Newsletter::getUser)
+                .collect(Collectors.toList());
+        broadCastMessage(getters,message.getSubject(),message.getText());
     }
 }

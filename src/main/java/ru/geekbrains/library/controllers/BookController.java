@@ -12,6 +12,7 @@ import ru.geekbrains.library.dto.CommentDto;
 import ru.geekbrains.library.exceptions.BookBadDataException;
 import ru.geekbrains.library.exceptions.BookNotFoundException;
 import ru.geekbrains.library.exceptions.GenreNotFoundException;
+import ru.geekbrains.library.exceptions.PutDiscountException;
 import ru.geekbrains.library.model.Genre;
 import ru.geekbrains.library.model.filter.ModelSorter;
 import ru.geekbrains.library.repositories.specifications.BookSpecifications;
@@ -61,6 +62,18 @@ public class BookController {
         return bookService.insertOrUpdateBook(bookDto).orElseThrow(() -> new BookBadDataException("Ошибка создания Книги"));
     }
 
+    @PutMapping("/changeAdvice")
+    public void changeAuthorsAdvice(@RequestParam("bookId")Long bookId){
+        bookService.changeAdvice(bookId);
+    }
+
+    @PutMapping("/updateDiscount")
+    public void updateDiscount(@RequestParam("bookId")Long bookId,
+                               @RequestParam("discount") Integer discount){
+        if (discount <0 || discount > 99) throw new PutDiscountException("Некорректное указание скидки");
+        bookService.updateDiscount(bookId,discount);
+    }
+
     @Transactional
     @DeleteMapping("/{id}")
     public void deleteBookById(@PathVariable Long id) {
@@ -78,7 +91,7 @@ public class BookController {
     public Page<BookListDto> getBooksByGenre(@PathVariable Long id,
                                              @RequestParam(defaultValue = "1", name = "page") Integer page,
                                              @RequestParam(defaultValue = "10", name = "count") Integer count) {
-        Genre genre = genreService.getGenreById(id).orElseThrow(()-> new GenreNotFoundException("Жанр с Id: " + " не найлен"));
+        Genre genre = genreService.getGenreById(id).orElseThrow(() -> new GenreNotFoundException("Жанр с Id: " + " не найлен"));
         return bookService.getBookPageByGenre(genre, page, count);
     }
 }

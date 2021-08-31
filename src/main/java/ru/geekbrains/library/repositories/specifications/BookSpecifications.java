@@ -5,6 +5,7 @@ import org.springframework.util.MultiValueMap;
 import ru.geekbrains.library.model.Book;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class BookSpecifications {
@@ -17,6 +18,21 @@ public class BookSpecifications {
     private static Specification<Book> genreEquals(Long genreId) {
         return (Specification<Book>) (root, criteriaQuery, criteriaBuilder) ->
                 criteriaBuilder.isMember(genreId, root.get("genres"));
+    }
+
+    private static Specification<Book> discountExist(Long discount) {
+        return (Specification<Book>) (root, criteriaQuery, criteriaBuilder) ->
+                criteriaBuilder.greaterThan(root.get("discount"), 0);
+    }
+
+    private static Specification<Book> discountNotExist(Long discount) {
+        return (Specification<Book>) (root, criteriaQuery, criteriaBuilder) ->
+                criteriaBuilder.lessThanOrEqualTo(root.get("discount"), 0);
+    }
+
+    private static Specification<Book> advices(Boolean advice) {
+        return (Specification<Book>) (root, criteriaQuery, criteriaBuilder) ->
+                criteriaBuilder.equal(root.get("editorsAdvice"), advice);
     }
 
     private static Specification<Book> yearEquals(int year) {
@@ -47,8 +63,19 @@ public class BookSpecifications {
         if (params.containsKey("title") && !params.getFirst("title").isBlank()) {
             spec = spec.and(BookSpecifications.titleLike(params.getFirst("title")));
         }
+        if (params.containsKey("editorsAdvice") && !params.getFirst("editorsAdvice").isBlank()) {
+            spec = spec.and(BookSpecifications.advices(Boolean.parseBoolean(params.getFirst("editorsAdvice"))));
+        }
         if (params.containsKey("year_of_publish") && !params.getFirst("year_of_publish").isBlank()) {
             spec = spec.and(BookSpecifications.yearEquals(Integer.parseInt(params.getFirst("year_of_publish"))));
+        }
+        if (params.containsKey("discount") && !params.getFirst("discount").isBlank()) {
+            Long discount = Long.parseLong(Objects.requireNonNull(params.getFirst("discount")));
+            if (discount <= 0) {
+                spec = spec.and(BookSpecifications.discountNotExist(discount));
+            } else {
+                spec = spec.and(BookSpecifications.discountExist(discount));
+            }
         }
         if (params.containsKey("genre") && !params.getFirst("genre").isBlank()) {
             List<Long> genres = params.get("genre")
