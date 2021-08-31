@@ -19,7 +19,7 @@
             })
             .when('/register', {
                 templateUrl: 'pages/register/register.html',
-                controller: 'regController'
+                controller: 'registerController'
             })
             .when('/contacts', {
                 templateUrl: 'pages/contacts/contacts.html',
