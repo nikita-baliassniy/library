@@ -56,6 +56,7 @@ angular.module('library').controller('findResultsController', function ($scope, 
                 book_id: bookId
             }
         }).then(function (response) {
+            $localStorage.needToUpdateCart.set(1);
         });
     };
 

@@ -95,6 +95,7 @@ angular.module('library').controller('bookCompilationController', function ($sco
                 book_id: bookId
             }
         }).then(function (response) {
+            $localStorage.needToUpdateCart.set(1);
         });
     };
 
