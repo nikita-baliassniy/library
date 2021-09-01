@@ -53,6 +53,13 @@ public class OrderItem {
         this.price = this.pricePerBook;
     }
 
+    public OrderItem(CartItem cartItem) {
+        this.book = cartItem.getBook();
+        this.pricePerBook = cartItem.getPricePerBook();
+        this.price = cartItem.getPrice();
+        this.title = cartItem.getTitle();
+    }
+
     public void incrementQuantity() {
         quantity++;
         price = quantity * pricePerBook;

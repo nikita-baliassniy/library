@@ -2,7 +2,9 @@ package ru.geekbrains.library.services;
 
 
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import ru.geekbrains.library.dto.OrderDto;
 import ru.geekbrains.library.model.Cart;
 import ru.geekbrains.library.model.Order;
 import ru.geekbrains.library.model.User;
@@ -16,11 +18,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final CartService cartService;
+    private final ModelMapper modelMapper;
 
-    public Order createFromUserCart (Cart cart, User user, String address) {
-        Order order = new Order(cart, user, address);
-        orderRepository.save(order);
-        return order;
+    public OrderDto createFromUserCart (Cart cart, User user) {
+        Order newOrder = new Order(cart, user);
+        newOrder = orderRepository.save(newOrder);
+        cartService.clearCart(cart);
+        return modelMapper.map(newOrder, OrderDto.class);
     }
 
     public List<Order> findAllOrdersByOwnerEmail(String email) {

@@ -9,15 +9,15 @@ import ru.geekbrains.library.model.OrderItem;
 public class OrderItemDto {
     private Long id;
     private String bookTitle;
-    private int quantity;
-    private double pricePerProduct;
+//    private int quantity;
+//    private double pricePerProduct;
     private double price;
 
     public OrderItemDto(OrderItem orderItem) {
         this.id = orderItem.getBook().getId();
         this.bookTitle = orderItem.getBook().getTitle();
-        this.quantity = orderItem.getQuantity();
-        this.pricePerProduct = orderItem.getPricePerBook();
+//        this.quantity = orderItem.getQuantity();
+//        this.pricePerProduct = orderItem.getPricePerBook();
         this.price = orderItem.getPrice();
     }
 }

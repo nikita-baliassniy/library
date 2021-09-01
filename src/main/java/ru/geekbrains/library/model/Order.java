@@ -40,17 +40,17 @@ public class Order {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<OrderItem> items;
 
-    @Column(name = "address")
-    private String address;
+//    @Column(name = "address")
+//    private String address;
 
-    public Order(Cart cart, User user, String address) {
-//        this.price = cart.getTotalPrice();
+    public Order(Cart cart, User user) {
+        this.price = cart.getPrice();
         this.owner = user;
         this.items = new ArrayList<>();
-        this.address = address;
-//        cart.getItems().forEach((oi) -> {
-//            oi.setOrder(this);
-//            items.add(oi);
-//        });
+//        this.address = address;
+        for (CartItem item : cart.getItems()) {
+            OrderItem oi = new OrderItem(item);
+            oi.setOrder(this);
+        }
     }
 }
