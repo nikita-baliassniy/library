@@ -30,6 +30,7 @@ angular.module('library').controller('bookDetailController', function ($scope, $
                 book_id: bookId
             }
         }).then(function (response) {
+            $localStorage.needToUpdateCart.set(1);
         });
     };
 

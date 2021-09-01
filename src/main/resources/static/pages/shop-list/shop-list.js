@@ -70,6 +70,7 @@ angular.module('library').controller('shopListController', function ($scope, $ht
                 book_id: bookId
             }
         }).then(function (response) {
+            $localStorage.needToUpdateCart.set(1);
         });
     };
 
