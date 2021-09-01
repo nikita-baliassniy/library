@@ -83,6 +83,10 @@
     }
 
     function run($rootScope, $http, $localStorage, API_SERVER) {
+
+        if (!$localStorage.needToUpdateCart) {
+            $localStorage.needToUpdateCart = new Counter1();
+        }
         // if ($localStorage.authUser) {
         //     $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.authUser.token;
         // }
@@ -93,17 +97,27 @@
                     console.log($localStorage.marketCartUuid);
                 });
         }
-
     }
 })();
 
 angular.module('library').constant('API_SERVER', 'http://localhost:8189/lib/api/v1');
 angular.module('library').constant('HOME_SERVER', 'http://localhost:8189/lib');
-
 angular.module('library').controller('indexController', function ($scope, $http, $location, $localStorage, AuthService, API_SERVER) {
 
     let searchField = document.getElementById('search-field');
     let helperPane = document.getElementById('helperPane');
+
+
+    $scope.getCart = function () {
+        $http.get(API_SERVER + '/cart/' + $localStorage.marketCartUuid)
+            .then(function (response) {
+                $scope.Cart = response.data;
+            })
+    }
+
+    $localStorage.needToUpdateCart.registerListener(function (val) {
+        $scope.getCart();
+    });
 
     $scope.findResults = function () {
         let parameter = searchField.value;
@@ -182,8 +196,8 @@ angular.module('library').controller('indexController', function ($scope, $http,
         $http.get(API_SERVER + '/genres').then(function successCallBack(response) {
             $scope.genres = response.data;
         })
-
     }
+
 
     $scope.sub = function () {
         $http.get(API_SERVER + '/mail/sub').then(function successCallBak(response) {
@@ -204,6 +218,7 @@ angular.module('library').controller('indexController', function ($scope, $http,
     }
 
     $scope.getGenres();
+    $scope.getCart();
 });
 
 angular.module('library').directive('starRating', function () {
