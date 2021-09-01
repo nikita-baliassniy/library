@@ -17,7 +17,7 @@
                 <li>
                     Авторы:
                     <a href="#!/authors/{{author.id}}" ng-repeat="author in bookDetail.authors">
-                    <span  class="list-value">
+                    <span class="list-value">
                         {{author.name + ($last ? '' : ', ')}}
                     </span>
                     </a>
@@ -37,7 +37,7 @@
                 <span class="fas fa-ruble-sign"></span>
             </div>
             <div class="rating-widget">
-                <div  star-rating rating-value="bookDetail.bookInfo.score" max="5" class="rating-block"></div>
+                <div star-rating rating-value="bookDetail.bookInfo.score" max="5" class="rating-block"></div>
                 <div class="review-widget">
                     <a href="#">({{bookDetail.comments.length}} отзывов)</a>
                     <span> | </span>
@@ -53,6 +53,22 @@
                         <span class="plus-icon">+</span>
                         Добавить в корзину
                     </a>
+                </div>
+            </div>
+            <div class="download">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        Скачать
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item download animated"
+                               href="{{bookDetail.bookStorage.link_pdf}}" download="">PDF</a></li>
+                        <li><a class="dropdown-item download animated"
+                               href="{{bookDetail.bookStorage.link_epub}}" download="">EPUB</a></li>
+                        <li><a class="dropdown-item download animated"
+                               href="{{bookDetail.bookStorage.link_fb2}}" download="">FB2</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -72,7 +88,8 @@
                         <div class="review-wrapper mb--20">
                             <div ng-repeat="comment in bookDetail.comments" class="review-comment">
                                 <div class="text">
-                                    <div star-rating rating-value="comment.score" max="5" class="rating-block mb--15"></div>
+                                    <div star-rating rating-value="comment.score" max="5"
+                                         class="rating-block mb--15"></div>
                                     <h6 class="author">
                                         {{comment.user.name}}
                                         <span>{{comment.createdAt | date:'dd.MM.yyyy HH:mm'}}</span>
@@ -86,14 +103,17 @@
                                 </h2>
                                 <div class="rating-row pt-2">
                                     <p class="d-block">Оцените книгу</p>
-                                    <div clicked star-rating rating-value="newComment.score" max="5" class="rating-block" on-rating-selected="setSelectedRating(rating)"></div>
+                                    <div clicked star-rating rating-value="newComment.score" max="5"
+                                         class="rating-block" on-rating-selected="setSelectedRating(rating)"></div>
                                     <form class="mt--15 site-form">
-                                        <input type="hidden" ng-init="newComment.user.id=1" ng-value="newComment.user.id">
+                                        <input type="hidden" ng-init="newComment.user.id=1"
+                                               ng-value="newComment.user.id">
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="message">Комментарий</label>
-                                                    <textarea ng-model="newComment.text" id="message" maxlength="2000" cols="30" rows="10" class="form-control"></textarea>
+                                                    <textarea ng-model="newComment.text" id="message" maxlength="2000"
+                                                              cols="30" rows="10" class="form-control"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">

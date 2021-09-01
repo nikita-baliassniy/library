@@ -858,7 +858,7 @@ div {
     background-color: #c1eaf8;
 }
 
-.tab-content .active{
+.tab-content .active {
     background-color: white;
 }
 
@@ -2727,75 +2727,113 @@ hr {
     overflow-y: scroll;
 }
 
-.helper-pane{
+.helper-pane {
     padding-left: 0px;
 }
 
-.help-item a{
+.help-item a {
     padding-left: 10px;
     cursor: pointer;
 }
 
-.help-item a{
+.help-item a {
     display: inline-block;
     line-height: 3;
     width: 100%;
 }
 
-.help-item:hover{
+.help-item:hover {
     background-color: #2F96B4;
 }
 
-.helper-pane hr{
+.helper-pane hr {
     margin: 0;
     border: 2px solid #888869;
 }
 
-.helper-pane i{
+.helper-pane i {
     padding-left: 30px;
     line-height: 3;
     font-size: 16px;
 }
 
-.mid-text{
+.mid-text {
     font-size: 24px;
 }
 
-.map{
+.map {
     display: flex;
     justify-content: center;
 }
 
-.edit-user-bt{
+.edit-user-bt {
     min-width: 10px;
     min-height: 10px;
     padding-left: 20px;
     cursor: pointer;
 }
 
-td{
+td {
     align-items: center;
     vertical-align: center;
 }
 
-.role-selector{
+.role-selector {
     min-height: 30px;
     min-width: 175px;
     padding: 10px;
     cursor: pointer;
 }
 
-.role-selector option{
+.role-selector option {
     padding: 20px;
     margin: 20px;
     font-size: 14px;
 }
 
-.table-img{
-    max-width: 150px;
+.table-img {
+    max-width: 100px;
 }
 
-.table input{
+.table input {
     min-height: 30px;
     max-width: 40px;
 }
+
+
+.download .btn {
+    background-color: #62ab00;
+}
+
+.btn-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.btn-block button {
+    max-width: 70px;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #000000;
+    background-color: #c1eaf8;
+    border: none;
+}
+
+.tab-pane .nav-pills button {
+    margin: 0 10px;
+    background-color: white;
+    border: none;
+}
+
+.tab-pane .nav-pills button:focus {
+    outline: none;
+}
+
+.creation-form{
+    display: flex;
+    flex-direction: column;
+}
+
+
