@@ -38,6 +38,10 @@ public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificat
 
     @EntityGraph(type = EntityGraph.EntityGraphType.FETCH,
             value ="book-bookInfo-bookStorage-graph")
+    Page<Book> findByIdIn(List<Long> ids, Pageable pageable);
+
+    @EntityGraph(type = EntityGraph.EntityGraphType.FETCH,
+            value ="book-bookInfo-bookStorage-graph")
     Optional<Book> findBookById(Long id);
 
     @EntityGraph(type = EntityGraph.EntityGraphType.FETCH,
