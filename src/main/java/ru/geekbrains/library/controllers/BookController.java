@@ -47,9 +47,11 @@ public class BookController {
         return bookService.getSimilarBooks(id, 2);
     }
 
-    @GetMapping("/recommend/{userId}")
-    public List<BookListDto> getRecommendations(@PathVariable Long userId) {
-        return bookService.getRecommendations(userId, 3.5, 2);
+    @GetMapping("/recommend")
+    public Page<BookListDto> getRecommendedBooks(@RequestParam String userId, @RequestParam MultiValueMap<String, String> params,
+                                         @RequestParam(defaultValue = "1", name = "page") Integer page,
+                                         @RequestParam(defaultValue = "9", name = "count") Integer count) {
+        return bookService.getRecommendedBooksPage(params, page, count, Long.parseLong(userId));
     }
 
     @PostMapping

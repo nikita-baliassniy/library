@@ -1,0 +1,121 @@
+<div class="container" ng-controller="recommendationController">
+    <div class="section-title section-title--bordered">
+        <h2>Подборка книг на основе ваших оценок</h2>
+    </div>
+    <div class="shop-toolbar">
+        <div class="price-filter">
+            <div class="price-label">
+                <label for="min-price" class="col-sm-2 col-form-label" style="width: 100%">Минимальная
+                    цена</label>
+                <input type="number" ng-model="filter.min" class="form-control" id="min-price"
+                       placeholder="0">
+            </div>
+            <div class="price-label">
+                <label for="max-price" class="col-sm-2 col-form-label" style="width: 100%">Максимальная
+                    цена</label>
+                <input type="number" class="form-control" ng-model="filter.max" id="max-price"
+                       placeholder="999">
+            </div>
+        </div>
+        <div class="price-label sort">
+            <label for="max-price" class="col-sm-2 col-form-label" style="width: 100%">Сортировать по:
+            </label>
+            <div class="">
+                <select class="form-select" aria-label="Default select example">
+                    <option value="price,asc">Цене: &#129045</option>
+                    <option value="price,desc">Цене: &#129047</option>
+                    <option value="title,asc">Названию: А-Я</option>
+                    <option value="title,desc">Названию: Я-А</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="shop-product-wrap grid with-pagination row space-db--30 shop-border" ng-init="fillTable()">
+        <div ng-repeat="b in ProductsList" class="col-lg-4 col-cm-6">
+            <div class="product-card">
+                <div class="product-grid-content">
+                    <div class="product-header">
+                        <a ng-repeat="a in b.authors" href="#!/authors/{{a.id}}" class="author animated">{{a.name}}</a>
+                        <h3>
+                            <a href="#!/books/{{b.id}}" class="product-name animated">{{b.title}}</a>
+                        </h3>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-image">
+                            <img ng-src="{{b.link_cover}}" alt="Обложка">
+                        </div>
+                        <div class="product-hover-toolbar">
+                            <a href="" class="single-btn" ng-click="addToCartJS(b.id)">
+                                <img src="content/icons/bag.svg" alt="buy">
+                            </a>
+                            <a href="" class="single-btn">
+                                <img src="content/icons/hearth.svg" alt="like">
+                            </a>
+                            <a href="#!/books/{{b.id}}" class="single-btn">
+                                <img src="content/icons/eye.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="product-cost">
+                            <span class="price">{{b.price}} руб.</span>
+                            <del ng-show="b.discount != 0" class="price-old">{{b.price*(1+b.discount/100)}} руб.</del>
+                            <span ng-show="b.discount !=0" class="price-discount">{{b.discount}}%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="ProductsList.length != 0" class="pagination-block container">
+        <div class="pagination" style="position: absolute; max-width: inherit">
+            <nav aria-label="Page navigation example" ng-model="filter.page">
+                <ul class="pagination" style="margin: 0px">
+
+                    <li ng-class="ProductsPage.first ? 'page-item disabled' : 'page-item'">
+                        <a class="page-link" ng-click="fillTable(ProductsPage.number)"><</a>
+                    </li>
+
+                    <li ng-show="ProductsPage.number-3 >=0 "
+                        ng-class="ProductsPage.number == 1 ? 'page-item active' : 'page-item'">
+                        <a class="page-link" ng-click="fillTable(1)">1</a>
+                    </li>
+
+                    <li ng-show="ProductsPage.number-3 >= 1" class="page-item disabled">
+                        <a class="page-link">...</a>
+                    </li>
+
+                    <li data-ng-repeat="index in PageArray"
+                        ng-class="ProductsPage.number == index-1 ? 'page-item active' : 'page-item'">
+                        <a class="page-link" ng-click="fillTable(index)">{{index}}</a>
+                    </li>
+
+                    <li ng-show="ProductsPage.number < ProductsPage.totalPages-4" class="page-item disabled">
+                        <a class="page-link">...</a>
+                    </li>
+
+                    <li ng-show="ProductsPage.number < ProductsPage.totalPages-3"
+                        ng-class="ProductsPage.number == ProductsPage.totalPages-1 ? 'page-item active' : 'page-item'">
+                        <a class="page-link"
+                           ng-click="fillTable(ProductsPage.totalPages)">{{ProductsPage.totalPages}}</a>
+                    </li>
+
+                    <li ng-class="ProductsPage.last ? 'page-item disabled' : 'page-item'">
+                        <a class="page-link" ng-click="fillTable(ProductsPage.number + 2)">></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="index-selector">
+            <h5 style="font-size: 18px; min-inline-size: 140px; margin: 0; align-self: center">Показывать по</h5>
+            <select class="form-select" aria-label="Default select example">
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="9">9</option>
+                <option value="12">12</option>
+                <option value="15">15</option>
+            </select>
+        </div>
+    </div>
+    <div ng-show="ProductsList.length == 0" class="no-books">
+        <i>Не найдено книг</i>
+    </div>
+</div>

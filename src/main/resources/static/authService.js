@@ -33,6 +33,14 @@ angular.module('library')
                 $window.localStorage.setItem('alias', alias);
             },
 
+            getUserId: function () {
+                return $window.localStorage.getItem('userId');
+            },
+
+            setUserId: function (userId) {
+                $window.localStorage.setItem('userId', userId);
+            },
+
             setNewsletterSub: function (subNewsletter) {
                 $window.localStorage.setItem('subNewsletter', subNewsletter)
             },
@@ -77,6 +85,8 @@ angular.module('library')
                             console.log(response.data)
                             $location.path('/');
                             console.log('ALIAS------' + Auth.getAlias());
+                            Auth.setUserId(response.data.id);
+                            Auth.getUserId();
                             toastr.success('Добро пожаловать ' + Auth.getAlias());
                         }, function errorGetInfo(response) {
                             console.log("ERROR get self info");

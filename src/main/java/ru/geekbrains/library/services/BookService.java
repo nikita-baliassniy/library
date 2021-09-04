@@ -3,21 +3,22 @@ package ru.geekbrains.library.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.MultiValueMap;
 import ru.geekbrains.library.dto.BookDto;
 import ru.geekbrains.library.dto.BookListDto;
 import ru.geekbrains.library.dto.CommentDto;
 import ru.geekbrains.library.exceptions.BookNotFoundException;
-import ru.geekbrains.library.model.Book;
-import ru.geekbrains.library.model.Comment;
-import ru.geekbrains.library.model.Genre;
-import ru.geekbrains.library.model.User;
+import ru.geekbrains.library.model.*;
 import ru.geekbrains.library.model.filter.ModelSorter;
 import ru.geekbrains.library.repositories.BookRepository;
+import ru.geekbrains.library.repositories.specifications.BookSpecifications;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -47,9 +48,21 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-    public Page<BookListDto> getBookPage(Specification<Book> specification, Integer page, Integer count, ModelSorter modelSorter) {
+    public Page<BookListDto> getBookPage(Specification<Book> specification, Integer page, Integer count,
+                                         ModelSorter modelSorter) {
         return bookRepository
                 .findAll(specification, PageRequest.of(page - 1, count, modelSorter.byFiltered()))
+                .map(book -> modelMapper.map(book, BookListDto.class));
+    }
+
+    public Page<BookListDto> getRecommendedBooksPage(MultiValueMap<String, String> params, Integer page, Integer count, Long id) {
+        ModelSorter modelSorter = new ModelSorter(params);
+        return bookRepository
+                .findByIdIn(getRecommendations(id, 3, 2)
+                                .stream()
+                                .map(BookListDto::getId)
+                                .collect(Collectors.toList()),
+                        PageRequest.of(page - 1, count, modelSorter.byFiltered()))
                 .map(book -> modelMapper.map(book, BookListDto.class));
     }
 
