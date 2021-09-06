@@ -50,6 +50,10 @@
                             </li>
                             <hr/>
                             <li>
+                                <a href="#!/recommendation" class="icon-li book animated">Рекомендации</a>
+                            </li>
+                            <hr/>
+                            <li>
                                 <a href="#!/admin" class="icon-li admin animated">Панель управления</a>
                             </li>
                             <hr/>
@@ -152,7 +156,7 @@
                                                 <tr ng-repeat="ci in Cart.items">
                                                     <td>{{ci.bookTitle}}</td>
                                                     <td>{{ci.price}}</td>
-                                                    <td> <button class="btn">Удалить</button></td>
+                                                    <td> <button class="btn" ng-click="deleteBookInCartById(ci.bookId)">Удалить</button></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -228,6 +232,7 @@
 <script src="pages/contacts/contacts.js"></script>
 <script src="pages/find-results/find-results.js"></script>
 <script src="pages/admin/admin.js"></script>
+<script src="pages/recommendation/recommendation.js"></script>
 <script src="counter_class.js"></script>
 </body>
 
