@@ -73,6 +73,10 @@
                 templateUrl: 'pages/my-account/my-account.html',
                 controller: 'myAccountController'
             })
+            .when('/recommendation', {
+                templateUrl: 'pages/recommendation/recommendation.html',
+                controller: 'recommendationController'
+            })
             .when('/admin', {
                 templateUrl: 'pages/admin/admin.html',
                 controller: 'adminController'
@@ -83,10 +87,7 @@
     }
 
     function run($rootScope, $http, $localStorage, API_SERVER) {
-
-        if (!$localStorage.needToUpdateCart) {
             $localStorage.needToUpdateCart = new Counter1();
-        }
         // if ($localStorage.authUser) {
         //     $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.authUser.token;
         // }
@@ -118,6 +119,19 @@ angular.module('library').controller('indexController', function ($scope, $http,
     $localStorage.needToUpdateCart.registerListener(function (val) {
         $scope.getCart();
     });
+
+    $scope.deleteBookInCartById = function (bookId) {
+        $http({
+            url: API_SERVER + '/cart',
+            method: 'DELETE',
+            params: {
+                uuid: $localStorage.marketCartUuid,
+                book_id: bookId
+            }
+        }).then(function (response) {
+            $localStorage.needToUpdateCart.set(1);
+        });
+    }
 
     $scope.findResults = function () {
         let parameter = searchField.value;
@@ -169,6 +183,7 @@ angular.module('library').controller('indexController', function ($scope, $http,
             })
         }
     }
+
     $scope.clearSearchField = function () {
         delete $scope.HelperAuthorList;
         delete $scope.HelperBookList
@@ -176,7 +191,7 @@ angular.module('library').controller('indexController', function ($scope, $http,
     }
 
     $scope.checkAuth = function () {
-        // console.log('auth---- ' + AuthService.isAuthorized());
+        $scope.userId = AuthService.getUserId();
         return AuthService.isAuthorized();
     }
 
@@ -197,7 +212,6 @@ angular.module('library').controller('indexController', function ($scope, $http,
             $scope.genres = response.data;
         })
     }
-
 
     $scope.sub = function () {
         $http.get(API_SERVER + '/mail/sub').then(function successCallBak(response) {
