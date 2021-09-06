@@ -2,8 +2,6 @@ package ru.geekbrains.library.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.library.dto.OrderDto;
 import ru.geekbrains.library.exceptions.CartNotFoundException;
@@ -16,11 +14,9 @@ import ru.geekbrains.library.services.OrderService;
 import ru.geekbrains.library.services.UserService;
 
 
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/orders")
@@ -48,7 +44,8 @@ public class OrderController {
 
     @GetMapping
     public List<OrderDto> getCurrentUserOrders (Principal principal) {
-        return orderService.findAllOrdersByOwnerEmail(principal.getName()).stream().map(order -> modelMapper.map(order, OrderDto.class)).collect(Collectors.toList());
+        User user = userService.findByEmail(principal.getName()).orElseThrow(() -> new UserNotFoundException());
+        return orderService.findAllByOwner(user);
     }
 
 }

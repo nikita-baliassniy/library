@@ -84,9 +84,9 @@
 
     function run($rootScope, $http, $localStorage, API_SERVER) {
 
-        if (!$localStorage.needToUpdateCart) {
+//        if (!$localStorage.needToUpdateCart) {
             $localStorage.needToUpdateCart = new Counter1();
-        }
+//        }
         // if ($localStorage.authUser) {
         //     $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.authUser.token;
         // }

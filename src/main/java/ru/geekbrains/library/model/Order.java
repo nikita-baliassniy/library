@@ -36,7 +36,7 @@ public class Order {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<OrderItem> items;
 
@@ -51,6 +51,22 @@ public class Order {
         for (CartItem item : cart.getItems()) {
             OrderItem oi = new OrderItem(item);
             oi.setOrder(this);
+            this.items.add(oi);
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Order: ")
+                .append(owner.getEmail())
+                .append(", ")
+                .append("items: ");
+        for (OrderItem item : items) {
+            sb.append(item.getId())
+                    .append(", ");
+        }
+
+        return sb.toString();
     }
 }

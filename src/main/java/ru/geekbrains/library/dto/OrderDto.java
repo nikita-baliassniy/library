@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import ru.geekbrains.library.model.Order;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -14,7 +15,7 @@ public class OrderDto {
     @JsonProperty("name")
     private String ownerUserInfoName;
     private double price;
-//    private String address;
+    private List<OrderItemDto> items;
     private LocalDateTime createdAt;
 
 //    public OrderDto(Order order) {
