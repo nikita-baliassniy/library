@@ -3,9 +3,7 @@ package ru.geekbrains.library.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -18,7 +16,6 @@ import ru.geekbrains.library.exceptions.BookNotFoundException;
 import ru.geekbrains.library.model.*;
 import ru.geekbrains.library.model.filter.ModelSorter;
 import ru.geekbrains.library.repositories.BookRepository;
-import ru.geekbrains.library.repositories.specifications.BookSpecifications;
 
 import java.util.*;
 import java.util.stream.Collectors;

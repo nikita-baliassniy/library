@@ -1,23 +1,28 @@
 package ru.geekbrains.library.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.geekbrains.library.model.Order;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
 public class OrderDto {
     private Long id;
-    private String username;
-    private double totalPrice;
-    private String address;
-    private String creationDateTime;
+    @JsonProperty("name")
+    private String ownerUserInfoName;
+    private double price;
+    private List<OrderItemDto> items;
+    private LocalDateTime createdAt;
 
-    public OrderDto(Order order) {
-        this.id = order.getId();
-        this.username = order.getOwner().getUsername();
-        this.totalPrice = order.getPrice();
-        this.address = order.getAddress();
-        this.creationDateTime = order.getCreatedAt().toString();
-    }
+//    public OrderDto(Order order) {
+//        this.id = order.getId();
+////        this.username = order.getOwner().getUsername();
+//        this.price = order.getPrice();
+////        this.address = order.getAddress();
+//        this.creationDateTime = order.getCreatedAt().toString();
+//    }
 }

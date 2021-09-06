@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.library.exceptions.CartNotFoundException;
 import ru.geekbrains.library.model.Cart;
+import ru.geekbrains.library.model.CartItem;
 import ru.geekbrains.library.repositories.CartRepository;
 
 
@@ -27,8 +28,14 @@ public class CartService {
     @Transactional
     public void clearCart (UUID cartId) {
         Cart cart = findById(cartId).orElseThrow(() -> new CartNotFoundException());
+        this.clearCart(cart);
+    }
+
+    public void clearCart(Cart cart) {
         cart.clear();
     }
+
+
 
     @Transactional
     public void delete(UUID cartId, Long bookId) {

@@ -36,21 +36,37 @@ public class Order {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<OrderItem> items;
 
-    @Column(name = "address")
-    private String address;
+//    @Column(name = "address")
+//    private String address;
 
-    public Order(Cart cart, User user, String address) {
-//        this.price = cart.getTotalPrice();
+    public Order(Cart cart, User user) {
+        this.price = cart.getPrice();
         this.owner = user;
         this.items = new ArrayList<>();
-        this.address = address;
-//        cart.getItems().forEach((oi) -> {
-//            oi.setOrder(this);
-//            items.add(oi);
-//        });
+//        this.address = address;
+        for (CartItem item : cart.getItems()) {
+            OrderItem oi = new OrderItem(item);
+            oi.setOrder(this);
+            this.items.add(oi);
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Order: ")
+                .append(owner.getEmail())
+                .append(", ")
+                .append("items: ");
+        for (OrderItem item : items) {
+            sb.append(item.getId())
+                    .append(", ");
+        }
+
+        return sb.toString();
     }
 }
