@@ -9,15 +9,15 @@ angular.module('library').controller('bookDetailController', function ($scope, $
             method: 'GET'
         })
             .then(function (response) {
-                $scope.bookDetail = response.data;
-                console.log($scope.bookDetail);
-            }, function errorCallback() {
-                console.log("----ERROR---")
-            }
-        )
+                    $scope.bookDetail = response.data;
+                    console.log($scope.bookDetail);
+                }, function errorCallback() {
+                    console.log("----ERROR---")
+                }
+            )
     }
 
-    $scope.setSelectedRating = function(rating) {
+    $scope.setSelectedRating = function (rating) {
         $scope.newComment.score = rating;
     }
 
@@ -34,31 +34,37 @@ angular.module('library').controller('bookDetailController', function ($scope, $
         });
     };
 
-    $scope.addNewComment = function() {
+    $scope.isExist = function () {
+        let bookID = parseInt($routeParams.bookId);
+        $http.get(API_SERVER + '/orders/' + bookID + '/exist')
+            .then(function (response) {
+                $scope.exist = response.data;
+            });
+    }
+
+    $scope.addNewComment = function () {
         $scope.newComment.createdAt = new Date();
+        $scope.newComment.user.id = AuthService.getUserId();
         if (!$scope.newComment.score) {
             $scope.newComment.score = 1;
         }
-        // if (!$scope.newComment.user) {
-        //     $scope.newComment.user.id = 1;
-        // }
         $http.put(API_SERVER + '/books/' + $scope.bookDetail.id + '/comment', $scope.newComment)
             .then(function (response) {
                 $scope.newComment.score = 1;
                 $scope.newComment.text = '';
-                $scope.newComment.user.id = 1;  //todo переделать на нормального пользователя
+                $scope.newComment.user.id = AuthService.getUserId();  //todo переделать на нормального пользователя
                 $scope.bookDetail = response.data;
             });
     }
 
-    $scope.checkBookId = function() {
+    $scope.checkBookId = function () {
         let bookID = parseInt($routeParams.bookId);
         if (!isNaN(bookID) && angular.isNumber(bookID)) {
             $scope.getBookDetailById(bookID);
         }
     }
 
-    $scope.getScore = function() {
+    $scope.getScore = function () {
         return this.bookDetail.bookInfo.score;
     }
     $scope.checkBookId();

@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import ru.geekbrains.library.dto.OrderDto;
 import ru.geekbrains.library.model.Cart;
 import ru.geekbrains.library.model.Order;
+import ru.geekbrains.library.model.OrderItem;
 import ru.geekbrains.library.model.User;
 import ru.geekbrains.library.repositories.OrderRepository;
 
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,7 +24,7 @@ public class OrderService {
     private final CartService cartService;
     private final ModelMapper modelMapper;
 
-    public OrderDto createFromUserCart (Cart cart, User user) {
+    public OrderDto createFromUserCart(Cart cart, User user) {
         Order newOrder = new Order(cart, user);
         newOrder = orderRepository.save(newOrder);
         cartService.clearCart(cart);
@@ -40,8 +42,18 @@ public class OrderService {
         return orders.stream().map(order -> modelMapper.map(order, OrderDto.class)).collect(Collectors.toList());
     }
 
-    public Optional<Order> getOrderById (Long id) {
+    public Optional<Order> getOrderById(Long id) {
         return orderRepository.findById(id);
     }
 
+    public Boolean checkIsExist(User user, Long bookId) {
+        List<Order> orders = orderRepository.findAllByOwner(user);
+        for (Order order : orders) {
+            boolean exist = order.getItems().stream().anyMatch(oi -> oi.getBook().getId().equals(bookId));
+            if (exist) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

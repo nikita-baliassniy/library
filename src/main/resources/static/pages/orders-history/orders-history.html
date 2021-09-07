@@ -42,7 +42,9 @@
                         <tbody>
                         <tr ng-repeat="item in order.items">
                             <td>{{item.id}}</td>
-                            <td>{{item.bookTitle}}</td>
+                            <td>
+                                <a href="#!/books/{{item.bookId}}" class="animated">{{item.bookTitle}}</a>
+                            </td>
                             <td>{{item.price}}</td>
                         </tr>
                         </tbody>

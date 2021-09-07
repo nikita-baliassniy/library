@@ -16,6 +16,7 @@ angular.module('library').controller('cartController', function ($scope, $http, 
             }
         }).then(function (response) {
             $scope.showCart();
+            $localStorage.needToUpdateCart.set(1);
             console.log("Clear OK");
         });
     }

@@ -84,4 +84,13 @@ public class UserService implements UserDetailsService {
         user.getRoles().add(role);
     }
 
+    public Boolean checkAdmin(String name) {
+        User user = userRepository.findByEmail(name).orElseThrow(() -> new UserNotFoundException("Пользователь не найден"));
+        for (Role role : user.getRoles()) {
+            if (role.getName().equals(RoleEnum.ROLE_ADMIN.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

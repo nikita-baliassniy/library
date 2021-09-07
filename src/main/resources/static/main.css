@@ -288,7 +288,7 @@ img {
 }
 
 .cart-group {
-    padding: 10px 0 10px 10px;
+    padding-left: 10px;
     position: relative;
     vertical-align: middle;
     display: flex;
@@ -297,6 +297,7 @@ img {
 }
 
 .cart-group img {
+    max-width: none;
     height: 38px;
 }
 
@@ -331,7 +332,7 @@ img {
 
 .cart-menu {
     padding-top: 20px;
-    padding: 40px;
+    padding-bottom: 20px;
     max-width: 402px;
     position: absolute;
     right: 0;
@@ -385,10 +386,7 @@ img {
 }
 
 .cart-item-mini img {
-    width: 100px;
-    height: 100px;
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 50px;
     margin-right: 20px;
 }
 
@@ -2295,6 +2293,7 @@ md-tabs md-ink-bar {
 
 .table th,
 .table td {
+    vertical-align: middle !important;;
     padding: 8px;
     line-height: 20px;
     text-align: left;

@@ -37,13 +37,19 @@ public class OrderController {
         throw new UserNotFoundException();
     }
 
+    @GetMapping("/{id}/exist")
+    public Boolean isExist(Principal principal, @PathVariable Long id) {
+        User user = userService.findByEmail(principal.getName()).orElseThrow(() -> new UserNotFoundException("Пользователь не найден"));
+        return orderService.checkIsExist(user, id);
+    }
+
     @GetMapping("/{id}")
-    public OrderDto getOrderById (@PathVariable Long id) {
+    public OrderDto getOrderById(@PathVariable Long id) {
         return modelMapper.map(orderService.getOrderById(id).orElseThrow(() -> new OrderNotFoundException("Не удалось найти заказ по этому  id: " + id)), OrderDto.class);
     }
 
     @GetMapping
-    public List<OrderDto> getCurrentUserOrders (Principal principal) {
+    public List<OrderDto> getCurrentUserOrders(Principal principal) {
         User user = userService.findByEmail(principal.getName()).orElseThrow(() -> new UserNotFoundException());
         return orderService.findAllByOwner(user);
     }

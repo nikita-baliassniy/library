@@ -9,6 +9,7 @@ import ru.geekbrains.library.model.CartItem;
 public class CartItemDto {
     private Long bookId;
     private String bookTitle;
+    private String cover;
     private int quantity;
     private double pricePerBook;
     private double price;
@@ -16,6 +17,7 @@ public class CartItemDto {
     public CartItemDto(CartItem cartItem) {
         this.bookId = cartItem.getBook().getId();
         this.bookTitle = cartItem.getBook().getTitle();
+        this.cover = cartItem.getBook().getBookStorage().getLink_cover();
         this.quantity = cartItem.getQuantity();
         this.pricePerBook = cartItem.getPricePerBook();
         this.price = cartItem.getPrice();

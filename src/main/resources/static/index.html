@@ -37,23 +37,23 @@
 <div class="header">
     <div ng-show="checkAuth()" class="container top-header">
         <ul class="header-top-list">
-            <li>
-                <a href="/index.html" class="icon-li hearth animated">Избранное (0)</a>
-            </li>
+            <!--            <li>-->
+            <!--                <a href="/index.html" class="icon-li hearth animated">Избранное (0)</a>-->
+            <!--            </li>-->
             <li>
                 <div class="user-menu">
-                    <a href="" class="icon-li user animated">Пользователь: {{alias}}</a>
+                    <a href="" class="icon-li user animated">Пользователь: {{getAlias()}}</a>
                     <div class="user-content">
                         <ul>
-                            <li>
-                                <a href="#!/my-account" class="icon-li acc animated">Учетная запись</a>
-                            </li>
+                            <!--                            <li>-->
+                            <!--                                <a href="#!/my-account" class="icon-li acc animated">Учетная запись</a>-->
+                            <!--                            </li>-->
                             <hr/>
                             <li>
                                 <a href="#!/recommendation" class="icon-li book animated">Рекомендации</a>
                             </li>
-                            <hr/>
-                            <li>
+                            <hr ng-show="isAdmin()"/>
+                            <li ng-show="isAdmin()">
                                 <a href="#!/admin" class="icon-li admin animated">Панель управления</a>
                             </li>
                             <hr/>
@@ -133,30 +133,34 @@
                         <br>
                         <a href="#!/register" class="font-weight-bold animated">Зарегистрироваться</a>
                     </div>
-                    <div class="cart">
+                    <div ng-show="checkAuth()" class="cart">
                         <div class="cart-group">
                             <div class="icon">
                                 <img src="content/icons/cart.svg"/>
                             </div>
                             <div class="icon text">
                                 <p>Корзина</p>
-                                <h3 ng-show="checkAuth()" class="price">{{Cart.totalPrice}}&nbsp;руб.&nbsp;&#11163</h3>
-                                <h3 ng-show="!checkAuth()" class="price">0,00&nbsp;руб.&nbsp;&#11163</h3>
+                                <h3 class="price">{{Cart.totalPrice}}&nbsp;руб.&nbsp;&#11163</h3>
                             </div>
-                            <span ng-show="checkAuth()" class="counter">{{Cart.items.length}}</span>
-                            <span ng-show="!checkAuth()" class="counter">0</span>
+                            <span ng-show="Cart.items.length != 0" class="counter">{{Cart.items.length}}</span>
                         </div>
-                        <div ng-show="checkAuth() && Cart.totalPrice > 0.00" class="cart-menu">
-                            <ul>
+                        <div ng-show="Cart.totalPrice > 0.00" class="cart-menu">
+                            <ul style="padding: 0;margin: 0">
                                 <li>
                                     <div class="cart-item-mini">
-                                        <!-- <img src="content/book-covers/test-cover-mini.jpg"/>-->
                                         <div class="text-block">
                                             <table class="table">
                                                 <tr ng-repeat="ci in Cart.items">
+                                                    <td>
+                                                        <img class="cart-img" src="{{ci.cover}}"/>
+                                                    </td>
                                                     <td>{{ci.bookTitle}}</td>
                                                     <td>{{ci.price}}</td>
-                                                    <td> <button class="btn" ng-click="deleteBookInCartById(ci.bookId)">Удалить</button></td>
+                                                    <td>
+                                                        <button class="btn" ng-click="deleteBookInCartById(ci.bookId)">
+                                                            Удалить
+                                                        </button>
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </div>

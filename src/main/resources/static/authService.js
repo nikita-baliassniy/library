@@ -37,6 +37,19 @@ angular.module('library')
                 return $window.localStorage.getItem('userId');
             },
 
+            getAdmin: function () {
+                $http.get(API_SERVER + "/users/isAdmin")
+                    .then(function successCallBack(response) {
+                        $window.localStorage.isAdmin = response.data;
+                    }, function errorCallBack() {
+                        $window.localStorage.isAdmin = false;
+                    })
+            },
+
+            isAdmin: function () {
+                return $window.localStorage.isAdmin === 'true';
+            },
+
             setUserId: function (userId) {
                 $window.localStorage.setItem('userId', userId);
             },
@@ -55,6 +68,9 @@ angular.module('library')
 
             deleteNewsletterSub: function () {
                 $window.localStorage.removeItem('subNewsletter');
+            },
+            deleteIsAdmin: function () {
+                $window.localStorage.removeItem('isAdmin');
             },
 
             checkTokenExpired: function () {
@@ -87,6 +103,7 @@ angular.module('library')
                             console.log('ALIAS------' + Auth.getAlias());
                             Auth.setUserId(response.data.id);
                             Auth.getUserId();
+                            Auth.getAdmin();
                             toastr.success('Добро пожаловать ' + Auth.getAlias());
                         }, function errorGetInfo(response) {
                             console.log("ERROR get self info");
@@ -108,6 +125,7 @@ angular.module('library')
                 }).then(function successCallBack(response) {
                     console.log('OK REGISTER');
                     console.log(Auth);
+                    Auth.getAdmin()
                     toastr.success('Вы зарегистрированы под логином ' + email, 'Регистрация успешна');
                     Auth.login(email, password).then(function successCallBack(response) {
                         console.log('OK LOGIN');
@@ -123,6 +141,7 @@ angular.module('library')
                 });
             },
             logout: function () {
+
                 Auth.deleteToken();
                 Auth.deleteAlias();
                 Auth.deleteNewsletterSub();

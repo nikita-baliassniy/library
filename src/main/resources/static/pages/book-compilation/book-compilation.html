@@ -45,19 +45,19 @@
                             <img ng-src="{{b.link_cover}}" alt="Обложка">
                         </div>
                         <div class="product-hover-toolbar">
-                            <a href="" class="single-btn" ng-click="addToCartJS(b.id)">
+                            <a ng-show="checkAuth()" href="" class="single-btn" ng-click="addToCartJS(b.id)">
                                 <img src="content/icons/bag.svg" alt="buy">
                             </a>
-                            <a href="" class="single-btn">
-                                <img src="content/icons/hearth.svg" alt="like">
-                            </a>
+<!--                            <a href="" class="single-btn">-->
+<!--                                <img src="content/icons/hearth.svg" alt="like">-->
+<!--                            </a>-->
                             <a href="#!/books/{{b.id}}" class="single-btn">
                                 <img src="content/icons/eye.svg" alt="">
                             </a>
                         </div>
                         <div class="product-cost">
-                            <span class="price">{{b.price}} руб.</span>
-                            <del ng-show="b.discount != 0" class="price-old">{{b.price*(1+b.discount/100)}} руб.</del>
+                            <span class="price">{{b.price*(1-b.discount/100)}} руб.</span>
+                            <del ng-show="b.discount != 0" class="price-old"> {{b.price}} руб.</del>
                             <span ng-show="b.discount !=0" class="price-discount">{{b.discount}}%</span>
                         </div>
                     </div>

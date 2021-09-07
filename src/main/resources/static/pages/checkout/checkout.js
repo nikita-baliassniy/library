@@ -19,6 +19,7 @@ angular.module('library').controller('checkoutController', function ($scope, $ht
             method: 'POST',
         }).then(function successCallBack(response) {
             toastr.success("Номер заказа: " + response.data.id, "Заказ успено создан!");
+            $localStorage.needToUpdateCart.set(1);
             $location.path('/orders-history');
         }, function errorCallBack(response) {
             toastr.error(response.message, "Ошибка создания заказа");

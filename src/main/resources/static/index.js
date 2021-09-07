@@ -89,7 +89,7 @@
     function run($rootScope, $http, $localStorage, API_SERVER) {
 
 //        if (!$localStorage.needToUpdateCart) {
-            $localStorage.needToUpdateCart = new Counter1();
+        $localStorage.needToUpdateCart = new Counter1();
 //        }
         // if ($localStorage.authUser) {
         //     $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.authUser.token;
@@ -114,8 +114,14 @@ angular.module('library').controller('indexController', function ($scope, $http,
 
     $scope.getCart = function () {
         $http.get(API_SERVER + '/cart/' + $localStorage.marketCartUuid)
-            .then(function (response) {
+            .then(function successCallBack(response) {
                 $scope.Cart = response.data;
+            }, function errorCallback() {
+                delete $localStorage.marketCartUuid;
+                $http.post(API_SERVER + '/cart')
+                    .then(function (response) {
+                        $localStorage.marketCartUuid = response.data;
+                    });
             })
     }
 
@@ -152,7 +158,10 @@ angular.module('library').controller('indexController', function ($scope, $http,
         helperPane.hidden = true;
     })
 
-    $scope.alias = AuthService.getAlias();
+    $scope.getAlias = function(){
+        return AuthService.getAlias();
+    }
+    // $scope.alias = AuthService.getAlias();
 
     $scope.findByTitle = function () {
         if (searchField.value !== "") {
@@ -196,6 +205,10 @@ angular.module('library').controller('indexController', function ($scope, $http,
     $scope.checkAuth = function () {
         $scope.userId = AuthService.getUserId();
         return AuthService.isAuthorized();
+    }
+
+    $scope.isAdmin = function () {
+        return AuthService.isAdmin();
     }
 
     $scope.checkSubNewsletter = function () {

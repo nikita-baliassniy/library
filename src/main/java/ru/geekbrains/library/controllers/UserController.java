@@ -28,6 +28,11 @@ public class UserController {
         return userService.findUserListDtoByEmail(email).orElseThrow(() -> new UserNotFoundException("Порльзователь с Email: " + email + " не найден."));
     }
 
+    @GetMapping("/isAdmin")
+    public Boolean isAdmin(Principal principal){
+        return userService.checkAdmin(principal.getName());
+    }
+
     @GetMapping("/self")
     public UserListDto getSelfInfo(Principal principal) {
         return userService.findUserListDtoByEmail(principal.getName()).orElseThrow(() -> new UserNotFoundException("Порльзователь с Email: " + principal.getName() + " не найден."));

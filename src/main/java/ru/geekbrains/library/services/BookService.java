@@ -13,6 +13,7 @@ import ru.geekbrains.library.dto.BookDto;
 import ru.geekbrains.library.dto.BookListDto;
 import ru.geekbrains.library.dto.CommentDto;
 import ru.geekbrains.library.exceptions.BookNotFoundException;
+import ru.geekbrains.library.exceptions.UserNotFoundException;
 import ru.geekbrains.library.model.*;
 import ru.geekbrains.library.model.filter.ModelSorter;
 import ru.geekbrains.library.repositories.BookRepository;
