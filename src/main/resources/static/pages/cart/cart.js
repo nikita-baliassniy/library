@@ -1,4 +1,4 @@
-angular.module('library').controller('cartController', function ($scope, $http, $routeParams, $localStorage, API_SERVER) {
+angular.module('library').controller('cartController', function ($scope, $http, $routeParams, $location, $localStorage, API_SERVER) {
 
     $scope.showCart = function () {
         $http.get(API_SERVER + '/cart/' + $localStorage.marketCartUuid)
@@ -29,7 +29,7 @@ angular.module('library').controller('cartController', function ($scope, $http, 
     }
 
     $scope.goToOrderSubmit = function () {
-        $location.path('/order_confirmation');
+        $location.path('/checkout');
     }
 
     $scope.deleteBookInCartById = function (bookId) {

@@ -1534,7 +1534,11 @@ div {
     transition: 0.4s;
 }
 
-.place-order:hover {
+.place-order[disabled] {
+    background-color: #7b7b7b;
+}
+
+.place-order:hover:enabled {
     background: #b85e5e;
     border-color: #b85e5e;
     color: #fff;
