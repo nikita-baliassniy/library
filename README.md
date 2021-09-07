@@ -1,4 +1,4 @@
-<p align="center"><a href="" target="_blank"><img alt="elibrary" src="https://github.com/nikita-baliassniy/library/blob/readme/src/main/resources/static/content/liblogo.png" width="200"></a></p>
+<p align="center"><a href="" target="_blank"><img alt="elibrary" src="https://github.com/nikita-baliassniy/library/blob/main/src/main/resources/static/content/liblogo.png" width="200"></a></p>
 
 
 ## About eLibrary
