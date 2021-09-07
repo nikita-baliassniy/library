@@ -7,11 +7,19 @@ eLibrary is a web application for book stores. We believe it may help you to mak
 
 eLibrary is accessible, powerful, and provides tools required for large stores.
 
-## Learning Laravel
+## Learning eLibrary
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Some information about code-packages of eLibrary:
+- beans - special util bean for tokens
+- configs - some config files, e.g. security config and object mappers'
+- controllers - controller layout of application
+- dictionary - enum of user roles
+- dto - dtoes of application
+- exceptions - custom exception classes
+- model - model layout of application
+- policy - special layout between service and repo
+- repositories - repo layout of application
+- services - service layout of application
 
 ## Contributing
 
